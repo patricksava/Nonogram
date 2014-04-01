@@ -1,6 +1,6 @@
 /***************************************************************************
 *
-*  $MCD Módulo de definição: Módulo desenho
+*  $MCD Mï¿½dulo de definiï¿½ï¿½o: Mï¿½dulo desenho
 *
 *  Arquivo gerado:              Desenho.h
 *  Letras identificadoras:      DES
@@ -9,24 +9,24 @@
 *  Gestor:  DI/PUC-Rio
 *  Autores: ps - Patrick Sava
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*       1.00   ps   24/03/2014 Início do desenvolvimento
+*  $HA Histï¿½rico de evoluï¿½ï¿½o:
+*     Versï¿½o  Autor    Data     Observaï¿½ï¿½es
+*       1.00   ps   24/03/2014 Inï¿½cio do desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Este módulo implementa um conjunto de funçoes para tratar do 
-*	  gerenciamento do desenho a medida que o usuário vai preenchendo a 
+*  $ED Descriï¿½ï¿½o do mï¿½dulo
+*     Este mï¿½dulo implementa um conjunto de funï¿½oes para tratar do
+*	  gerenciamento do desenho a medida que o usuï¿½rio vai preenchendo a
 *	  matriz do Nonogram.
-*     Ele integra os módulos de Matriz Genérica, Lista Duplamente Encadeada
-*	  Genérica, Célula e Valor para 
-*	  permitir ao módulo Jogo uma fácil manipulação do campo de jogo.
+*     Ele integra os mï¿½dulos de Matriz Genï¿½rica, Lista Duplamente Encadeada
+*	  Genï¿½rica, Cï¿½lula e Valor para
+*	  permitir ao mï¿½dulo Jogo uma fï¿½cil manipulaï¿½ï¿½o do campo de jogo.
 *
 ***************************************************************************/
 
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: DES Condições de retorno
+*  $TC Tipo de dados: DES Condiï¿½ï¿½es de retorno
 *
 ***********************************************************************/
 
@@ -36,22 +36,22 @@
                /* Executou correto */
 
          DES_CondRetFaltouMemoria ,
-               /* Faltou memória ao alocar dados */
+               /* Faltou memï¿½ria ao alocar dados */
 
 		 DES_CondRetTamanhoInvalido ,
-			   /* Tamanho de máximo ou mínimo de matriz permitido violado */
+			   /* Tamanho de mï¿½ximo ou mï¿½nimo de matriz permitido violado */
 
 		 DES_CondRetDesenhoNaoIniciado ,
-			   /* Estrutura desenho ainda não foi instanciada */
+			   /* Estrutura desenho ainda nï¿½o foi instanciada */
 
 		 DES_CondRetCoordenadaInvalida ,
-			   /* Coordenada de marcação inválida */
+			   /* Coordenada de marcaï¿½ï¿½o invï¿½lida */
 
 		 DES_CondRetSemDicas ,
-			   /* O usuário não possui mais dicas sobrando */
+			   /* O usuï¿½rio nï¿½o possui mais dicas sobrando */
 
 		 DES_CondRetJogoFinalizado ,
-			   /* Todas as células devidas já foram pintadas */
+			   /* Todas as cï¿½lulas devidas jï¿½ foram pintadas */
 
    } DES_tpCondRet ;
 
@@ -59,12 +59,12 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Inicia Desenho
+*  $FC Funï¿½ï¿½o: DES Inicia Desenho
 *
-*  $ED Descrição da função
+*  $ED Descriï¿½ï¿½o da funï¿½ï¿½o
 *     Cria um desenho de jogo sem nenhum preenchimento.
-*     Caso já exista um desenho preparado, ele será destruido e um 
-*     novo será feito.
+*     Caso jï¿½ exista um desenho preparado, ele serï¿½ destruido e um
+*     novo serï¿½ feito.
 *
 *  $FV Valor retornado
 *     DES_CondRetOK
@@ -72,12 +72,12 @@
 *     DES_CondRetTamanhoInvalido
 *
 *  $AE Assertivas de Entrada
-*	  - Número de Linhas e Colunas são inteiros entre 3 e 10
+*	  - Nï¿½mero de Linhas e Colunas sï¿½o inteiros entre 3 e 10
 *
-*  $AS Assertivas de Saída
-*	  - O módulo desenho instanciou corretamente a estrutura desenho
-*       de forma aleatória.
-*	  - O tabuleiro possuirá pelo menos uma célula que terá que ser 
+*  $AS Assertivas de Saï¿½da
+*	  - O mï¿½dulo desenho instanciou corretamente a estrutura desenho
+*       de forma aleatï¿½ria.
+*	  - O tabuleiro possuirï¿½ pelo menos uma cï¿½lula que terï¿½ que ser
 *	    marcada para acabar o jogo
 *	  - Valem as assertivas estruturais da estrutura de desenho e sub-
 *	    estruturas.
@@ -88,12 +88,12 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Altera Marcação de Coordenada
+*  $FC Funï¿½ï¿½o: DES Altera Marcaï¿½ï¿½o de Coordenada
 *
-*  $ED Descrição da função
-*     Dada uma coordenada (X,Y), a função busca pela célula referente e altera
-*     sua marcação atual. Se ela já estava marcada passa a ficar em branco e 
-*     vice-versa. Essa função automaticamente informa se o jogo terminou.
+*  $ED Descriï¿½ï¿½o da funï¿½ï¿½o
+*     Dada uma coordenada (X,Y), a funï¿½ï¿½o busca pela cï¿½lula referente e altera
+*     sua marcaï¿½ï¿½o atual. Se ela jï¿½ estava marcada passa a ficar em branco e
+*     vice-versa. Essa funï¿½ï¿½o automaticamente informa se o jogo terminou.
 *
 *  $FV Valor retornado
 *     DES_CondRetOK
@@ -101,13 +101,13 @@
 *     DES_CondRetCoordenadaInvalida
 *
 *  $AE Assertivas de Entrada
-*	  - Coord_X e Coord_Y devem ser valores entre 0 e o máximo do tabuleiro
+*	  - Coord_X e Coord_Y devem ser valores entre 0 e o mï¿½ximo do tabuleiro
 *	  - Valem as assertivas estruturais da estrutura de desenho e sub-
 *	    estruturas.
 *
-*  $AS Assertivas de Saída
-*	  - Sendo pCelula a célula referente a coordenada (X,Y) dada,
-*	    //Depois CEL_ExibeMarcação(pCelula) == !CEL_ExibeMarcacao(pCelula) //Antes
+*  $AS Assertivas de Saï¿½da
+*	  - Sendo pCelula a cï¿½lula referente a coordenada (X,Y) dada,
+*	    //Depois CEL_ExibeMarcaï¿½ï¿½o(pCelula) == !CEL_ExibeMarcacao(pCelula) //Antes
 ***********************************************************************/
 
    DES_tpCondRet DES_AlteraMarcacaoCoordenada( unsigned int Coord_X, unsigned int Coord_Y );
@@ -115,10 +115,10 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Ativa Dica
+*  $FC Funï¿½ï¿½o: DES Ativa Dica
 *
-*  $ED Descrição da função
-*     Marca uma célula do tabuleiro que deveria ser marcada mas ainda está 
+*  $ED Descriï¿½ï¿½o da funï¿½ï¿½o
+*     Marca uma cï¿½lula do tabuleiro que deveria ser marcada mas ainda estï¿½
 *     em branco
 *
 *  $FV Valor retornado
@@ -131,9 +131,31 @@
 *	  - Valem as assertivas estruturais da estrutura de desenho e sub-
 *	    estruturas.
 *
-*  $AS Assertivas de Saída
-*	  - Uma nova célula será marcada
+*  $AS Assertivas de Saï¿½da
+*	  - Uma nova cï¿½lula serï¿½ marcada
 *
 ***********************************************************************/
 
    DES_tpCondRet DES_AtivaDica ( void );
+
+/***********************************************************************
+*
+*  $FC Funï¿½ï¿½o: DES Imprime Matriz Jogo
+*
+*  $ED Descriï¿½ï¿½o da funï¿½ï¿½o
+*     Imprime na tela a matriz de jogo com as marcaÃ§Ãµes feitas atÃ© o
+*     momento
+*
+*  $FV Valor retornado
+*     DES_CondRetOK
+*     DES_CondRetDesenhoNaoIniciado
+*
+*  $AE Assertivas de Entrada
+*
+*  $AS Assertivas de Saï¿½da
+*
+***********************************************************************/
+
+   DES_tpCondRet DES_ImprimeMatrizJogo( void );
+
+

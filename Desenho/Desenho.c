@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo Desenho
+*  $MCI Mï¿½dulo de implementaï¿½ï¿½o: Mï¿½dulo Desenho
 *
 *  Arquivo gerado:              Desenho.c
 *  Letras identificadoras:      DES
@@ -8,9 +8,9 @@
 *  Gestor:  DI/PUC-Rio
 *  Autores: ps  - Patrick Sava
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*       1.00   ps   24/03/2014 Início do desenvolvimento
+*  $HA Histï¿½rico de evoluï¿½ï¿½o:
+*     Versï¿½o  Autor    Data     Observaï¿½ï¿½es
+*       1.00   ps   24/03/2014 Inï¿½cio do desenvolvimento
 *
 ***************************************************************************/
 
@@ -25,7 +25,7 @@
 //#include   "MatrizGenerica.h"
 //#include   "Celula.h"
 
-/*****  Constantes encapsuladas no módulo  *****/
+/*****  Constantes encapsuladas no mï¿½dulo  *****/
 
 #define NUM_LINHAS_MINIMO 3
 #define NUM_LINHAS_MAXIMO 10
@@ -40,21 +40,21 @@
 *  $TC Tipo de dados: DES Estrutura Desenho Nonogram
 *
 *
-*  $ED Descrição do tipo
-*     Descreve a organização do desenho
+*  $ED Descriï¿½ï¿½o do tipo
+*     Descreve a organizaï¿½ï¿½o do desenho
 *
 ***********************************************************************/
 
 	typedef struct desenho{
 
 		tpMatrizGen * pMatrizJogo;
-			/* Ponteiro para matriz de células */
+			/* Ponteiro para matriz de cï¿½lulas */
 
 		int iLinhas;
-			/* Número de linhas da matriz */
+			/* Nï¿½mero de linhas da matriz */
 
 		int iColunas;
-			/* Número de colunas da matriz */
+			/* Nï¿½mero de colunas da matriz */
 
 		tpLista ** pListasVerticais;
 			/* Vetor de Listas de Valores verticais */
@@ -63,47 +63,47 @@
 			/* Vetor de Listas de Valores verticais */
 
 		int iDicas;
-			/* Número de dicas que cada usuário possui por jogo */
+			/* Nï¿½mero de dicas que cada usuï¿½rio possui por jogo */
 
 	} tpDesenho ;
 
-/*****  Dados encapsulados no módulo  *****/
+/*****  Dados encapsulados no mï¿½dulo  *****/
 
     static tpDesenho * pDesenho = NULL ;
         /* Ponteiro para o desenho */
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** Protï¿½tipos das funï¿½ï¿½es encapuladas no mï¿½dulo *****/
 
-	void PreencheAleatorioMatriz ( void );
+	static void PreencheAleatorioMatriz ( void );
 
-	DES_tpCondRet InicializaListasHorizontais ( void );
+	static DES_tpCondRet InicializaListasHorizontais ( void );
 
-	DES_tpCondRet InicializaListasVerticais ( void );
+	static DES_tpCondRet InicializaListasVerticais ( void );
 	
-	int JogoFinalizado ( void );
+	static int JogoFinalizado ( void );
 
-	void ExibeGameOver ( void );
+	static void ExibeGameOver ( void );
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  Cï¿½digo das funï¿½ï¿½es exportadas pelo mï¿½dulo  *****/
 
 /***************************************************************************
 *
-*  Função: DES Inicia Desenho
+*  Funï¿½ï¿½o: DES Inicia Desenho
 *
 *  Cria aleatoriamente um esquema de nonogram pronto para ser jogado.
-*  Gera, de acordo com o resultado de geraçao aleatório, as listas de valores
+*  Gera, de acordo com o resultado de geraï¿½ao aleatï¿½rio, as listas de valores
 *  verticais e horizontais que sao cruciais para o fluir do jogo.
 *
 *  Complexidade: O(n^2)
 *
-*  ****/
+****************************************************************************/
 
 	DES_tpCondRet DES_IniciaDesenho( unsigned int NumLinhas, unsigned int NumColunas )
 	{
 		int i, j;
 		DES_tpCondRet CondRet;
 
-		//Verifica se a quantidade de linhas e de colunas sao válidas
+		//Verifica se a quantidade de linhas e de colunas sao vï¿½lidas
 		if( NumLinhas < NUM_LINHAS_MINIMO || NumColunas < NUM_COLUNAS_MINIMO ||
 		    NumLinhas > NUM_LINHAS_MAXIMO || NumColunas > NUM_COLUNAS_MAXIMO )
 			return DES_CondRetTamanhoInvalido;
@@ -111,7 +111,7 @@
 		//Aloca a estrutura desenho
 		pDesenho = ( tpDesenho* ) malloc( sizeof( tpDesenho ) );
 
-		//Falhou a alocaçao de memória
+		//Falhou a alocaï¿½ao de memï¿½ria
 		if( pDesenho == NULL )
 			return DES_CondRetFaltouMemoria;
 
@@ -119,30 +119,30 @@
 		pDesenho->iLinhas = NumLinhas ;
 		pDesenho->iDicas = NUM_MAX_DICAS; 
 
-		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
+		//Chama o mï¿½dulo de matriz e guarda o ponteiro na estrutura desenho
 		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, NumLinhas, NumColunas );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
-		//Gera o esquema de forma aleatória
+		//Gera o esquema de forma aleatï¿½ria
 		PreencheAleatorioMatriz( );
 
-		//Aloca o vetor que vai guardar as cabeças de listas horizontais
+		//Aloca o vetor que vai guardar as cabeï¿½as de listas horizontais
 		pDesenho->pListasHorizontais = ( tpLista ** ) malloc( NumLinhas * sizeof( tpLista* ) );
 		if(pDesenho->pListasHorizontais == NULL)
 			return DES_CondRetFaltouMemoria;
 
-		//Aloca o vetor que vai guardar as cabeças de listas verticais
+		//Aloca o vetor que vai guardar as cabeï¿½as de listas verticais
 		pDesenho->pListasVerticais   = ( tpLista ** ) malloc( NumColunas * sizeof( tpLista* ) );
 		if( pDesenho->pListasVerticais == NULL )
 			return DES_CondRetFaltouMemoria;
 
-		// Inicializaçao das Listas e valores de linha
+		// Inicializaï¿½ao das Listas e valores de linha
 		CondRet = InicializaListasHorizontais( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
-		// Inicializaçao das Listas e valores de coluna
+		// Inicializaï¿½ao das Listas e valores de coluna
 		CondRet = InicializaListasVerticais( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
@@ -152,24 +152,24 @@
 
 /***************************************************************************
 *
-*  Função: DES Altera Marcação de Coordenada
+*  Funï¿½ï¿½o: DES Altera Marcaï¿½ï¿½o de Coordenada
 *
-*  Dada uma coordenada (X,Y), a função busca pela célula referente e altera
-*  sua marcação atual. Se ela já estava marcada passa a ficar em branco e 
+*  Dada uma coordenada (X,Y), a funï¿½ï¿½o busca pela cï¿½lula referente e altera
+*  sua marcaï¿½ï¿½o atual. Se ela jï¿½ estava marcada passa a ficar em branco e
 *  vice-versa.
 *
 *  Complexidade: O(n) -> Custo de encontrar na lista o elemento.
 *
-*  ****/
+****************************************************************************/
 
 	DES_tpCondRet DES_AlteraMarcacaoCoordenada( unsigned int Coord_X, unsigned int Coord_Y )
 	{
 
-		//Teste se a estrutura desenho já existe
+		//Teste se a estrutura desenho jï¿½ existe
 		if( pDesenho == NULL )
 			return DES_CondRetDesenhoNaoIniciado;
 
-		//Teste se as coordenadas dadas estão dentro do permitido
+		//Teste se as coordenadas dadas estï¿½o dentro do permitido
 		if( Coord_X > pDesenho->iLinhas || Coord_Y > pDesenho->iColunas )
 			return DES_CondRetCoordenadaInvalida;
 
@@ -184,14 +184,14 @@
 
 /***************************************************************************
 *
-*  Função: DES Ativa Dica
+*  Funï¿½ï¿½o: DES Ativa Dica
 *
-*  Marca uma célula do tabuleiro que deveria ser marcada mas ainda está 
+*  Marca uma cï¿½lula do tabuleiro que deveria ser marcada mas ainda estï¿½
 *  em branco
 *
 *  Complexidade: O(n^2) -> Pode percorrer toda a matriz.
 *
-*  ****/
+****************************************************************************/
 
 	DES_tpCondRet DES_AtivaDica( void )
 	{
@@ -205,16 +205,16 @@
 		if( pDesenho->iDicas == 0 )
 			return DES_CondRetSemDicas;
 
-		//Procura por célula a ser pintada de baixo para cima, esquerda para direita
+		//Procura por cï¿½lula a ser pintada de baixo para cima, esquerda para direita
 		for( i = pDesenho->iLinhas - 1 ; i >= 0 ; i-- )
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
 			{
 				Celula * pCelula = ( Celula * ) MAT_RetornaValor( i, j );
-				//Se a celula é para ser pintada mas não está pintada
+				//Se a celula ï¿½ para ser pintada mas nï¿½o estï¿½ pintada
 				if( CEL_MarcacaoEsperada( pCelula ) && !CEL_MarcacaoAtual( pCelula ) )
 				{
-					//Marca a célula
+					//Marca a cï¿½lula
 					DES_AlteraMarcacaoCoordenada( i, j );
 					//Decrementa as dicas
 					(pDesenho->iDicas)--;
@@ -226,30 +226,44 @@
 		return DES_CondRetJogoFinalizado;
 	}
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/***************************************************************************
+*
+*  Funï¿½ï¿½o: DES ImprimeMatrizJogo
+*
+*  Imprime a matriz de jogo conforme as marcaÃ§Ãµes do momento
+*
+*  Complexidade: O(n^2) -> Percorre toda a matriz.
+*
+****************************************************************************/
+	DES_tpCondRet DES_ImprimeMatrizJogo( void )
+	{
+		//TODO:Implementar isso depois.
+	}
+
+/*****  Cï¿½digo das funï¿½ï¿½es encapsuladas no mï¿½dulo  *****/
 
 
 
 /***********************************************************************
 *
-*  $FC Função: DES Preenche Aleatoriamente Matriz
+*  $FC Funï¿½ï¿½o: DES Preenche Aleatoriamente Matriz
 *
-*	Preenche a matriz de jogo de forma aleatória para gerar um 
+*	Preenche a matriz de jogo de forma aleatï¿½ria para gerar um
 *	esquema de nonogram.
-*	Toda coluna e toda linha tem pelo menos uma célula para ser marcada
+*	Toda coluna e toda linha tem pelo menos uma cï¿½lula para ser marcada
 *
 *	Complexidade: O(n^2)
 *
 ***********************************************************************/
 
-	void PreencheAleatorioMatriz( void )
+	static void PreencheAleatorioMatriz( void )
 	{
 		int i, j;
 
-		//Inicia o gerador aleatório sem delay de criaçao
+		//Inicia o gerador aleatï¿½rio sem delay de criaï¿½ao
 		srand(time(NULL));
 
-		//Percorre cada linha e cada coluna ligando ou nao a marcaçao
+		//Percorre cada linha e cada coluna ligando ou nao a marcaï¿½ao
 		for( i = 0 ; i < pDesenho->iLinhas ; i++ )
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
@@ -258,14 +272,14 @@
 
 				Celula * pCelula;
 
-				// Se o resultado é ímpar, liga a célula. 50% de chance.
+				// Se o resultado ï¿½ ï¿½mpar, liga a cï¿½lula. 50% de chance.
 				if( randomNumber ){
-					//Cria célula com valor de marcação esperada 1
+					//Cria cï¿½lula com valor de marcaï¿½ï¿½o esperada 1
 					CEL_CriaCelula( pCelula, 1 );
 				} /* if */
 				else 
 				{
-					//Cria célula com valor de marcação esperada 0
+					//Cria cï¿½lula com valor de marcaï¿½ï¿½o esperada 0
 					CEL_CriaCelula( pCelula, 0 );
 				}/* else */
 
@@ -277,38 +291,38 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Inicializa Listas Horizontais
+*  $FC Funï¿½ï¿½o: DES Inicializa Listas Horizontais
 *
 *	Cria a lista de valores da horizontal baseado nos valores em cada
-*   célula da matriz de jogo.
+*   cï¿½lula da matriz de jogo.
 *
 *	Complexidade: O(n^2)
 *
 ***********************************************************************/
 
-	DES_tpCondRet InicializaListasHorizontais( )
+	static DES_tpCondRet InicializaListasHorizontais( )
 	{
-		// Inicializaçao das Listas e valores de linha
+		// Inicializaï¿½ao das Listas e valores de linha
 		for( i = 0; i < NumLinhas; i++ )
 		{
 			int sequencia = 0;
-			LIS_CriaLista( pDesenho->pListasHorizontais[i] );
-			LIS_InsereFinal( pDesenho->pListasHorizontais[i], VAL_CriaValor( ) );
+			LST_CriaLista( pDesenho->pListasHorizontais[i] );
+			LST_InsereFinal( pDesenho->pListasHorizontais[i], VAL_CriaValor( ) );
 			for( j = 0; j < NumColinas; j++ )
 			{
-				//Recupera a célula na posiçao (i,j)
+				//Recupera a cï¿½lula na posiï¿½ao (i,j)
 				Celula* pCelula = ( Celula * ) MAT_RetornaValor( i, j );
 				if( CEL_MarcacaoEsperada(pCelula) )
 				{
-					//Célula de marcaçao esperada 
+					//Cï¿½lula de marcaï¿½ao esperada
 					if( !sequencia )
 					{
 						//Nova sequencia, insere um novo elemento na lista
-						LIS_InsereFinal( pDesenho->pListasHorizontais[i], VAL_CriaValor( ) );
+						LST_InsereFinal( pDesenho->pListasHorizontais[i], VAL_CriaValor( ) );
 					}
 					//Indica que existe uma sequencia e incrementa a estrutura Valor
 					sequencia = 1;
-					VAL_IncrementaValor( LIS_RetornaUltimo( pDesenho->pListasHorizontais[i] ) );
+					VAL_IncrementaValor( LST_RetornaUltimo( pDesenho->pListasHorizontais[i] ) );
 				}
 				else
 				{
@@ -323,38 +337,38 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Inicializa Listas Verticais
+*  $FC Funï¿½ï¿½o: DES Inicializa Listas Verticais
 *
 *	Cria a lista de valores da vertical baseado nos valores em cada
-*   célula da matriz de jogo.
+*   cï¿½lula da matriz de jogo.
 *
 *	Complexidade: O(n^2)
 *
 ***********************************************************************/
 
-	DES_tpCondRet InicializaListasVerticais ( void )
+	static DES_tpCondRet InicializaListasVerticais ( void )
 	{
 		//Inicializacao de listas e valores de coluna
 		for( j = 0; j < NumColunas; j++ )
 		{
 			int sequencia = 0;
-			LIS_CriaLista( pDesenho->pListasVerticais[j] );
-			LIS_InsereFinal( pDesenho->pListasVerticais[j], VAL_CriaValor() );
+			LST_CriaLista( pDesenho->pListasVerticais[j] );
+			LST_InsereFinal( pDesenho->pListasVerticais[j], VAL_CriaValor() );
 			for( i = 0; i < NumLinhas; j++ )
 			{
-				//Recupera a célula na posiçao (i,j)
+				//Recupera a cï¿½lula na posiï¿½ao (i,j)
 				Celula* pCelula = ( Celula * ) MAT_RetornaValor( i, j );
 				if( CEL_MarcacaoEsperada( pCelula ) )
 				{
-					//Célula de marcaçao esperada 
+					//Cï¿½lula de marcaï¿½ao esperada
 					if( !sequencia )
 					{
 						//Nova sequencia, insere um novo elemento na lista
-						LIS_InsereFinal( pDesenho->pListasVerticais[j], VAL_CriaValor() );
+						LST_InsereFinal( pDesenho->pListasVerticais[j], VAL_CriaValor() );
 					}
 					//Indica que existe uma sequencia e incrementa a estrutura Valor
 					sequencia = 1;
-					VAL_IncrementaValor( LIS_RetornaUltimo( pDesenho->pListasVerticais[j] ) );
+					VAL_IncrementaValor( LST_RetornaUltimo( pDesenho->pListasVerticais[j] ) );
 				}
 				else
 				{
@@ -366,15 +380,32 @@
 
 		return DES_CondRetOk;
 	}
-
-	int JogoFinalizado ( void ) 
+/***********************************************************************
+*
+*  $FC Funï¿½ï¿½o: DES JogoFinalizado
+*
+*	Retorna 1 se a matriz estiver completamente corretamente preenchida,
+*	0 caso contrÃ¡rio.
+*
+*	Complexidade: O(n^2) -> pode percorrer toda a matriz
+*
+***********************************************************************/
+	static int JogoFinalizado ( void )
 	{
-		//A ser implementado
-
-		return 0;
+		int i, j;
+		// Percorre toda a Matriz em busca de uma cÃ©lula que nÃ£o estÃ¡ de acordo.
+		for(i = 0; i<pDesenho->iLinhas; i++){
+			for(j = 0; j< pDesenho->iColunas; j++){
+				Celula* celula = (Celula *) MAT_RetornaValor(i, j);
+				if(CEL_MarcacaoEsperada( pCelula ) != CEL_MarcacaoAtual( pCelula ))
+					return 0;
+			}
+		}
+		return 1;
 	}
 
-	void ExibeGameOver ( void )
+	static void ExibeGameOver ( void )
 	{
-		//A ser implementado
+		printf("The game is over!\n You won!\n\n");
+		//TODO:A ser implementado o resto
 	}
