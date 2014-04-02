@@ -1,0 +1,20 @@
+// Script:    TesteDesenho.script
+// Autor:	  Patrick Sava
+// Data:      01/abr/2014
+// Propósito: Testa todas as funções do módulo desenho
+//
+//
+//
+
+// ********* Testes de Inserir a direita e a esquerda - INICIO *********//
+== Caso 0: Inicializa o desenho com menos que a quantidade mínima de linhas/colunas
+=iniciardesenho 2 3 3
+
+
+== Caso 1: Inicializa o desenho com mais que a quantidade máxima de linhas/colunas
+=iniciardesenho 2 13 13
+
+
+== Caso 1: Inicializa o desenho na forma mínima (5x5)
+=iniciardesenho 2 5 5
+

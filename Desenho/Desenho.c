@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI M�dulo de implementa��o: M�dulo Desenho
+*  $MCI Módulo de implementação: Módulo Desenho
 *
 *  Arquivo gerado:              Desenho.c
 *  Letras identificadoras:      DES
@@ -8,9 +8,9 @@
 *  Gestor:  DI/PUC-Rio
 *  Autores: ps  - Patrick Sava
 *
-*  $HA Hist�rico de evolu��o:
-*     Vers�o  Autor    Data     Observa��es
-*       1.00   ps   24/03/2014 In�cio do desenvolvimento
+*  $HA Histórico de evolução:
+*     Versão  Autor    Data     Observaçães
+*       1.00   ps   24/03/2014 Início do desenvolvimento
 *
 ***************************************************************************/
 
@@ -19,42 +19,33 @@
 #include   <time.h>
 
 #include   "Desenho.h"
-
 //#include   "ListaGenerica.h"
 //#include   "Valor.h"
 //#include   "MatrizGenerica.h"
 //#include   "Celula.h"
 
-/*****  Constantes encapsuladas no m�dulo  *****/
 
-#define NUM_LINHAS_MINIMO 3
-#define NUM_LINHAS_MAXIMO 10
-
-#define NUM_COLUNAS_MINIMO 3
-#define NUM_COLUNAS_MAXIMO 10
-
-#define NUM_MAX_DICAS 10
 
 /***********************************************************************
 *
 *  $TC Tipo de dados: DES Estrutura Desenho Nonogram
 *
 *
-*  $ED Descri��o do tipo
-*     Descreve a organiza��o do desenho
+*  $ED Descrição do tipo
+*     Descreve a organização do desenho
 *
 ***********************************************************************/
 
 	typedef struct desenho{
 
 		tpMatrizGen * pMatrizJogo;
-			/* Ponteiro para matriz de c�lulas */
+			/* Ponteiro para matriz de células */
 
 		int iLinhas;
-			/* N�mero de linhas da matriz */
+			/* Número de linhas da matriz */
 
 		int iColunas;
-			/* N�mero de colunas da matriz */
+			/* Número de colunas da matriz */
 
 		tpLista ** pListasVerticais;
 			/* Vetor de Listas de Valores verticais */
@@ -63,16 +54,16 @@
 			/* Vetor de Listas de Valores verticais */
 
 		int iDicas;
-			/* N�mero de dicas que cada usu�rio possui por jogo */
+			/* Número de dicas que cada usuário possui por jogo */
 
 	} tpDesenho ;
 
-/*****  Dados encapsulados no m�dulo  *****/
+/*****  Dados encapsulados no módulo  *****/
 
     static tpDesenho * pDesenho = NULL ;
         /* Ponteiro para o desenho */
 
-/***** Prot�tipos das fun��es encapuladas no m�dulo *****/
+/***** Protótipos das funçães encapuladas no módulo *****/
 
 	static void PreencheAleatorioMatriz ( void );
 
@@ -84,14 +75,14 @@
 
 	static void ExibeGameOver ( void );
 
-/*****  C�digo das fun��es exportadas pelo m�dulo  *****/
+/*****  Código das funçães exportadas pelo módulo  *****/
 
 /***************************************************************************
 *
-*  Fun��o: DES Inicia Desenho
+*  Função: DES Inicia Desenho
 *
 *  Cria aleatoriamente um esquema de nonogram pronto para ser jogado.
-*  Gera, de acordo com o resultado de gera�ao aleat�rio, as listas de valores
+*  Gera, de acordo com o resultado de geração aleatório, as listas de valores
 *  verticais e horizontais que sao cruciais para o fluir do jogo.
 *
 *  Complexidade: O(n^2)
@@ -103,7 +94,7 @@
 		int i, j;
 		DES_tpCondRet CondRet;
 
-		//Verifica se a quantidade de linhas e de colunas sao v�lidas
+		//Verifica se a quantidade de linhas e de colunas são válidas
 		if( NumLinhas < NUM_LINHAS_MINIMO || NumColunas < NUM_COLUNAS_MINIMO ||
 		    NumLinhas > NUM_LINHAS_MAXIMO || NumColunas > NUM_COLUNAS_MAXIMO )
 			return DES_CondRetTamanhoInvalido;
@@ -111,7 +102,7 @@
 		//Aloca a estrutura desenho
 		pDesenho = ( tpDesenho* ) malloc( sizeof( tpDesenho ) );
 
-		//Falhou a aloca�ao de mem�ria
+		//Falhou a alocação de memória
 		if( pDesenho == NULL )
 			return DES_CondRetFaltouMemoria;
 
@@ -119,30 +110,30 @@
 		pDesenho->iLinhas = NumLinhas ;
 		pDesenho->iDicas = NUM_MAX_DICAS; 
 
-		//Chama o m�dulo de matriz e guarda o ponteiro na estrutura desenho
+		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
 		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, NumLinhas, NumColunas );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
-		//Gera o esquema de forma aleat�ria
+		//Gera o esquema de forma aleatória
 		PreencheAleatorioMatriz( );
 
-		//Aloca o vetor que vai guardar as cabe�as de listas horizontais
+		//Aloca o vetor que vai guardar as cabeças de listas horizontais
 		pDesenho->pListasHorizontais = ( tpLista ** ) malloc( NumLinhas * sizeof( tpLista* ) );
 		if(pDesenho->pListasHorizontais == NULL)
 			return DES_CondRetFaltouMemoria;
 
-		//Aloca o vetor que vai guardar as cabe�as de listas verticais
+		//Aloca o vetor que vai guardar as cabeças de listas verticais
 		pDesenho->pListasVerticais   = ( tpLista ** ) malloc( NumColunas * sizeof( tpLista* ) );
 		if( pDesenho->pListasVerticais == NULL )
 			return DES_CondRetFaltouMemoria;
 
-		// Inicializa�ao das Listas e valores de linha
+		// Inicialização das Listas e valores de linha
 		CondRet = InicializaListasHorizontais( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
-		// Inicializa�ao das Listas e valores de coluna
+		// Inicialização das Listas e valores de coluna
 		CondRet = InicializaListasVerticais( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
@@ -150,12 +141,56 @@
 		return DES_CondRetOk;
 	}
 
+
 /***************************************************************************
 *
-*  Fun��o: DES Altera Marca��o de Coordenada
+*  Função: DES Destroi desenho
 *
-*  Dada uma coordenada (X,Y), a fun��o busca pela c�lula referente e altera
-*  sua marca��o atual. Se ela j� estava marcada passa a ficar em branco e
+*  Libera cada ponteiro dentro da estrutura desenho e depois libera a 
+*  estrutura desenho.
+*
+*  Complexidade: O(n)
+*
+****************************************************************************/
+
+	DES_tpCondRet DES_DestroiDesenho( void )
+	{
+
+		// Testa se o ponteiro desenho já foi iniciado;
+		if( pDesenho == NULL )
+			return DES_CondRetDesenhoNaoIniciado;
+
+		int i; //Contador
+
+		// Libera cada cabeça de lista
+		for( i = 0; i < pDesenho->iLinhas; i++ )
+			LST_LiberaLista(pDesenho->pListasHorizontais[i]);
+
+		// Libera o vetor de cabeças de lista
+		free(pDesenho->pListasHorizontais);
+
+		// Libera cada cabeça de lista
+		for( i = 0; i < pDesenho->iColunas; i++ )
+			LST_LiberaLista(pDesenho->pListasVerticais[i]);
+
+		// Libera o vetor de cabeças de lista
+		free(pDesenho->pListasVerticais);
+
+		// Libera a matriz de jogo
+		MAT_LiberaMatriz( pDesenho->pMatrizJogo );
+
+		// Libera o ponteiro para estrutura encapsulada Desenho 
+		free( pDesenho );
+
+		return DES_CondRetOk;
+	}
+
+/***************************************************************************
+*
+*  Função: DES Altera Marcação de Coordenada
+*
+*  Dada uma coordenada (X,Y), a função busca pela célula referente e altera
+*  sua marcação atual. Se ela já estava marcada passa a ficar em branco e
 *  vice-versa.
 *
 *  Complexidade: O(n) -> Custo de encontrar na lista o elemento.
@@ -165,11 +200,11 @@
 	DES_tpCondRet DES_AlteraMarcacaoCoordenada( unsigned int Coord_X, unsigned int Coord_Y )
 	{
 
-		//Teste se a estrutura desenho j� existe
+		//Teste se a estrutura desenho já existe
 		if( pDesenho == NULL )
 			return DES_CondRetDesenhoNaoIniciado;
 
-		//Teste se as coordenadas dadas est�o dentro do permitido
+		//Teste se as coordenadas dadas estão dentro do permitido
 		if( Coord_X > pDesenho->iLinhas || Coord_Y > pDesenho->iColunas )
 			return DES_CondRetCoordenadaInvalida;
 
@@ -184,9 +219,9 @@
 
 /***************************************************************************
 *
-*  Fun��o: DES Ativa Dica
+*  Função: DES Ativa Dica
 *
-*  Marca uma c�lula do tabuleiro que deveria ser marcada mas ainda est�
+*  Marca uma célula do tabuleiro que deveria ser marcada mas ainda está
 *  em branco
 *
 *  Complexidade: O(n^2) -> Pode percorrer toda a matriz.
@@ -205,16 +240,16 @@
 		if( pDesenho->iDicas == 0 )
 			return DES_CondRetSemDicas;
 
-		//Procura por c�lula a ser pintada de baixo para cima, esquerda para direita
+		//Procura por célula a ser pintada de baixo para cima, esquerda para direita
 		for( i = pDesenho->iLinhas - 1 ; i >= 0 ; i-- )
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
 			{
 				Celula * pCelula = ( Celula * ) MAT_RetornaValor( i, j );
-				//Se a celula � para ser pintada mas n�o est� pintada
+				//Se a celula é para ser pintada mas não está pintada
 				if( CEL_MarcacaoEsperada( pCelula ) && !CEL_MarcacaoAtual( pCelula ) )
 				{
-					//Marca a c�lula
+					//Marca a célula
 					DES_AlteraMarcacaoCoordenada( i, j );
 					//Decrementa as dicas
 					(pDesenho->iDicas)--;
@@ -228,7 +263,7 @@
 
 /***************************************************************************
 *
-*  Fun��o: DES ImprimeMatrizJogo
+*  Função: DES ImprimeMatrizJogo
 *
 *  Imprime a matriz de jogo conforme as marcações do momento
 *
@@ -240,17 +275,17 @@
 		//TODO:Implementar isso depois.
 	}
 
-/*****  C�digo das fun��es encapsuladas no m�dulo  *****/
+/*****  Código das funçães encapsuladas no módulo  *****/
 
 
 
 /***********************************************************************
 *
-*  $FC Fun��o: DES Preenche Aleatoriamente Matriz
+*  $FC Função: DES Preenche Aleatoriamente Matriz
 *
-*	Preenche a matriz de jogo de forma aleat�ria para gerar um
+*	Preenche a matriz de jogo de forma aleatória para gerar um
 *	esquema de nonogram.
-*	Toda coluna e toda linha tem pelo menos uma c�lula para ser marcada
+*	Toda coluna e toda linha tem pelo menos uma célula para ser marcada
 *
 *	Complexidade: O(n^2)
 *
@@ -260,10 +295,10 @@
 	{
 		int i, j;
 
-		//Inicia o gerador aleat�rio sem delay de cria�ao
+		//Inicia o gerador aleatório sem delay de criaóao
 		srand(time(NULL));
 
-		//Percorre cada linha e cada coluna ligando ou nao a marca�ao
+		//Percorre cada linha e cada coluna ligando ou nao a marcaóao
 		for( i = 0 ; i < pDesenho->iLinhas ; i++ )
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
@@ -272,14 +307,14 @@
 
 				Celula * pCelula;
 
-				// Se o resultado � �mpar, liga a c�lula. 50% de chance.
+				// Se o resultado é impar, liga a célula. 50% de chance.
 				if( randomNumber ){
-					//Cria c�lula com valor de marca��o esperada 1
+					//Cria célula com valor de marcação esperada 1
 					CEL_CriaCelula( pCelula, 1 );
 				} /* if */
 				else 
 				{
-					//Cria c�lula com valor de marca��o esperada 0
+					//Cria célula com valor de marcação esperada 0
 					CEL_CriaCelula( pCelula, 0 );
 				}/* else */
 
@@ -291,10 +326,10 @@
 
 /***********************************************************************
 *
-*  $FC Fun��o: DES Inicializa Listas Horizontais
+*  $FC Função: DES Inicializa Listas Horizontais
 *
 *	Cria a lista de valores da horizontal baseado nos valores em cada
-*   c�lula da matriz de jogo.
+*   célula da matriz de jogo.
 *
 *	Complexidade: O(n^2)
 *
@@ -302,7 +337,7 @@
 
 	static DES_tpCondRet InicializaListasHorizontais( )
 	{
-		// Inicializa�ao das Listas e valores de linha
+		// Inicialização das Listas e valores de linha
 		for( i = 0; i < NumLinhas; i++ )
 		{
 			int sequencia = 0;
@@ -310,11 +345,11 @@
 			LST_InsereFinal( pDesenho->pListasHorizontais[i], VAL_CriaValor( ) );
 			for( j = 0; j < NumColinas; j++ )
 			{
-				//Recupera a c�lula na posi�ao (i,j)
+				//Recupera a célula na posição (i,j)
 				Celula* pCelula = ( Celula * ) MAT_RetornaValor( i, j );
 				if( CEL_MarcacaoEsperada(pCelula) )
 				{
-					//C�lula de marca�ao esperada
+					//Célula de marcação esperada
 					if( !sequencia )
 					{
 						//Nova sequencia, insere um novo elemento na lista
@@ -337,10 +372,10 @@
 
 /***********************************************************************
 *
-*  $FC Fun��o: DES Inicializa Listas Verticais
+*  $FC Função: DES Inicializa Listas Verticais
 *
 *	Cria a lista de valores da vertical baseado nos valores em cada
-*   c�lula da matriz de jogo.
+*   célula da matriz de jogo.
 *
 *	Complexidade: O(n^2)
 *
@@ -348,7 +383,7 @@
 
 	static DES_tpCondRet InicializaListasVerticais ( void )
 	{
-		//Inicializacao de listas e valores de coluna
+		//Inicialização de listas e valores de coluna
 		for( j = 0; j < NumColunas; j++ )
 		{
 			int sequencia = 0;
@@ -356,11 +391,11 @@
 			LST_InsereFinal( pDesenho->pListasVerticais[j], VAL_CriaValor() );
 			for( i = 0; i < NumLinhas; j++ )
 			{
-				//Recupera a c�lula na posi�ao (i,j)
+				//Recupera a célula na posição (i,j)
 				Celula* pCelula = ( Celula * ) MAT_RetornaValor( i, j );
 				if( CEL_MarcacaoEsperada( pCelula ) )
 				{
-					//C�lula de marca�ao esperada
+					//Célula de marcação esperada
 					if( !sequencia )
 					{
 						//Nova sequencia, insere um novo elemento na lista
@@ -382,7 +417,7 @@
 	}
 /***********************************************************************
 *
-*  $FC Fun��o: DES JogoFinalizado
+*  $FC Função: DES JogoFinalizado
 *
 *	Retorna 1 se a matriz estiver completamente corretamente preenchida,
 *	0 caso contrário.
@@ -394,18 +429,25 @@
 	{
 		int i, j;
 		// Percorre toda a Matriz em busca de uma célula que não está de acordo.
-		for(i = 0; i<pDesenho->iLinhas; i++){
-			for(j = 0; j< pDesenho->iColunas; j++){
+		for(i = 0; i<pDesenho->iLinhas; i++)
+		{
+			for(j = 0; j< pDesenho->iColunas; j++)
+			{
+				// Recupera a célula correspondente àquela coordenada
 				Celula* celula = (Celula *) MAT_RetornaValor(i, j);
+
+				//Compara marcação atual com esperada, se forem diferentes o jogo não está terminado
 				if(CEL_MarcacaoEsperada( pCelula ) != CEL_MarcacaoAtual( pCelula ))
 					return 0;
 			}
 		}
+
+		// Perfeito, o jogo acabou
 		return 1;
 	}
 
 	static void ExibeGameOver ( void )
 	{
 		printf("The game is over!\n You won!\n\n");
-		//TODO:A ser implementado o resto
+		//TODO: A ser implementado o resto
 	}
