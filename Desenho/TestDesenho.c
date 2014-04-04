@@ -29,7 +29,9 @@
 * 
 *     =ativardica - chama a função DES_AtivaDica( )
 *
-*     =imprimirjogo - chama a função DES_ImprimeMatrizJogo( )
+*     =imprimirjogo - chama a função DES_ImprimeMatrizJogo( )  
+*
+*     =destroidesenho - chama a função DES_DestroiDesenho( )
 *
 ***************************************************************************/
 

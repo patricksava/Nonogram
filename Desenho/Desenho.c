@@ -270,6 +270,7 @@
 *  Complexidade: O(n^2) -> Percorre toda a matriz.
 *
 ****************************************************************************/
+
 	DES_tpCondRet DES_ImprimeMatrizJogo( void )
 	{
 		//TODO:Implementar isso depois.
@@ -415,6 +416,7 @@
 
 		return DES_CondRetOk;
 	}
+
 /***********************************************************************
 *
 *  $FC Função: DES JogoFinalizado
@@ -425,6 +427,7 @@
 *	Complexidade: O(n^2) -> pode percorrer toda a matriz
 *
 ***********************************************************************/
+/*
 	static int JogoFinalizado ( void )
 	{
 		int i, j;
@@ -445,9 +448,4 @@
 		// Perfeito, o jogo acabou
 		return 1;
 	}
-
-	static void ExibeGameOver ( void )
-	{
-		printf("The game is over!\n You won!\n\n");
-		//TODO: A ser implementado o resto
-	}
+*/
