@@ -19,7 +19,7 @@
 #include   <time.h>
 
 #include   "Desenho.h"
-//#include   "ListaGenerica.h"
+#include   "../ListaGenerica/LISTA.h"
 //#include   "Valor.h"
 //#include   "MatrizGenerica.h"
 //#include   "Celula.h"
@@ -336,7 +336,7 @@
 *
 ***********************************************************************/
 
-	static DES_tpCondRet InicializaListasHorizontais( )
+	static DES_tpCondRet InicializaListasHorizontais( void )
 	{
 		// Inicialização das Listas e valores de linha
 		for( i = 0; i < NumLinhas; i++ )
