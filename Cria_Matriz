@@ -40,6 +40,49 @@ MAT_tpCondRet MAT_CriarMatriz( TpMatriz* matriz, int linhas, int colunas )
    
     if( matriz == NULL)
         return MAT_CondRetFaltouMemoria;
+        
+        
+        
+        // A PARTIR DAQUI MONTAMOS A ESTRUTURA MATRIZ:
+
+    for( j = 0; j < colunas; j++) // 1ª) CAMINH0 NO VETOR NO SENTIDO ESQUERDA -> DIREITA
+       
+        if( LST_CriarLista( vector[j] ) == LST_CondRetOK) {    // 2º) ENTREGO A CABECA DA LISTA
+           
+            for( i = 0; i < linhas; i++) { // CAMINHO NAS LISTAS/COLUNAS DE CIMA PARA BAIXO
+           
+                verifica = LST_InserirNovoNoFim( vector[j] , NULL );
+               
+                if( verifica != LST_CondRetOK)
+                    return MAT_CondRetFalhou;
+            }
+        }
+       
+        else
+            return MAT_CondRetFalhou;
+                   
+                   
+    // A PARTIR DAQUI MONTO A MATRIZ PROPRIAMENTE
+   
+    matriz -> m = linhas;
+    matriz -> n = colunas;
+    matriz -> mat = vector;
+   
+
+    return MAT_CondRetOK;
+   
+}
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
    
     vector = (TpLista**)malloc(sizeof(TpLista*)*colunas); // VETOR DE PONTEIROS ALOCADO - OK!
    
