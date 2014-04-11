@@ -13,9 +13,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*       3.00   avs   28/02/2003 Uniformização da interface das funções e
-*                               de todas as condições de retorno.
-*       2.00   avs   21/03/2014 Eliminação de código duplicado, reestruturação
+*       2.00   mbv   10/abr/2014 Revisão e adaptação do código
 *       1.00   mbv   19/mar/2014 Início do desenvolvimento
 *
 *************************************************************************
@@ -102,17 +100,20 @@ typedef struct tpNoLista {
 *  Função: LST Criar lista genérica duplamente encadeada.
 *  ****/
 
-   LST_tpCondRet LST_CriarLista( TpLista * pLista )
+   TpLista * LST_CriarLista( void )
    {
+	   TpLista * pLista;
+
 	  pLista = ( TpLista * )malloc( sizeof( TpLista )) ;
       if ( pLista== NULL )
       {
-         return LST_CondRetFaltouMemoria ;
+		  printf ( " Espaço na memória insuficiente " ) ;
+         return NULL ;
       } /* if */
 
 	  LimparCabeca( pLista ) ; 
 
-      return LST_CondRetOK ;
+      return pLista ;
 
    } /* Fim função: LST Criar lista genérica duplamente encadeada*/
 

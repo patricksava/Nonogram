@@ -1,8 +1,39 @@
+/***************************************************************************
+*  $MCI Módulo de implementação: Módulo Valor
+*
+*  Arquivo gerado:              VALOR.c
+*  Letras identificadoras:      VA
+*
+*  Projeto: Disciplinas INF 1301
+*  Gestor:  DI/PUC-Rio
+*  Autores: mbv- Maria Beatriz Vaz
+*
+*  $HA Histórico de evolução:
+*     Versão  Autor    Data     Observações
+*
+*      1.00   mbv   10/abr/2014 Início do desenvolvimento
+*
+*************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <malloc.h>
 
 #include "VALOR.H"
 
+/***********************************************************************
+*
+*  $TC Tipo de dados: VAL Tipo Valor
+*
+*
+*  $ED Descrição do tipo
+*	
+*	Estrutura que possui um valor inteiro referente a
+*	quantidade de ocorrências da matriz pintada e outro
+*	inteiro que indica a quantidade de ocorrências marcadas
+*	no jogo.
+*
+***********************************************************************/
 
 typedef struct tpvalor TpValor;
 
@@ -16,21 +47,34 @@ struct tpvalor
 		/* Inteiro que representa o número de quadrados já pintados. */
 };
 
-VAL_tpCondRet VAL_CriarValor ( TpValor * Valor )
+
+/***************************************************************************
+*
+*  Função: VAL Criar tipo de dados.
+*  ****/
+TpValor * VAL_CriarValor ( void )
 {
+	TpValor * Valor;
+
 	Valor = ( TpValor * ) malloc ( sizeof (TpValor ));
 
 	if ( Valor == NULL )
 	{
-		return VAL_CondRetFaltouMemoria;
+		return NULL;
 	} /* if */
 
 	/* Zerar os campos da estrutura. */
 	Valor->QntdMarcados = NULL;
 	Valor->QntdPintados = NULL;
 
-	return VAL_CondRetOk;
+	return Valor;
 }
+ /* Fim função: VAL Criar tipo de dados.*/
+
+/***************************************************************************
+
+*  Função: VAL Alterar a quantidade de quadrados marcados.
+***/
 
 VAL_tpCondRet VAL_AlterarQntdMarcados ( TpValor * Valor , int quantidade )
 {
@@ -41,9 +85,16 @@ VAL_tpCondRet VAL_AlterarQntdMarcados ( TpValor * Valor , int quantidade )
 	} /* if */
 	
 	Valor->QntdMarcados = quantidade ;
+	
 	return VAL_CondRetOk;
 
 }
+ /* Fim função: VAL Altera quantidade de quadrados marcados.*/
+
+/***************************************************************************
+
+*  Função: VAL Incramenta a quantidade de pintados.
+***/
 
 VAL_tpCondRet VAL_IncrementarQntdPintados ( TpValor * Valor )
 {
@@ -58,6 +109,12 @@ VAL_tpCondRet VAL_IncrementarQntdPintados ( TpValor * Valor )
 
 }
 
+ /* Fim função: VAL Incrementa quantidade de marcados*/
+
+/***************************************************************************
+
+*  Função: VAL Decrementa quantidade de pintados. 
+***/
 VAL_tpCondRet VAL_DecrementarQntdPintados ( TpValor * Valor )
 {
 		
@@ -71,6 +128,12 @@ VAL_tpCondRet VAL_DecrementarQntdPintados ( TpValor * Valor )
 
 }
 
+ /* Fim função: VAL Decrementa quantidade de pintados.*/
+
+/***************************************************************************
+
+* Função: VAL Obtêm a quantidade de marcados.
+***/
 VAL_tpCondRet VAL_ObterMarcados ( TpValor * Valor , int * Marcados )
 {
 			
@@ -83,7 +146,12 @@ VAL_tpCondRet VAL_ObterMarcados ( TpValor * Valor , int * Marcados )
 	return VAL_CondRetOk;
 }
 
+ /* Fim função: VAL Obtem a quantidade de marcados.*/
 
+/***************************************************************************
+
+* Função: VAL obtem quantidade de pintados.
+***/
 VAL_tpCondRet VAL_ObterPintados ( TpValor * Valor , int * Pintados )
 {
 			
@@ -96,6 +164,32 @@ VAL_tpCondRet VAL_ObterPintados ( TpValor * Valor , int * Pintados )
 	return VAL_CondRetOk;
 }
 
+ /* Fim função: VAL obtem quantidade de pintados. */
+
+/***************************************************************************
+
+*  Função: VAL Resseta tipo de dados.
+***/
+VAL_tpCondRet VAL_RessetarValor ( TpValor * Valor )
+{
+			
+	if ( Valor == NULL )
+	{
+		return VAL_CondRetValorInexistente;
+	} /* if */
+	
+	Valor->QntdMarcados=NULL;
+	Valor->QntdPintados=NULL;
+
+	return VAL_CondRetOk;
+}
+
+ /* Fim função: VAL Resseta tipo de dados. */
+
+/***************************************************************************
+
+*  Função: VAL Destrói tipo de dados.
+***/
 VAL_tpCondRet VAL_DestruirValor ( TpValor * Valor )
 {
 			
@@ -108,7 +202,11 @@ VAL_tpCondRet VAL_DestruirValor ( TpValor * Valor )
 	return VAL_CondRetOk;
 }
 
+ /* Fim função: VAL destrói tipo de dados. */
 
+/***************************************************************************
+
+/********** Fim do módulo de implementação: Módulo VALOR **********/
 
 
 

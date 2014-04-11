@@ -103,7 +103,7 @@
 *
 ***********************************************************************/
 
-   LST_tpCondRet LST_CriarLista( TpLista * pLista ) ;
+   TpLista * LST_CriarLista( TpLista * pLista ) ;
 
 
 /***********************************************************************
@@ -126,26 +126,10 @@
 
 /***********************************************************************
 *
-*  $FC Função: LIS  &Esvaziar lista
-*
-*  $ED Descrição da função
-*     Elimina todos os elementos, sem contudo eliminar a lista
-*
-*  $EP Parâmetros
-*     pLista - ponteiro para a lista a ser esvaziada
-*
-***********************************************************************/
-
-  // LST_tpCondRet LST_EsvaziarLista( TpLista * pLista ) ;
-
-
-/***********************************************************************
-*
 *  $FC Função: LST Adicionar novo nó no inicio da lista duplamente encadeada.
 *
 *  $ED Descrição da função
-*     Insere um elemento no ínicio da lista e caso essa não exista,
-*	  cria uma nova lista.
+*     Insere um elemento no ínicio da lista e caso não exista, cria lista.
 *
 *  $EP Parâmetros
 *     pLista - lista que deseja realizar a busca e a 
@@ -166,7 +150,7 @@
 *  $FC Função: LST Adicionar novo nó no fim da lista duplamente encadeada.
 *
 *  $ED Descrição da função
-*     Insere elemento no final da lista e, caso essa não exista, cria.
+*     Insere elemento no final da lista, e caso não exista, cria lista.
 *
 *  $EP Parâmetros
 *     pLista - lista que deseja realizar a busca e a 
