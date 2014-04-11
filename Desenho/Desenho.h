@@ -37,6 +37,8 @@
 
 #define NUM_MAX_DICAS 10
 
+#define NOME_JOGO_SALVO "ultimo_jogo_salvo.des"
+
 /***********************************************************************
 *
 *  $TC Tipo de dados: DES Condições de retorno
@@ -142,6 +144,8 @@
 *  $ED Descrição da função
 *     Cria um desenho de jogo baseado nas informações gravadas no
 *     arquivo passado como parâmetro.
+*     Fica para responsabilidade do módulo cliente fechar o arquivo
+*     de entrada.
 *
 *  $FV Valor retornado
 *     DES_CondRetOK
@@ -265,7 +269,7 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Salva Projeto Jogo
+*  $FC Função: DES Grava Matriz Projetada
 *
 *  $ED Descrição da função
 *     Salva em arquivo a matriz preenchida pelo usuário no modo projeto.
@@ -275,7 +279,6 @@
 *     DES_CondRetOK
 *     DES_CondRetDesenhoNaoIniciado
 *     DES_CondRetFaltouMemoria
-*     DES_CondRetProjetoInvalido
 *
 *  $AE Assertivas de Entrada
 *     - Valem as assertivas estruturais da estrutura de desenho e sub-
@@ -288,4 +291,7 @@
 *      de projetos de jogo.
 *
 ***********************************************************************/
+
+
+   DES_tpCondRet DES_GravaMatrizProjetada( char* NomeArquivo )
 

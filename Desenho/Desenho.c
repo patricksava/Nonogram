@@ -407,18 +407,154 @@
 		//TODO:Implementar isso depois.
 	}
 
+
+/***************************************************************************
+*
+*  Função: DES Grava Jogo Atual
+*
+*  Grava em arquivo a matriz projetada pelo usuário no modo projeto.
+*
+*  Exemplo de arquivo válido:
+*		5                // número de linhas
+*		8                // número de colunas
+*		3				 // número de dicas que sobraram
+*		0 0 1 1 1 1 0 0 0 0 1 0 1 0 0 0  // primeira linha de células ( marcação esperada, marcação feita )
+*		1 1 1 1 0 0 0 0 0 0 0 0 1 0 1 0  // segunda linha de células
+*		0 0 0 0 1 0 1 0 1 0 1 0 0 0 0 0
+*		1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1
+*		0 0 1 1 1 1 0 0 0 0 1 1 1 1 0 0  // quinta linha de células
+*
+*  Complexidade: O(n^2) -> Percorre toda a matriz.
+*
+****************************************************************************/
+
+	DES_tpCondRet DES_GravaJogoAtual( void )
+	{
+		FILE * ArquivoDesenho;
+
+		// Testa se a estrutura desenho está instanciada
+		if( pDesenho == NULL )
+			return DES_CondRetDesenhoNaoIniciado;
+
+
+		// Abre o arquivo para salvar com o nome dado pelo usuário
+		ArquivoDesenho = fopen( NOME_JOGO_SALVO, "w" );
+
+		// Teste se conseguiu abrir o arquivo
+		if( ArquivoDesenho == NULL )
+			return DES_CondRetFaltouMemoria;
+
+		// Imprime a primeira linha que representa número de linhas
+		fprintf( ArquivoDesenho, "%d\n", pDesenho->iLinhas );
+
+		// Imprime a segunda linha que representa número de linhas
+		fprintf( ArquivoDesenho, "%d\n", pDesenho->iColunas );
+
+		// Imprime a segunda linha que representa número de dicas que ainda sobraram
+		fprintf( ArquivoDesenho, "%d\n", pDesenho->iDicas );
+
+
+		// Imprime as linhas
+		for( i = 0; i < pDesenho->iLinhas; i++)
+		{
+			// Imprime as colunas
+			for( j = 0; j < pDesenho->iColunas; i++ )
+			{
+				// Recupera o elemento dentro da matriz na posição i, j e imprime se ele está marcado ou não
+				Celula * pCelula = ( Celula * ) MAT_RetornaValor( pDesenho->pMatrizJogo, i, j );
+				fprintf( ArquivoDesenho, "%d %d ", CEL_MarcacaoEsperada( pCelula ), CEL_MarcacaoAtual( pCelula ) );
+			}
+
+			fprintf( ArquivoDesenho, "\n" );
+		}
+
+		fclose( ArquivoDesenho );
+
+		return DES_CondRetOk;
+	}
+
+
+/***************************************************************************
+*
+*  Função: DES Grava Matriz Projetada
+*
+*  Grava em arquivo a matriz projetada pelo usuário no modo projeto.
+*
+*	Exemplo de arquivo válido:
+*		5                // número de linhas
+*		8                // número de colunas
+*		0 1 1 0 0 1 1 0  // primeira linha de células
+*		1 1 0 0 0 0 1 1  // segunda linha de células
+*		0 0 1 1 1 1 0 0
+*		1 1 0 0 0 0 1 1
+*		0 1 1 0 0 1 1 0  // quinta linha de células
+*
+*  Complexidade: O(n^2) -> Percorre toda a matriz.
+*
+****************************************************************************/
+
+	DES_tpCondRet DES_GravaMatrizProjetada( char* NomeArquivo )
+	{
+		FILE * ArquivoDesenho;
+		int tamStringNome;
+
+		// Testa se a estrutura desenho está instanciada
+		if( pDesenho == NULL )
+			return DES_CondRetDesenhoNaoIniciado;
+
+		tamStringNome = strlen( NomeArquivo ) + 5;
+
+		// Cria uma string com tamanho adequando, tamanho da string dada + tamanho de ".des" + '\0'
+		char * NomeExtArquivo = ( char* ) malloc( tamStringNome * sizeof( char ) ) ; 
+		strcpy( NomeExtArquivo, NomeArquivo );
+		strcat( NomeExtArquivo, ".des");
+		NomeExtArquivo[ tamStringNome - 1 ] = '\0';
+
+
+		// Abre o arquivo para salvar com o nome dado pelo usuário
+		ArquivoDesenho = fopen( NomeExtArquivo, "w" );
+
+		// Teste se conseguiu abrir o arquivo
+		if( ArquivoDesenho == NULL )
+			return DES_CondRetFaltouMemoria;
+
+		// Imprime a primeira linha que representa número de linhas
+		fprintf( ArquivoDesenho, "%d\n", pDesenho->iLinhas );
+
+		// Imprime a segunda linha que representa número de linhas
+		fprintf( ArquivoDesenho, "%d\n", pDesenho->iColunas );
+
+		// Imprime as linhas
+		for( i = 0; i < pDesenho->iLinhas; i++)
+		{
+			// Imprime as colunas
+			for( j = 0; j < pDesenho->iColunas; i++ )
+			{
+				// Recupera o elemento dentro da matriz na posição i, j e imprime se ele está marcado ou não
+				Celula * pCelula = ( Celula * ) MAT_RetornaValor( pDesenho->pMatrizJogo, i, j );
+				fprintf( ArquivoDesenho, "%d ", CEL_MarcacaoEsperada( pCelula ) );
+			}
+
+			fprintf( ArquivoDesenho, "\n" );
+		}
+
+		fclose( ArquivoDesenho );
+
+		return DES_CondRetOk;
+	}
+
 /*****  Código das funçães encapsuladas no módulo  *****/
 
 
 
 /***********************************************************************
 *
-*  $FC Função: DES Preenche Aleatoriamente Matriz
+*  Função: DES Preenche Aleatoriamente Matriz
 *
-*	Preenche a matriz de jogo de forma aleatória para gerar um
-*	esquema de nonogram.
+*  Preenche a matriz de jogo de forma aleatória para gerar um
+*  esquema de nonogram.
 *
-*	Complexidade: O(n^2)
+*  Complexidade: O(n^2)
 *
 ***********************************************************************/
 
@@ -427,14 +563,14 @@
 		int i, j;
 
 		//Inicia o gerador aleatório sem delay de criaóao
-		srand(time(NULL));
+		srand( time( NULL ) );
 
 		//Percorre cada linha e cada coluna ligando ou nao a marcaóao
 		for( i = 0 ; i < pDesenho->iLinhas ; i++ )
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
 			{
-				int ramdomNumber = rand() % 2;
+				int ramdomNumber = rand( ) % 2;
 
 				Celula * pCelula;
 
@@ -458,7 +594,7 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Preenche Matriz Projetada
+*   Função: DES Preenche Matriz Projetada
 *
 *	Preenche a matriz de jogo de forma coerente com o arquivo dado como
 *   entrada para gerar um esquema de nonogram.
@@ -504,7 +640,7 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Inicializa Listas Horizontais
+*   Função: DES Inicializa Listas Horizontais
 *
 *	Cria a lista de valores da horizontal baseado nos valores em cada
 *   célula da matriz de jogo.
@@ -520,8 +656,8 @@
 		for( i = 0; i < NumLinhas; i++ )
 		{
 			int sequencia = 0;
-			TpValor * pValor;
-			VAL_CriarValor( pValor );
+			
+			TpValor * pValor = VAL_CriarValor( );
 
 			LST_CriaLista( pDesenho->pListasHorizontais[i] );
 			LST_InsereFinal( pDesenho->pListasHorizontais[i], pValor );
@@ -554,7 +690,7 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES Inicializa Listas Verticais
+*   Função: DES Inicializa Listas Verticais
 *
 *	Cria a lista de valores da vertical baseado nos valores em cada
 *   célula da matriz de jogo.
@@ -571,8 +707,7 @@
 		{
 			int sequencia = 0;
 
-			TpValor * pValor;
-			VAL_CriarValor( pValor );
+			TpValor * pValor = VAL_CriarValor( );
 
 			LST_CriaLista( pDesenho->pListasVerticais[j] );
 			LST_InsereFinal( pDesenho->pListasVerticais[j], pValor );
@@ -606,7 +741,7 @@
 
 /***********************************************************************
 *
-*  $FC Função: DES JogoFinalizado
+*   Função: DES JogoFinalizado
 *
 *	Retorna 1 se a matriz estiver completamente corretamente preenchida,
 *	0 caso contrário.
