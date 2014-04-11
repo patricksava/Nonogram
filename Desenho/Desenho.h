@@ -45,11 +45,11 @@
 
    typedef enum {
 
-         DES_CondRetOK ,
-               /* Executou correto */
+      DES_CondRetOK ,
+            /* Executou correto */
 
-         DES_CondRetFaltouMemoria ,
-               /* Faltou memória ao alocar dados */
+      DES_CondRetFaltouMemoria ,
+            /* Faltou memória ao alocar dados */
 
 		 DES_CondRetTamanhoInvalido ,
 			   /* Tamanho de máximo ou mínimo de matriz permitido violado */
@@ -65,6 +65,12 @@
 
 		 DES_CondRetJogoFinalizado ,
 			   /* Todas as células devidas já foram pintadas */
+
+       DES_CondRetPonteiroArquivoNulo,
+            /* Ponteiro para arquivo de jogo projetado nulo */
+
+       DES_CondRetArquivoInvalido,
+            /* Arquivo de jogo projetado com erros */
 
    } DES_tpCondRet ;
 
@@ -89,7 +95,7 @@
 *
 *  $AS Assertivas de Saída
 *	  - O módulo desenho instanciou corretamente a estrutura desenho
-*       de forma aleatória.
+*      de forma aleatória.
 *	  - O tabuleiro possuirá pelo menos uma célula que terá que ser
 *	    marcada para acabar o jogo
 *	  - Valem as assertivas estruturais da estrutura de desenho e sub-
@@ -97,7 +103,65 @@
 ***********************************************************************/
 
 
-   DES_tpCondRet DES_IniciaDesenho( unsigned int NumLinhas, unsigned int NumColunas ) ;
+   DES_tpCondRet DES_IniciaDesenho( unsigned int NumLinhas, unsigned int NumColunas );
+
+
+
+/***********************************************************************
+*
+*  $FC Função: DES Inicia Desenho Vazio
+*
+*  $ED Descrição da função
+*     Cria um desenho de jogo sem nenhum preenchimento e sem 
+*     preparar as células que devem ser marcadas.
+*
+*  $FV Valor retornado
+*     DES_CondRetOK
+*     DES_CondRetFaltouMemoria
+*     DES_CondRetTamanhoInvalido
+*
+*  $AE Assertivas de Entrada
+*    - Número de Linhas e Colunas são inteiros entre 3 e 10
+*
+*  $AS Assertivas de Saída
+*    - O módulo desenho instanciou corretamente a estrutura desenho
+*      de forma vazia, ou seja, sem marcações previstas. Como se
+*      não houvesse um jogo.
+*    - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
+***********************************************************************/
+
+
+   DES_tpCondRet DES_IniciaDesenhoVazio( unsigned int NumLinhas, unsigned int NumColunas );
+
+
+/***********************************************************************
+*
+*  $FC Função: DES Inicia Desenho Vazio
+*
+*  $ED Descrição da função
+*     Cria um desenho de jogo baseado nas informações gravadas no
+*     arquivo passado como parâmetro.
+*
+*  $FV Valor retornado
+*     DES_CondRetOK
+*     DES_CondRetFaltouMemoria
+*     DES_CondRetTamanhoInvalido
+*     DES_CondRetArquivoInvalido
+*
+*  $AE Assertivas de Entrada
+*    - O arquivo deve ter sido gerado pelo próprio jogo no modo
+*      projeto para que seja válido.
+*
+*  $AS Assertivas de Saída
+*    - O módulo desenho instanciou corretamente a estrutura desenho
+*      de forma coerente com os valores gravados no arquivo.
+*    - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
+***********************************************************************/
+
+
+   DES_tpCondRet DES_IniciaDesenhoProjetado( FILE * ArquivoDesenho );
 
 
 /***********************************************************************
@@ -198,4 +262,30 @@
 
    DES_tpCondRet DES_ImprimeMatrizJogo( void );
 
+
+/***********************************************************************
+*
+*  $FC Função: DES Salva Projeto Jogo
+*
+*  $ED Descrição da função
+*     Salva em arquivo a matriz preenchida pelo usuário no modo projeto.
+*     Pode ser retomado um jogo a partir deste arquivo.
+*
+*  $FV Valor retornado
+*     DES_CondRetOK
+*     DES_CondRetDesenhoNaoIniciado
+*     DES_CondRetFaltouMemoria
+*     DES_CondRetProjetoInvalido
+*
+*  $AE Assertivas de Entrada
+*     - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
+*
+*  $AS Assertivas de Saída
+*     - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
+*     - Um arquivo com o nome dado pelo usuário deve ser gerado na pasta
+*      de projetos de jogo.
+*
+***********************************************************************/
 
