@@ -1,0 +1,64 @@
+// Script:    TesteValor.script
+// Autor:     Maria Beatriz Ribeiro Vaz
+// Data:      11/abr/2014
+// Propósito: Testar superficialmente o módulo Valor
+//
+
+== Inicializar valores
+=declararparm   Valor0  int 0
+=declararparm   Valor1  int 1
+=declararparm   Valor2  int 2
+
+=declararparm   OK             int  0
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+== Criar o Valor 0
+=criar      Valor0 
+
+== Verificar ObterMarcados relativo a valor vazio
+=obtermarcados  valor0  pNULL
+
+== Verificar ObterPintados relativo a valor vazio
+=obterpintados  valor0  pNULL
+
+== Alterar quantidade de marcados
+=alterarvalor     valor0    2      OK
+
+== Incrementar quantidade de pintados 2 vezes
+=incrpintados     valor0      OK
+=incrpintados     valor0      OK
+
+== Verificar ObterPintados 
+=obterpintados  valor0  2
+
+== Decrementar quantidade de pintados
+=decrpintados   valor0  OK
+
+== Verificar ObterPintados 
+=obterpintados  valor0  2
+
+== Esvaziar o valor
+=esvaziarvalor   valor0
+
+== Verificar ObterMarcados relativo a valor vazio
+=obtermarcados  valor0  pNULL
+
+== Verificar ObterPintados relativo a valor vazio
+=obterpintados  valor0  pNULL
+
+== Verificar se terá erro
+=obterpintados  valor0  pNaoNULL
+
+== Criar o Valor 1
+=criar      Valor1 
+
+== Incrementar quantidade de pintados 2 vezes
+=incrpintados     valor1      OK
+=incrpintados     valor1      OK
+
+== Destruir todos os valores
+=destruirvalor  valor0    OK
+=destruirvalor  valor1    OK
+// fim

@@ -147,7 +147,7 @@
 *
 ***********************************************************************/
 
-	VAL_tpCondRet VAL_ObterMarcados ( TpValor * Valor , int * Marcados );
+	int VAL_ObterMarcados ( TpValor * Valor );
 
 /***********************************************************************
 *
@@ -166,7 +166,7 @@
 *
 ***********************************************************************/
 
-	VAL_tpCondRet VAL_ObterPintados ( TpValor * Valor , int * Pintados );
+	int VAL_ObterPintados ( TpValor * Valor  );
 
 /***********************************************************************
 *

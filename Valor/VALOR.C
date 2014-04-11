@@ -134,16 +134,16 @@ VAL_tpCondRet VAL_DecrementarQntdPintados ( TpValor * Valor )
 
 * Função: VAL Obtêm a quantidade de marcados.
 ***/
-VAL_tpCondRet VAL_ObterMarcados ( TpValor * Valor , int * Marcados )
+int VAL_ObterMarcados ( TpValor * Valor )
 {
 			
 	if ( Valor == NULL )
 	{
-		return VAL_CondRetValorInexistente;
+		return NULL;
 	} /* if */
 	
-	* Marcados = Valor->QntdMarcados;
-	return VAL_CondRetOk;
+	return Valor->QntdMarcados;
+
 }
 
  /* Fim função: VAL Obtem a quantidade de marcados.*/
@@ -152,16 +152,16 @@ VAL_tpCondRet VAL_ObterMarcados ( TpValor * Valor , int * Marcados )
 
 * Função: VAL obtem quantidade de pintados.
 ***/
-VAL_tpCondRet VAL_ObterPintados ( TpValor * Valor , int * Pintados )
+int VAL_ObterPintados ( TpValor * Valor )
 {
 			
 	if ( Valor == NULL )
 	{
-		return VAL_CondRetValorInexistente;
+		return NULL;
 	} /* if */
 	
-	* Pintados = Valor->QntdPintados;
-	return VAL_CondRetOk;
+	return Valor->QntdPintados;
+
 }
 
  /* Fim função: VAL obtem quantidade de pintados. */
@@ -183,6 +183,7 @@ VAL_tpCondRet VAL_RessetarValor ( TpValor * Valor )
 
 	return VAL_CondRetOk;
 }
+
 
  /* Fim função: VAL Resseta tipo de dados. */
 
