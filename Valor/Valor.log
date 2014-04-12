@@ -26,16 +26,22 @@ LES - Laboratório de Engenharia de Software DI/PUC-Rio
    36  == Verificar ObterMarcados relativo a valor vazio
    39  == Verificar ObterPintados relativo a valor vazio
    42  == Verificar se terá erro
-   45  == Criar Valor 1
-   48  == Incrementar quantidade de pintados 2 vezes
-   52  == Criar valor 2
-   55  ==Criar valor 9
+>>>    1  Linha:    43  Condicao de retorno errada ao obter valor pintados Deveria ser: 1  É: 0
+<<<    0  Linha:    44  Falha esperada foi recuperada. 
+   46  == Verificar se terá erro
+>>>    1  Linha:    47  Erro nos parâmetros do comando:  =obterpintados  3  1
+<<<    0  Linha:    48  Falha esperada foi recuperada. 
+   50  == Criar Valor 1
+   53  == Incrementar quantidade de pintados 2 vezes
    57  == Destruir todos os valores
-!!!    0  Linha:    60  // fim 
+   61  == Criar valor 2
+   64  ==Criar valor 9
+   67  ==Verificar se terá espaço alocado.
+!!!    0  Linha:    69  // fim 
 
-!!! Número de linhas lidas:          60
-!!! Número de casos de teste:        17
-!!! Número comandos corretos:        20
+!!! Número de linhas lidas:          69
+!!! Número de casos de teste:        19
+!!! Número comandos corretos:        19
 !!! Número de falhas encontradas:     0
 
 !!! Não foram encontrados problemas

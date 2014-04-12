@@ -40,7 +40,12 @@
 =obterpintados  0  0
 
 == Verificar se terá erro
-=obterpintados  0  0
+=obterpintados  0  1
+=recuperar
+
+== Verificar se terá erro
+=obterpintados  3  1
+=recuperar
 
 == Criar Valor 1
 =criarvalor      1 
@@ -49,12 +54,16 @@
 =incrpintados     1      0
 =incrpintados     1      0
 
+== Destruir todos os valores
+=destruirvalor  0    0
+=destruirvalor  1    0
+
 == Criar valor 2
 =criarvalor 2
 
 ==Criar valor 9
 =criarvalor 9
-== Destruir todos os valores
-=destruirvalor  0    0
-=destruirvalor  1    0
+
+==Verificar se terá espaço alocado.
+
 // fim
