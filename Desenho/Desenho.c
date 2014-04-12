@@ -21,8 +21,8 @@
 #include   "Desenho.h"
 #include   "..\ListaGenerica\LISTA.h"
 #include   "..\Valor\VALOR.H"
-//#include   "Matriz.h"
-//#include   "Celula.h"
+//#include   "..\Matriz\matriz.h"
+//#include   "..\Celula\celula.h"
 
 
 
@@ -115,7 +115,7 @@
 		pDesenho->iDicas   = NUM_MAX_DICAS; 
 
 		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
-		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, NumLinhas, NumColunas );
+		CondRet = MAT_CriarMatriz( pDesenho->pMatrizJogo, NumLinhas, NumColunas );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
@@ -217,7 +217,7 @@
 		pDesenho->iDicas   = NUM_MAX_DICAS;
 
 		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
-		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, Linhas, Colunas );
+		CondRet = MAT_CriarMatriz( pDesenho->pMatrizJogo, Linhas, Colunas );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
@@ -274,7 +274,7 @@
 		pDesenho->iDicas   = Dicas;
 
 		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
-		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, Linhas, Colunas );
+		CondRet = MAT_CriarMatriz( pDesenho->pMatrizJogo, Linhas, Colunas );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
@@ -354,7 +354,10 @@
 		if( Coord_X > pDesenho->iLinhas || Coord_Y > pDesenho->iColunas )
 			return DES_CondRetCoordenadaInvalida;
 
-		Celula * pCelula = ( Celula * ) MAT_ObterElemento( Coord_X, Coord_Y );
+		Celula * pCelula;
+
+		MAT_ObterElemento( pDesenho->pMatrizJogo, pCelula, Coord_X, Coord_Y );
+
 		CEL_AlteraMarcacao( pCelula );
 
 		return DES_tpCondRet;
@@ -388,7 +391,8 @@
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
 			{
-				Celula * pCelula = ( Celula * ) MAT_ObterElemento( i, j );
+				Celula * pCelula;
+				MAT_ObterElemento( pDesenho->pMatrizJogo, pCelula, i, j );
 				//Se a celula é para ser pintada mas não está pintada
 				if( CEL_MarcacaoEsperada( pCelula ) && !CEL_MarcacaoAtual( pCelula ) )
 				{
@@ -473,7 +477,8 @@
 			for( j = 0; j < pDesenho->iColunas; i++ )
 			{
 				// Recupera o elemento dentro da matriz na posição i, j e imprime se ele está marcado ou não
-				Celula * pCelula = ( Celula * ) MAT_ObterElemento( pDesenho->pMatrizJogo, i, j );
+				Celula * pCelula;
+				MAT_ObterElemento( pDesenho->pMatrizJogo, pCelula, i, j );
 				fprintf( ArquivoDesenho, "%d %d ", CEL_MarcacaoEsperada( pCelula ), CEL_MarcacaoAtual( pCelula ) );
 			}
 
@@ -544,7 +549,8 @@
 			for( j = 0; j < pDesenho->iColunas; i++ )
 			{
 				// Recupera o elemento dentro da matriz na posição i, j e imprime se ele está marcado ou não
-				Celula * pCelula = ( Celula * ) MAT_ObterElemento( pDesenho->pMatrizJogo, i, j );
+				Celula * pCelula ;
+				MAT_ObterElemento( pDesenho->pMatrizJogo, pCelula, i, j );
 				fprintf( ArquivoDesenho, "%d ", CEL_MarcacaoEsperada( pCelula ) );
 			}
 
@@ -582,7 +588,8 @@
 			for( j = 0; j< pDesenho->iColunas; j++ )
 			{
 				// Recupera a célula correspondente àquela coordenada
-				Celula * pCelula = ( Celula * ) MAT_ObterElemento( i, j );
+				Celula * pCelula;
+				MAT_ObterElemento( pDesenho->pMatrizJogo, pCelula, i, j );
 
 				//Compara marcação atual com esperada, se forem diferentes o jogo não está terminado
 				if( CEL_MarcacaoEsperada( pCelula ) != CEL_MarcacaoAtual( pCelula ) )
@@ -629,7 +636,7 @@
 				// Se o resultado é impar, liga a célula. 50% de chance.
 				CEL_CriaCelula( pCelula, randomNumber, 0 );
 
-				MAT_InserirNovoElemento( pCelula, i, j );
+				MAT_AlterarValor(pDesenho->pMatrizJogo, pCelula, i, j );
 
 			}/* for */
 		}/* for */
@@ -665,7 +672,7 @@
 				// Cria célula com valor de marcação lido no arquivo e não marcado
 				CEL_CriaCelula( pCelula, Marcacao, 0 );
 
-				MAT_InserirNovoElemento( pCelula, i, j );
+				MAT_AlterarValor( pDesenho->pMatrizJogo, pCelula, i, j );
 
 			}/* for */
 		}/* for */
@@ -703,7 +710,7 @@
 
 				CEL_CriaCelula( pCelula, Marcacao, Marcado );
 
-				MAT_InserirNovoElemento( pCelula, i, j );
+				MAT_AlterarValor(pDesenho->pMatrizJogo, pCelula, i, j );
 
 			}/* for */
 		}/* for */
@@ -773,7 +780,8 @@
 			for( j = 0; j < NumColinas; j++ )
 			{
 				//Recupera a célula na posição (i,j)
-				Celula* pCelula = ( Celula * ) MAT_ObterElemento( i, j );
+				Celula* pCelula;
+				MAT_ObterElemento( pDesenho->pMatrizJogo, pCelula, i, j );
 				if( CEL_MarcacaoEsperada( pCelula ) )
 				{
 					//Célula de marcação esperada
@@ -823,7 +831,8 @@
 			for( i = 0; i < NumLinhas; j++ )
 			{
 				//Recupera a célula na posição (i,j)
-				Celula* pCelula = ( Celula * ) MAT_ObterElemento( i, j );
+				Celula* pCelula;
+				MAT_ObterElemento( pDesenho->pMatrizJogo, pCelula, i, j );
 				if( CEL_MarcacaoEsperada( pCelula ) )
 				{
 					//Célula de marcação esperada

@@ -301,6 +301,36 @@
 
 /***********************************************************************
 *
+*  $FC Função: DES Grava Jogo Atual
+*
+*  $ED Descrição da função
+*     Salva em arquivo a matriz preenchida pelo usuário até o momento no
+*     modo jogo.
+*     Pode ser retomado o mesmo jogo a partir deste arquivo.
+*
+*  $FV Valor retornado
+*     DES_CondRetOK
+*     DES_CondRetDesenhoNaoIniciado
+*     DES_CondRetFaltouMemoria
+*
+*  $AE Assertivas de Entrada
+*     - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
+*
+*  $AS Assertivas de Saída
+*     - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
+*     - Um arquivo com o nome NOME_JOGO_SALVO deve ser gerado na pasta
+*      de jogo.
+*
+***********************************************************************/
+
+
+   DES_tpCondRet DES_GravaJogoAtual( void );
+
+
+/***********************************************************************
+*
 *  $FC Função: DES Grava Matriz Projetada
 *
 *  $ED Descrição da função

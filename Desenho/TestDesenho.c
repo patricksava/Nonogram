@@ -23,6 +23,17 @@
 *
 *     =iniciardesenho <int linhas> <int colunas> 
 *                   - chama a função DES_IniciaDesenho( int, int )
+*
+      "=iniciardesenhovazio" 
+                    - chama a função DES_IniciaDesenhoVazio( int, int )
+
+      "=iniciardesenhoprojeto"
+                    - chama a função DES_IniciaDesenhoProjetado( char* )
+
+      "=iniciardesenhoultimojogo"
+                    - chama a função DES_RetomaUltimoJogoSalvo( )
+
+*     =destroidesenho - chama a função DES_DestroiDesenho( )
 *                    
 *     =alterarmarcacao <int x> <int y>  (x,y) é uma coordenada no tabuleiro
 *                   - chama a função DES_AlteraMarcacaoCoordenada( int, int );
@@ -31,7 +42,11 @@
 *
 *     =imprimirjogo - chama a função DES_ImprimeMatrizJogo( )  
 *
-*     =destroidesenho - chama a função DES_DestroiDesenho( )
+*     "=gravarjogo" - chama a função DES_GravaJogoAtual( )
+*
+*     "=gravarprojeto" - chama a função DES_GravaMatrizProjetada( char* )
+*
+*     "=jogofinalizado" - chama a função DES_JogoFinalizado( )
 *
 ***************************************************************************/
 
@@ -51,10 +66,13 @@
 #define     INI_DES_VAZIO_CMD     "=iniciardesenhovazio"
 #define     INI_DES_PROJ_CMD      "=iniciardesenhoprojeto"
 #define     INI_DES_ULT_JOGO_CMD  "=iniciardesenhoultimojogo"
+#define     DESTROI_DES_CMD       "=destroidesenho"
 #define     ALT_MARC_CMD          "=alterarmarcacao"
 #define     ATIV_DICA_CMD         "=ativardica"
 #define     IMPRIME_JOGO_CMD      "=imprimirjogo"
-#define     DESTROI_DES_CMD       "=destroidesenho"
+#define     GRAVA_JOGO_CMD        "=gravarjogo"
+#define     GRAVA_MAT_PROJ_CMD    "=gravarprojeto"
+#define     JOGO_FINAL_CMD        "=jogofinalizado"
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -96,7 +114,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = DES_IniciaDesenho( ) ;
+            CondRetObtido = DES_IniciaDesenho( linhas, colunas ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao criar desenho." );
@@ -116,7 +134,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = DES_IniciaDesenhoVazio( ) ;
+            CondRetObtido = DES_IniciaDesenhoVazio( linhas, colunas ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao criar desenho vazio." );
@@ -128,18 +146,23 @@
          else if ( strcmp( ComandoTeste , INI_DES_PROJ_CMD ) == 0 )
          {
             char NomeJogo[41];
+            FILE* ArquivoJogo;
 
             NumLidos = LER_LerParametros( "is" ,
-                               &CondRetEsperada, NomeJogo) ;
-            if ( NumLidos != 3 )
+                               &CondRetEsperada, NomeJogo ) ;
+            if ( NumLidos != 2 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = DES_IniciaDesenhoProjetado( NomeJogo ) ;
+            ArquivoJogo = fopen( NomeJogo, "r" );
+            if( ArquivoJogo == NULL )
+               return TST_CondRetParm;
+
+            CondRetObtido = DES_IniciaDesenhoProjetado( ArquivoJogo ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao criar desenho vazio." );
+                                    "Retorno errado ao criar desenho projetado." );
 
          } /* fim ativa: Testar DES Iniciar desenho projetado */
 
@@ -147,11 +170,9 @@
 
          else if ( strcmp( ComandoTeste , INI_DES_ULT_JOGO_CMD ) == 0 )
          {
-            int linhas, colunas;
 
-            NumLidos = LER_LerParametros( "iii" ,
-                               &CondRetEsperada, &linhas, &colunas) ;
-            if ( NumLidos != 3 )
+            NumLidos = LER_LerParametros( "i" , &CondRetEsperada) ;
+            if ( NumLidos != 1 )
             {
                return TST_CondRetParm ;
             } /* if */
@@ -159,9 +180,28 @@
             CondRetObtido = DES_RetomaUltimoJogoSalvo( ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao criar desenho vazio." );
+                                    "Retorno errado ao retomar ultimo jogo salvo." );
 
          } /* fim ativa: Testar DES Iniciar desenho último jogo salvo */
+
+
+      /* Testar DES Destroi desenho */
+
+         else if ( strcmp( ComandoTeste , DESTROI_DES_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "i" , &CondRetEsperada ) ;
+            if ( NumLidos != 1 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = DES_DestroiDesenho( ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao destruir desenho." );
+
+         } /* fim ativa: Testar DES Destroi desenho */
 
       /* Testar DES Alterar Marcação Coordenada */
 
@@ -219,9 +259,9 @@
 
          } /* fim ativa: Testar DES Imprime Matriz de Jogo */
 
-      /* Testar DES Destroi desenho */
+      /* Testar DES Grava Jogo Atual */
 
-         else if ( strcmp( ComandoTeste , DESTROI_DES_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , GRAVA_JOGO_CMD ) == 0 )
          {
 
             NumLidos = LER_LerParametros( "i" , &CondRetEsperada ) ;
@@ -230,13 +270,50 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = DES_DestroiDesenho( ) ;
+            CondRetObtido = DES_GravaJogoAtual( ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao destruir desenho." );
+                                    "Retorno errado ao gravar jogo atual." );
 
-         } /* fim ativa: Testar DES Destroi desenho */
+         } /* fim ativa: Testar DES Grava Jogo Atual */
 
+      /* Testar DES Grava Projeto Matriz */
+
+         else if ( strcmp( ComandoTeste , GRAVA_MAT_PROJ_CMD ) == 0 )
+         {
+            char NomeJogo[41];
+
+            NumLidos = LER_LerParametros( "is" , &CondRetEsperada, NomeJogo ) ;
+            if ( NumLidos != 2 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = DES_GravaMatrizProjetada( NomeJogo ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao gravar projeto." );
+
+         } /* fim ativa: Testar DES Grava Projeto Matriz */
+
+      /* Testar DES Jogo Finalizado */
+
+         else if ( strcmp( ComandoTeste , JOGO_FINAL_CMD ) == 0 )
+         {
+            int FinalEsperado, FinalRecebido;
+
+            NumLidos = LER_LerParametros( "i" , &FinalEsperado) ;
+            if ( NumLidos != 1 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            FinalRecebido = DES_JogoFinalizado( ) ;
+
+            return TST_CompararInt( FinalEsperado , FinalRecebido ,
+                                    "Retorno errado ao verificar se o jogo terminou." );
+
+         } /* fim ativa: Testar DES Jogo Finalizado */
       
 
       return TST_CondRetNaoConhec ;
