@@ -1,0 +1,44 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: C:\Users\Maria Beatriz\Documents\PUC\Modular\VALOR\Debug\VALOR.exe
+
+      Arquivo de teste:    TesteValor.script
+
+
+!!!    0  Linha:     1  // Script:    TesteValor.script 
+!!!    0  Linha:     2  // Autor:     Maria Beatriz Ribeiro Vaz 
+!!!    0  Linha:     3  // Data:      11/abr/2014 
+!!!    0  Linha:     4  // Propósito: Testar superficialmente o módulo Valor 
+!!!    0  Linha:     5  // 
+    8  == Criar o Valor 0
+   11  == Verificar ObterMarcados relativo a valor vazio
+   14  == Verificar ObterPintados relativo a valor vazio
+   17  == Alterar quantidade de marcados
+   20  == Incrementar quantidade de pintados 2 vezes
+   24  == Verificar ObterPintados
+   27  == Decrementar quantidade de pintados
+   30  == Verificar ObterPintados
+   33  == Esvaziar o valor
+   36  == Verificar ObterMarcados relativo a valor vazio
+   39  == Verificar ObterPintados relativo a valor vazio
+   42  == Verificar se terá erro
+   45  == Criar Valor 1
+   48  == Incrementar quantidade de pintados 2 vezes
+   52  == Criar valor 2
+   55  ==Criar valor 9
+   57  == Destruir todos os valores
+!!!    0  Linha:    60  // fim 
+
+!!! Número de linhas lidas:          60
+!!! Número de casos de teste:        17
+!!! Número comandos corretos:        20
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0
