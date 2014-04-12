@@ -10,7 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*
+*	   2.00   mbv   11/abr/2014 Término do desenvolvimento
 *      1.00   mbv   10/abr/2014 Início do desenvolvimento
 *
 *************************************************************************/
@@ -56,7 +56,7 @@ TpValor * VAL_CriarValor ( void )
 {
 	TpValor * Valor;
 
-	Valor = ( TpValor * ) malloc ( sizeof (TpValor ));
+	Valor = ( TpValor * ) malloc ( sizeof ( TpValor ));
 
 	if ( Valor == NULL )
 	{
@@ -134,16 +134,16 @@ VAL_tpCondRet VAL_DecrementarQntdPintados ( TpValor * Valor )
 
 * Função: VAL Obtêm a quantidade de marcados.
 ***/
-VAL_tpCondRet VAL_ObterMarcados ( TpValor * Valor , int * Marcados )
+int VAL_ObterMarcados ( TpValor * Valor )
 {
 			
 	if ( Valor == NULL )
 	{
-		return VAL_CondRetValorInexistente;
+		return NULL;
 	} /* if */
 	
-	* Marcados = Valor->QntdMarcados;
-	return VAL_CondRetOk;
+	return Valor->QntdMarcados;
+
 }
 
  /* Fim função: VAL Obtem a quantidade de marcados.*/
@@ -152,16 +152,16 @@ VAL_tpCondRet VAL_ObterMarcados ( TpValor * Valor , int * Marcados )
 
 * Função: VAL obtem quantidade de pintados.
 ***/
-VAL_tpCondRet VAL_ObterPintados ( TpValor * Valor , int * Pintados )
+int VAL_ObterPintados ( TpValor * Valor )
 {
 			
 	if ( Valor == NULL )
 	{
-		return VAL_CondRetValorInexistente;
+		return NULL;
 	} /* if */
 	
-	* Pintados = Valor->QntdPintados;
-	return VAL_CondRetOk;
+	return Valor->QntdPintados;
+
 }
 
  /* Fim função: VAL obtem quantidade de pintados. */
@@ -184,12 +184,14 @@ VAL_tpCondRet VAL_RessetarValor ( TpValor * Valor )
 	return VAL_CondRetOk;
 }
 
+
  /* Fim função: VAL Resseta tipo de dados. */
 
 /***************************************************************************
 
 *  Função: VAL Destrói tipo de dados.
 ***/
+
 VAL_tpCondRet VAL_DestruirValor ( TpValor * Valor )
 {
 			

@@ -48,6 +48,9 @@
 /* Tabela dos nomes dos comandos de teste específicos */
 
 #define     INICIAR_DES_CMD       "=iniciardesenho"
+#define     INI_DES_VAZIO_CMD     "=iniciardesenhovazio"
+#define     INI_DES_PROJ_CMD      "=iniciardesenhoprojeto"
+#define     INI_DES_ULT_JOGO_CMD  "=iniciardesenhoultimojogo"
 #define     ALT_MARC_CMD          "=alterarmarcacao"
 #define     ATIV_DICA_CMD         "=ativardica"
 #define     IMPRIME_JOGO_CMD      "=imprimirjogo"
@@ -99,6 +102,66 @@
                                     "Retorno errado ao criar desenho." );
 
          } /* fim ativa: Testar DES Iniciar desenho aleatório */
+
+      /* Testar DES Inicia desenho */
+
+         else if ( strcmp( ComandoTeste , INI_DES_VAZIO_CMD ) == 0 )
+         {
+            int linhas, colunas;
+
+            NumLidos = LER_LerParametros( "iii" ,
+                               &CondRetEsperada, &linhas, &colunas) ;
+            if ( NumLidos != 3 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = DES_IniciaDesenhoVazio( ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao criar desenho vazio." );
+
+         } /* fim ativa: Testar DES Iniciar desenho vazio */
+
+      /* Testar DES Inicia desenho projetado */
+
+         else if ( strcmp( ComandoTeste , INI_DES_PROJ_CMD ) == 0 )
+         {
+            char NomeJogo[41];
+
+            NumLidos = LER_LerParametros( "is" ,
+                               &CondRetEsperada, NomeJogo) ;
+            if ( NumLidos != 3 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = DES_IniciaDesenhoProjetado( NomeJogo ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao criar desenho vazio." );
+
+         } /* fim ativa: Testar DES Iniciar desenho projetado */
+
+      /* Testar DES Inicia desenho último jogo salvo */
+
+         else if ( strcmp( ComandoTeste , INI_DES_ULT_JOGO_CMD ) == 0 )
+         {
+            int linhas, colunas;
+
+            NumLidos = LER_LerParametros( "iii" ,
+                               &CondRetEsperada, &linhas, &colunas) ;
+            if ( NumLidos != 3 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = DES_RetomaUltimoJogoSalvo( ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao criar desenho vazio." );
+
+         } /* fim ativa: Testar DES Iniciar desenho último jogo salvo */
 
       /* Testar DES Alterar Marcação Coordenada */
 

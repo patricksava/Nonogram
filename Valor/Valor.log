@@ -1,0 +1,50 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: C:\Users\Maria Beatriz\Documents\PUC\Modular\VALOR\Debug\VALOR.exe
+
+      Arquivo de teste:    TesteValor.script
+
+
+!!!    0  Linha:     1  // Script:    TesteValor.script 
+!!!    0  Linha:     2  // Autor:     Maria Beatriz Ribeiro Vaz 
+!!!    0  Linha:     3  // Data:      11/abr/2014 
+!!!    0  Linha:     4  // Propósito: Testar superficialmente o módulo Valor 
+!!!    0  Linha:     5  // 
+    8  == Criar o Valor 0
+   11  == Verificar ObterMarcados relativo a valor vazio
+   14  == Verificar ObterPintados relativo a valor vazio
+   17  == Alterar quantidade de marcados
+   20  == Incrementar quantidade de pintados 2 vezes
+   24  == Verificar ObterPintados
+   27  == Decrementar quantidade de pintados
+   30  == Verificar ObterPintados
+   33  == Esvaziar o valor
+   36  == Verificar ObterMarcados relativo a valor vazio
+   39  == Verificar ObterPintados relativo a valor vazio
+   42  == Verificar se terá erro
+>>>    1  Linha:    43  Condicao de retorno errada ao obter valor pintados Deveria ser: 1  É: 0
+<<<    0  Linha:    44  Falha esperada foi recuperada. 
+   46  == Verificar se terá erro
+>>>    1  Linha:    47  Erro nos parâmetros do comando:  =obterpintados  3  1
+<<<    0  Linha:    48  Falha esperada foi recuperada. 
+   50  == Criar Valor 1
+   53  == Incrementar quantidade de pintados 2 vezes
+   57  == Destruir todos os valores
+   61  == Criar valor 2
+   64  ==Criar valor 9
+   67  ==Verificar se terá espaço alocado.
+!!!    0  Linha:    69  // fim 
+
+!!! Número de linhas lidas:          69
+!!! Número de casos de teste:        19
+!!! Número comandos corretos:        19
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0
