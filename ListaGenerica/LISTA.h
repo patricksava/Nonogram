@@ -55,22 +55,19 @@
          LST_CondRetListaInexistente= 1 ,
                /* Lista não existe. */
 
-		 LST_CondRetCriouLista = 2 ,
-               /* Criou uma nova lista.  */
-
-		 LST_CondRetInfoNaoEncontrada = 3 ,
+		 LST_CondRetInfoNaoEncontrada = 2 ,
                /* Informação recebida não encontrada na lista.  */
 
-		LST_CondRetListaVazia = 4 ,
+		LST_CondRetListaVazia = 3 ,
 			   /* Lista não possui elementos. */
 
-		LST_CondRetFimLista = 5 ,
+		LST_CondRetFimLista = 4 ,
 			   /* Próximo ponteiro é NULL. */
 
-         LST_CondRetFaltouMemoria = 6 ,
+         LST_CondRetFaltouMemoria = 5 ,
                /* Faltou memória ao alocar dados */
 
-		LST_CondRetNoNaoPossuiInfo = 7 ,
+		LST_CondRetNoNaoPossuiInfo = 6 ,
 
    } LST_tpCondRet ;
 /***********************************************************************
@@ -79,8 +76,6 @@
 *	Especifica a estrutura de dados utilizada no módulo.
 *
 ***********************************************************************/
-
-   typedef struct tpNoLista TpNoLista;
    
    typedef struct tpLista TpLista;
 
@@ -136,7 +131,7 @@
 *  $FC Função: LST Adicionar novo nó no inicio da lista duplamente encadeada.
 *
 *  $ED Descrição da função
-*     Insere um elemento no ínicio da lista e caso não exista, cria lista.
+*     Insere um elemento no ínicio da lista .
 *
 *  $EP Parâmetros
 *     pLista - lista que deseja realizar a busca e a 
@@ -145,7 +140,7 @@
 *  $FV Valor retornado
 *     LST_CondRetOK
 *     LST_CondRetFaltouMemoria
-*	  LST_CondRetCriouLista
+*	  LST_CondRetListaInexistente
 *
 ***********************************************************************/
 
@@ -157,7 +152,7 @@
 *  $FC Função: LST Adicionar novo nó no fim da lista duplamente encadeada.
 *
 *  $ED Descrição da função
-*     Insere elemento no final da lista, e caso não exista, cria lista.
+*     Insere elemento no final da lista.
 *
 *  $EP Parâmetros
 *     pLista - lista que deseja realizar a busca e a 
@@ -166,7 +161,7 @@
 *  $FV Valor retornado
 *     LST_CondRetOK
 *     LST_CondRetFaltouMemoria
-*	  LST_CondRetCriouLista
+*	  LST_CondRetListaInexistente
 *
 ***********************************************************************/
 

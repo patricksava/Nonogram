@@ -16,7 +16,7 @@
 *************************************************************************
 * ***/
 
-#include   <malloc.h>
+#include   <stdlib.h>
 #include   <stdio.h>
 
 #include "LISTA.h"
@@ -48,6 +48,9 @@ struct tpNoLista {
                /* Ponteiro para o próximo elemento. */
 
    } ;
+
+
+   typedef struct tpNoLista TpNoLista;
 
 /***********************************************************************
 *
@@ -167,40 +170,18 @@ struct tpNoLista {
 
    LST_tpCondRet LST_InserirNovoNoInicio( TpLista * pLista , void * informacao )
    {
-	  TpNoLista * pElem;
-     /* Criar o elemento a ser inserido. */
-	  TpNoLista * NovoNo;
-	  
-	  NovoNo=( TpNoLista * )malloc( sizeof( TpNoLista )) ;
-	  if ( NovoNo== NULL )
-      {
-         return LST_CondRetFaltouMemoria ;
-      } /* if */
-	  
-	  if ( pLista->pNoCorrente == NULL )
-	  {
-		  NovoNo->pProx=NULL;
-		  NovoNo->pAnt=NULL;
-		  NovoNo->pValor=informacao;
+	 LST_tpCondRet CondRet;
 
-		  pLista->pOrigemLista=NovoNo;
-		  pLista->pFimLista=NovoNo;
-		  pLista->pNoCorrente=NovoNo;
-		  pLista->numElementos=1;
+	 if ( pLista->pNoCorrente != NULL )
+	 {
+		 CondRet = LST_IrInicio ( pLista );
+	 } /* if */
 
-		  return LST_CondRetCriouLista;
-	  } /* if */
+	 return LST_InserirNoAntes ( pLista, informacao );
+   }
 
-	  pElem=pLista->pOrigemLista;
-	  pLista->pOrigemLista=NovoNo;
-	  NovoNo->pProx=pElem;
-	  pElem->pAnt=NovoNo;
 
-	  pLista->numElementos++;
-
-	  return LST_CondRetOK ;
-
-   } /* Fim função: LST Adicionar novo nó no inicio da lista duplamente encadeada*/
+  /* Fim função: LST Adicionar novo nó no inicio da lista duplamente encadeada*/
 
    
 /***********************************************************************************
@@ -209,51 +190,29 @@ struct tpNoLista {
 *  ****/
 
    LST_tpCondRet LST_InserirNovoNoFim( TpLista * pLista , void * informacao )
-   {
+     {
 
-      TpNoLista * pElem;
-     /* Criar o elemento a ser inserido. */
-	  TpNoLista * NovoNo;
-	  
-	  NovoNo=( TpNoLista * )malloc( sizeof( TpNoLista )) ;
-	  if ( NovoNo== NULL )
-      {
-         return LST_CondRetFaltouMemoria ;
-      } /* if */
-	  
-	  if ( pLista->pNoCorrente == NULL )
-	  {
-		  NovoNo->pProx=NULL;
-		  NovoNo->pAnt=NULL;
-		  NovoNo->pValor=informacao;
+	 LST_tpCondRet CondRet;
 
-		  pLista->pOrigemLista=NovoNo;
-		  pLista->pFimLista=NovoNo;
-		  pLista->pNoCorrente=NovoNo;
-		  pLista->numElementos=1;
+	 if ( pLista->pNoCorrente != NULL )
+	 {
+		 CondRet = LST_IrFim ( pLista );
+	 } /* if */
 
-		  return LST_CondRetCriouLista;
-	  } /* if */
+	 return LST_InserirNoApos ( pLista, informacao );
+   }
+ 
 
-	  
-	  
-	  pElem=pLista->pFimLista;
-	  pLista->pFimLista=NovoNo;
-	  NovoNo->pAnt=pElem;
-	  pElem->pProx=NovoNo;
 
-	  pLista->numElementos++;
 
-	  return LST_CondRetOK ;
-
-   } /* Fim função: LST Adicionar novo nó no fim da lista duplamente encadeada. */
+   /* Fim função: LST Adicionar novo nó no fim da lista duplamente encadeada. */
 
 /***************************************************************************
 *
 *  Função: LST Inserir elemento antes do nó corrente.
 *  ****/
 
-   LST_tpCondRet LIS_InserirNoAntes( TpLista * pLista , void * informacao )
+   LST_tpCondRet LST_InserirNoAntes( TpLista * pLista , void * informacao )
    {
 
       TpNoLista * pElem ;
@@ -379,8 +338,8 @@ struct tpNoLista {
 
          if ( pElem->pAnt != NULL )
          {
-            pElem->pAnt->pProx   = pElem->pProx ;
-            pLista->pNoCorrente    = pElem->pAnt ;
+            pElem->pAnt->pProx  = pElem->pProx ;
+            pLista->pNoCorrente = pElem->pAnt ;
          } else {
             pLista->pNoCorrente    = pElem->pProx ;
             pLista->pOrigemLista = pLista->pNoCorrente ;
@@ -457,40 +416,6 @@ struct tpNoLista {
 
 /**********************************************************************************
 *
-*  Função: LST Busca informação.
-*  ****/
-
-	LST_tpCondRet LST_Busca( TpLista * pLista , void * informacao )
-	{
-
-      TpNoLista * pElem ;
-
-	  if ( pLista == NULL)
-	  {
-		  return LST_CondRetListaInexistente;
-	  } /* if */
-
-      if ( pLista->pNoCorrente == NULL )
-      {
-         return LST_CondRetListaVazia ;
-      } /* if */
-
-	  for ( pElem  = pLista->pNoCorrente ; pElem != NULL ; pElem = pElem->pProx ) 
-	  {
-         if ( pElem->pValor == informacao )
-         {
-            pLista->pNoCorrente = pElem ;
-            return LST_CondRetOK ;
-         } /* if */
-      } /* for */
-
-      return LST_CondRetInfoNaoEncontrada ;
-	}
-
- /* Fim função: LST Busca informação.    */
-
-/**********************************************************************************
-*
 *  Função: LST Ir para o inicio da lista duplamente encadeada.
 *  ****/
 
@@ -507,6 +432,25 @@ struct tpNoLista {
 	}
 	
  /* Fim função: LST Ir para o inicio da lista duplamente encadeada.    */
+
+/**********************************************************************************
+*
+*  Função: LST Ir para o fim da lista duplamente encadeada.
+*  ****/
+
+	LST_tpCondRet LST_IrFim( TpLista * pLista )
+	{
+		if ( pLista == NULL )
+		{
+			return LST_CondRetListaInexistente;
+		} /* if */
+
+		pLista->pNoCorrente = pLista->pFimLista;
+
+		return LST_CondRetOK;
+	}
+	
+ /* Fim função: LST Ir para o fim da lista duplamente encadeada.    */
 
 
 /***************************************************************************
@@ -594,6 +538,45 @@ struct tpNoLista {
          return LST_CondRetOK ;
 
    } /* Fim função: LST Avançar elemento */
+
+   /**********************************************************************************
+*
+*  Função: LST Busca informação.
+*  ****/
+
+	LST_tpCondRet LST_Busca( TpLista * pLista , void * informacao )
+	{
+
+      LST_tpCondRet CondRet = LST_CondRetOK ;
+
+	  if ( pLista == NULL)
+	  {
+		  return LST_CondRetListaInexistente;
+	  } /* if */
+
+      if ( pLista->pNoCorrente == NULL )
+      {
+         return LST_CondRetListaVazia ;
+      } /* if */
+
+	  pLista->pNoCorrente = pLista->pOrigemLista;
+
+	  while ( CondRet != LST_CondRetOK  )
+	  {
+		  if ( pLista->pNoCorrente->pValor == informacao )
+         {
+            return LST_CondRetOK ;
+         } /* if */
+
+		 CondRet = LST_Avancar ( pLista, 1 ) ;
+
+      } /* While */
+
+      return LST_CondRetInfoNaoEncontrada ;
+	}
+
+ /* Fim função: LST Busca informação.    */
+
 
 /***************************************************************************
 	

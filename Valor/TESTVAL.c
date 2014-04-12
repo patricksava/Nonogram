@@ -26,6 +26,7 @@
 
 #include    "VALOR.h"
 
+/* Tabela dos nomes dos comandos de teste específicos */
 
 static const char RESET_VAL_CMD           [ ] = "=resetteste"     ;
 static const char CRIAR_VAL_CMD           [ ] = "=criarvalor"     ;

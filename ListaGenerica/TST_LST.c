@@ -21,7 +21,7 @@
 
 #include    <string.h>
 #include    <stdio.h>
-#include    <malloc.h>
+#include    <stdlib.h>
 
 #include    "TST_ESPC.H"
 
@@ -79,9 +79,9 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 *
 *     =resetteste
 *           - anula o vetor de listas. Provoca vazamento de memória
-*     =criarlista                   inxLista
-*     =esvaziarlista                inxLista
-*     =destruirlista                inxLista  CondRetEsp
+*     =criar                        inxLista
+*     =esvaziar                     inxLista
+*     =destruir                     inxLista  CondRetEsp
 *     =insinicio                    inxLista  string          CondRetEsp
 *     =insfim                       inxLista  string          CondRetEsp
 *     =insantes                     inxLista  string          CondRetEsp
@@ -469,9 +469,9 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
          else if ( strcmp( ComandoTeste , IR_INICIO_CMD ) == 0 )
          {
 
-            numLidos = LER_LerParametros( "i" , &inxLista ) ;
+            numLidos = LER_LerParametros( "ii" , &inxLista, &CondRetEsp ) ;
 
-            if ( ( numLidos != 1 )
+            if ( ( numLidos != 2 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
@@ -491,9 +491,9 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
          else if ( strcmp( ComandoTeste , IR_FIM_CMD ) == 0 )
          {
 
-            numLidos = LER_LerParametros( "i" , &inxLista ) ;
+            numLidos = LER_LerParametros( "ii" , &inxLista, &CondRetEsp ) ;
 
-            if ( ( numLidos != 1 )
+            if ( ( numLidos != 2 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;

@@ -1,0 +1,83 @@
+// Script:    TesteListaGenerica.script
+// Autor:     Maria Beatriz Ribeiro Vaz
+// Data:      12/abr/2014
+// Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada
+//
+
+== Caso 1: Criar Lista 0 com elementos de a até e
+=criar     0 
+
+== Inserir Inicio Lista 0 "b"
+=insinicio   0    "b"    0
+
+== Inserir Após Lista 0 "c"
+=insapos     0     "c"    0
+
+==  Inserir Inicio Lista 0 "a"
+=insinicio   0    "a"   0
+
+== Inserir final Lista 0 "d"
+=insfim   0  "d"   0
+
+== Inserir final Lista 0  "e" 
+=insfim    0   "e"   0
+
+== Ir inicio e obter "a"
+=irinicio   0   0
+=obter   0   "a"   1
+
+== Ir fim e obter "e"
+=irfim   0   0
+=obter   0   "e"   1
+
+== Ir inicio novamente
+=irinicio   0   0
+
+== Avancar e obter
+=avancar   0   1   0
+=obter   0  "b"   1
+
+== Avancar e obter
+=avancar   0   1   0
+=obter   0  "c"   1
+
+== Avancar e obter
+=avancar   0   1   0
+=obter   0  "d"   1
+
+== Avancar e obter
+=avancar   0   1   0
+=obter   0  "e"   1
+
+== Avancar e obter
+=avancar   0   1   0
+=recuperar
+
+== Avancar para tras e obter
+=avancar  0  -4   0
+=obter  0  "a"  1
+
+== Liberar no corrente
+=liberarcorrente  0   0
+
+== Ir inicio e obter
+=irinicio  0   0
+=obter   0  "b"  1
+
+== Destruir lista
+=destruir   0   0
+
+== Ir inicio lista 0 e recuperar
+=irinicio  0    0
+=recuperar
+
+
+
+== Criar Lista 3 de "a" até "c"
+=criar     3   
+=insinicio 3   "a"   0
+=insapos   3   "b"   0
+=insapos   3   "b"   0
+
+== Buscar elemento a na lista 3
+=buscar    3   "a"   0
