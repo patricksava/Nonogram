@@ -19,9 +19,9 @@
 #include   <time.h>
 
 #include   "Desenho.h"
-#include   "../ListaGenerica/LISTA.h"
-#include   "../Valor/VALOR.H"
-//#include   "MatrizGenerica.h"
+#include   "..\ListaGenerica\LISTA.h"
+#include   "..\Valor\VALOR.H"
+//#include   "Matriz.h"
 //#include   "Celula.h"
 
 
@@ -38,8 +38,8 @@
 
 	typedef struct desenho{
 
-		tpMatrizGen * pMatrizJogo;
-			/* Ponteiro para matriz de células */
+		int iDicas;
+			/* Número de dicas que cada usuário possui por jogo */
 
 		int iLinhas;
 			/* Número de linhas da matriz */
@@ -51,16 +51,16 @@
 			/* Vetor de Listas de Valores verticais */
 
 		TpLista ** pListasHorizontais;
-			/* Vetor de Listas de Valores verticais */
+			/* Vetor de Listas de Valores horizontais */
 
-		int iDicas;
-			/* Número de dicas que cada usuário possui por jogo */
+		TpMatriz * pMatrizJogo;
+			/* Ponteiro para matriz de células */
 
-	} tpDesenho ;
+	} TpDesenho ;
 
 /*****  Dados encapsulados no módulo  *****/
 
-    static tpDesenho * pDesenho = NULL ;
+    static TpDesenho * pDesenho = NULL ;
         /* Ponteiro para o desenho */
 
 /***** Protótipos das funçães encapuladas no módulo *****/
@@ -68,6 +68,10 @@
 	static void PreencheAleatorioMatriz ( void );
 
 	static void PreencheMatrizProjetada ( FILE * ArquivoDesenho );
+
+	static void PreencheMatrizUltimoJogo ( void );
+
+	static DES_tpCondRet InicializaListas ( void );
 
 	static DES_tpCondRet InicializaListasHorizontais ( void );
 
@@ -100,7 +104,7 @@
 			return DES_CondRetTamanhoInvalido;
 
 		//Aloca a estrutura desenho
-		pDesenho = ( tpDesenho* ) malloc( sizeof( tpDesenho ) );
+		pDesenho = ( TpDesenho* ) malloc( sizeof( TpDesenho ) );
 
 		//Falhou a alocação de memória
 		if( pDesenho == NULL )
@@ -118,23 +122,7 @@
 		//Gera o esquema de forma aleatória
 		PreencheAleatorioMatriz( );
 
-		//Aloca o vetor que vai guardar as cabeças de listas horizontais
-		pDesenho->pListasHorizontais = ( TpLista ** ) malloc( NumLinhas * sizeof( TpLista* ) );
-		if(pDesenho->pListasHorizontais == NULL)
-			return DES_CondRetFaltouMemoria;
-
-		//Aloca o vetor que vai guardar as cabeças de listas verticais
-		pDesenho->pListasVerticais   = ( TpLista ** ) malloc( NumColunas * sizeof( TpLista* ) );
-		if( pDesenho->pListasVerticais == NULL )
-			return DES_CondRetFaltouMemoria;
-
-		// Inicialização das Listas e valores de linha
-		CondRet = InicializaListasHorizontais( );
-		if(CondRet != DES_CondRetOk)
-			return CondRet;
-
-		// Inicialização das Listas e valores de coluna
-		CondRet = InicializaListasVerticais( );
+		CondRet = InicializaListas( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
@@ -165,7 +153,7 @@
 			return DES_CondRetTamanhoInvalido;
 
 		//Aloca a estrutura desenho
-		pDesenho = ( tpDesenho* ) malloc( sizeof( tpDesenho ) );
+		pDesenho = ( TpDesenho* ) malloc( sizeof( TpDesenho ) );
 
 		//Falhou a alocação de memória
 		if( pDesenho == NULL )
@@ -175,27 +163,11 @@
 		pDesenho->iColunas = NumColunas;
 		pDesenho->iDicas   = 0;
 
-		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, NumLinhas, NumColunas );
+		CondRet = MAT_CriarMatriz( pDesenho->pMatrizJogo, NumLinhas, NumColunas );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
-		//Aloca o vetor que vai guardar as cabeças de listas horizontais
-		pDesenho->pListasHorizontais = ( TpLista ** ) malloc( NumLinhas * sizeof( TpLista* ) );
-		if(pDesenho->pListasHorizontais == NULL)
-			return DES_CondRetFaltouMemoria;
-
-		//Aloca o vetor que vai guardar as cabeças de listas verticais
-		pDesenho->pListasVerticais   = ( TpLista ** ) malloc( NumColunas * sizeof( TpLista* ) );
-		if( pDesenho->pListasVerticais == NULL )
-			return DES_CondRetFaltouMemoria;
-
-		// Inicialização das Listas e valores de linha
-		CondRet = InicializaListasHorizontais( );
-		if(CondRet != DES_CondRetOk)
-			return CondRet;
-
-		// Inicialização das Listas e valores de coluna
-		CondRet = InicializaListasVerticais( );
+		CondRet = InicializaListas( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
@@ -234,41 +206,82 @@
 			return DES_CondRetTamanhoInvalido;
 
 		//Aloca a estrutura desenho
-		pDesenho = ( tpDesenho* ) malloc( sizeof( tpDesenho ) );
+		pDesenho = ( TpDesenho* ) malloc( sizeof( TpDesenho ) );
 
 		//Falhou a alocação de memória
 		if( pDesenho == NULL )
 			return DES_CondRetFaltouMemoria;
 
-		pDesenho->iLinhas  = NumLinhas;
-		pDesenho->iColunas = NumColunas;
+		pDesenho->iLinhas  = Linhas;
+		pDesenho->iColunas = Colunas;
 		pDesenho->iDicas   = NUM_MAX_DICAS;
 
 		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
-		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, NumLinhas, NumColunas );
+		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, Linhas, Colunas );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
 		//Gera o esquema de forma aleatória
 		PreencheMatrizProjetada( ArquivoDesenho );
 
-		//Aloca o vetor que vai guardar as cabeças de listas horizontais
-		pDesenho->pListasHorizontais = ( TpLista ** ) malloc( NumLinhas * sizeof( TpLista* ) );
-		if(pDesenho->pListasHorizontais == NULL)
-			return DES_CondRetFaltouMemoria;
-
-		//Aloca o vetor que vai guardar as cabeças de listas verticais
-		pDesenho->pListasVerticais   = ( TpLista ** ) malloc( NumColunas * sizeof( TpLista* ) );
-		if( pDesenho->pListasVerticais == NULL )
-			return DES_CondRetFaltouMemoria;
-
-		// Inicialização das Listas e valores de linha
-		CondRet = InicializaListasHorizontais( );
+		CondRet = InicializaListas( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
-		// Inicialização das Listas e valores de coluna
-		CondRet = InicializaListasVerticais( );
+		return DES_CondRetOk;
+	}
+
+
+/***************************************************************************
+*
+*  Função: DES Retoma Ultimo Jogo Salvo
+*
+*  Busca se existe um jogo salvo e monta a matriz de jogo baseado no que 
+*  foi salvo.
+*
+*  Complexidade: O(n^2) -> percorre toda a matriz
+*
+****************************************************************************/
+
+	DES_tpCondRet DES_RetomaUltimoJogoSalvo( void ) 
+	{
+		int i, j;
+		int Linhas, Colunas, Dicas;
+		DES_tpCondRet CondRet;
+
+		FILE * ArquivoDesenho = fopen( NOME_JOGO_SALVO, "r" );
+
+		if( ArquivoDesenho == NULL )
+			return DES_CondRetPonteiroArquivoNulo;
+
+		if( fscanf(ArquivoDesenho, "%d %d %d", &Linhas, &Colunas, &Dicas) != 3 )
+			return DES_CondRetArquivoInvalido;
+
+		//Verifica se a quantidade de linhas e de colunas são válidas
+		if( Linhas < NUM_LINHAS_MINIMO || Colunas < NUM_COLUNAS_MINIMO ||
+		    Linhas > NUM_LINHAS_MAXIMO || Colunas > NUM_COLUNAS_MAXIMO )
+			return DES_CondRetTamanhoInvalido;
+
+		//Aloca a estrutura desenho
+		pDesenho = ( TpDesenho* ) malloc( sizeof( TpDesenho ) );
+
+		//Falhou a alocação de memória
+		if( pDesenho == NULL )
+			return DES_CondRetFaltouMemoria;
+
+		pDesenho->iLinhas  = Linhas;
+		pDesenho->iColunas = Colunas;
+		pDesenho->iDicas   = Dicas;
+
+		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
+		CondRet = MAT_CriaMatriz( pDesenho->pMatrizJogo, Linhas, Colunas );
+		if(CondRet != DES_CondRetOk)
+			return CondRet;
+
+		//Gera o esquema de forma aleatória
+		PreencheMatrizUltimoJogo( ArquivoDesenho );
+
+		CondRet = InicializaListas( );
 		if(CondRet != DES_CondRetOk)
 			return CondRet;
 
@@ -289,29 +302,28 @@
 
 	DES_tpCondRet DES_DestroiDesenho( void )
 	{
+		int i; 
 
 		// Testa se o ponteiro desenho já foi iniciado;
 		if( pDesenho == NULL )
 			return DES_CondRetDesenhoNaoIniciado;
 
-		int i; //Contador
-
 		// Libera cada cabeça de lista
 		for( i = 0; i < pDesenho->iLinhas; i++ )
-			LST_LiberaLista(pDesenho->pListasHorizontais[i]);
+			LST_DestruirLista( pDesenho->pListasHorizontais[i] );
 
 		// Libera o vetor de cabeças de lista
-		free(pDesenho->pListasHorizontais);
+		free( pDesenho->pListasHorizontais );
 
 		// Libera cada cabeça de lista
 		for( i = 0; i < pDesenho->iColunas; i++ )
-			LST_LiberaLista(pDesenho->pListasVerticais[i]);
+			LST_DestruirLista( pDesenho->pListasVerticais[i] );
 
 		// Libera o vetor de cabeças de lista
-		free(pDesenho->pListasVerticais);
+		free( pDesenho->pListasVerticais );
 
 		// Libera a matriz de jogo
-		MAT_LiberaMatriz( pDesenho->pMatrizJogo );
+		MAT_DestruirMatriz( pDesenho->pMatrizJogo );
 
 		// Libera o ponteiro para estrutura encapsulada Desenho 
 		free( pDesenho );
@@ -342,7 +354,7 @@
 		if( Coord_X > pDesenho->iLinhas || Coord_Y > pDesenho->iColunas )
 			return DES_CondRetCoordenadaInvalida;
 
-		Celula * pCelula = ( Celula * ) MAT_RetornaValor( Coord_X, Coord_Y );
+		Celula * pCelula = ( Celula * ) MAT_ObterElemento( Coord_X, Coord_Y );
 		CEL_AlteraMarcacao( pCelula );
 
 		return DES_tpCondRet;
@@ -363,7 +375,7 @@
 	{
 		int i, j; // Linha, Coluna
 		
-		//Teste desenho instanciado
+		//Teste desenho definido
 		if( pDesenho == NULL ) 
 			return DES_CondRetDesenhoNaoIniciado;
 
@@ -376,7 +388,7 @@
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
 			{
-				Celula * pCelula = ( Celula * ) MAT_RetornaValor( i, j );
+				Celula * pCelula = ( Celula * ) MAT_ObterElemento( i, j );
 				//Se a celula é para ser pintada mas não está pintada
 				if( CEL_MarcacaoEsperada( pCelula ) && !CEL_MarcacaoAtual( pCelula ) )
 				{
@@ -432,7 +444,7 @@
 	{
 		FILE * ArquivoDesenho;
 
-		// Testa se a estrutura desenho está instanciada
+		// Testa se a estrutura desenho está definida
 		if( pDesenho == NULL )
 			return DES_CondRetDesenhoNaoIniciado;
 
@@ -461,7 +473,7 @@
 			for( j = 0; j < pDesenho->iColunas; i++ )
 			{
 				// Recupera o elemento dentro da matriz na posição i, j e imprime se ele está marcado ou não
-				Celula * pCelula = ( Celula * ) MAT_RetornaValor( pDesenho->pMatrizJogo, i, j );
+				Celula * pCelula = ( Celula * ) MAT_ObterElemento( pDesenho->pMatrizJogo, i, j );
 				fprintf( ArquivoDesenho, "%d %d ", CEL_MarcacaoEsperada( pCelula ), CEL_MarcacaoAtual( pCelula ) );
 			}
 
@@ -498,13 +510,14 @@
 		FILE * ArquivoDesenho;
 		int tamStringNome;
 
-		// Testa se a estrutura desenho está instanciada
+		// Testa se a estrutura desenho está definida
 		if( pDesenho == NULL )
 			return DES_CondRetDesenhoNaoIniciado;
 
+		// Tamanho da string dada + tamanho de ".des" + '\0'
 		tamStringNome = strlen( NomeArquivo ) + 5;
 
-		// Cria uma string com tamanho adequando, tamanho da string dada + tamanho de ".des" + '\0'
+		// Cria uma string com tamanho adequando
 		char * NomeExtArquivo = ( char* ) malloc( tamStringNome * sizeof( char ) ) ; 
 		strcpy( NomeExtArquivo, NomeArquivo );
 		strcat( NomeExtArquivo, ".des");
@@ -531,7 +544,7 @@
 			for( j = 0; j < pDesenho->iColunas; i++ )
 			{
 				// Recupera o elemento dentro da matriz na posição i, j e imprime se ele está marcado ou não
-				Celula * pCelula = ( Celula * ) MAT_RetornaValor( pDesenho->pMatrizJogo, i, j );
+				Celula * pCelula = ( Celula * ) MAT_ObterElemento( pDesenho->pMatrizJogo, i, j );
 				fprintf( ArquivoDesenho, "%d ", CEL_MarcacaoEsperada( pCelula ) );
 			}
 
@@ -542,6 +555,45 @@
 
 		return DES_CondRetOk;
 	}
+
+
+/***********************************************************************
+*
+*   Função: DES JogoFinalizado
+*
+*	Retorna 1 se a matriz estiver completamente corretamente preenchida,
+*	0 caso contrário.
+*
+*	Complexidade: O(n^2) -> pode percorrer toda a matriz
+*
+***********************************************************************/
+
+	int DES_DesenhoFinalizado ( void )
+	{
+		int i, j;
+
+		// Desenho não definido;
+		if( pDesenho == NULL )
+			return 0;
+
+		// Percorre toda a Matriz em busca de uma célula que não está de acordo.
+		for( i = 0; i<pDesenho->iLinhas; i++ )
+		{ 
+			for( j = 0; j< pDesenho->iColunas; j++ )
+			{
+				// Recupera a célula correspondente àquela coordenada
+				Celula * pCelula = ( Celula * ) MAT_ObterElemento( i, j );
+
+				//Compara marcação atual com esperada, se forem diferentes o jogo não está terminado
+				if( CEL_MarcacaoEsperada( pCelula ) != CEL_MarcacaoAtual( pCelula ) )
+					return 0;
+			}
+		}
+
+		// Perfeito, o jogo acabou
+		return 1;
+	}
+
 
 /*****  Código das funçães encapsuladas no módulo  *****/
 
@@ -570,22 +622,14 @@
 		{
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
 			{
-				int ramdomNumber = rand( ) % 2;
+				int randomNumber = rand( ) % 2;
 
 				Celula * pCelula;
 
 				// Se o resultado é impar, liga a célula. 50% de chance.
-				if( randomNumber ){
-					//Cria célula com valor de marcação esperada 1
-					CEL_CriaCelula( pCelula, 1 );
-				} /* if */
-				else 
-				{
-					//Cria célula com valor de marcação esperada 0
-					CEL_CriaCelula( pCelula, 0 );
-				}/* else */
+				CEL_CriaCelula( pCelula, randomNumber, 0 );
 
-				MAT_InsereValor( pCelula, i, j );
+				MAT_InserirNovoElemento( pCelula, i, j );
 
 			}/* for */
 		}/* for */
@@ -613,23 +657,15 @@
 			for( j = 0 ; j < pDesenho->iColunas ; j++ )
 			{
 				Celula * pCelula;
-				int Marcado;
+				int Marcacao; // indica se a célula deve ser marcada
 
-				if( fscanf(ArquivoDesenho, "%d", &Marcado) != 1 )
+				if( fscanf(ArquivoDesenho, "%d ", &Marcacao) != 1 )
 					return DES_CondRetArquivoInvalido;
 
-				// Se foi lido 1 no arquivo, cria a célula como marcada
-				if( Marcado ){
-					//Cria célula com valor de marcação esperada 1
-					CEL_CriaCelula( pCelula, 1 );
-				} /* if */
-				else 
-				{
-					//Cria célula com valor de marcação esperada 0
-					CEL_CriaCelula( pCelula, 0 );
-				}/* else */
+				// Cria célula com valor de marcação lido no arquivo e não marcado
+				CEL_CriaCelula( pCelula, Marcacao, 0 );
 
-				MAT_InsereValor( pCelula, i, j );
+				MAT_InserirNovoElemento( pCelula, i, j );
 
 			}/* for */
 		}/* for */
@@ -637,6 +673,79 @@
 		return DES_CondRetOk;
 	}
 
+
+/***********************************************************************
+*
+*   Função: DES Preenche Matriz Ultimo Jogo
+*
+*	Preenche a matriz de jogo de forma coerente com o arquivo dado como
+*   entrada para gerar um esquema de nonogram.
+*
+*	Complexidade: O(n^2)
+*
+***********************************************************************/
+
+	static DES_tpCondRet PreencheMatrizUltimoJogo( FILE * ArquivoDesenho )
+	{
+		int i, j;
+
+		//Percorre cada linha e cada coluna ligando ou nao a marcaóao
+		for( i = 0 ; i < pDesenho->iLinhas ; i++ )
+		{
+			for( j = 0 ; j < pDesenho->iColunas ; j++ )
+			{
+				Celula * pCelula;
+				int Marcacao; // indica se a célula deve ser marcada
+				int Marcado;  // indica se a célula estava marcada quando o jogo foi salvo
+
+				if( fscanf(ArquivoDesenho, "%d %d ", &Marcacao, &Marcado ) != 2 )
+					return DES_CondRetArquivoInvalido;
+
+				CEL_CriaCelula( pCelula, Marcacao, Marcado );
+
+				MAT_InserirNovoElemento( pCelula, i, j );
+
+			}/* for */
+		}/* for */
+
+		return DES_CondRetOk;
+	}
+
+
+/***********************************************************************
+*
+*   Função: DES Inicializa Listas
+*
+*	Preenche os vetores de listas da estrutura desenho.
+*
+*	Complexidade: O(n^2)
+*
+***********************************************************************/
+
+	static DES_tpCondRet InicializaListas( void )
+	{
+		//Aloca o vetor que vai guardar as cabeças de listas horizontais
+		pDesenho->pListasHorizontais = ( TpLista ** ) malloc( NumLinhas * sizeof( TpLista* ) );
+		if(pDesenho->pListasHorizontais == NULL)
+			return DES_CondRetFaltouMemoria;
+
+		//Aloca o vetor que vai guardar as cabeças de listas verticais
+		pDesenho->pListasVerticais   = ( TpLista ** ) malloc( NumColunas * sizeof( TpLista* ) );
+		if( pDesenho->pListasVerticais == NULL )
+			return DES_CondRetFaltouMemoria;
+
+		// Inicialização das Listas e valores de linha
+		CondRet = InicializaListasHorizontais( );
+		if(CondRet != DES_CondRetOk)
+			return CondRet;
+
+		// Inicialização das Listas e valores de coluna
+		CondRet = InicializaListasVerticais( );
+		if(CondRet != DES_CondRetOk)
+			return CondRet;
+
+		return DES_CondRetOk;
+	}
 
 /***********************************************************************
 *
@@ -660,22 +769,22 @@
 			TpValor * pValor = VAL_CriarValor( );
 
 			LST_CriaLista( pDesenho->pListasHorizontais[i] );
-			LST_InsereFinal( pDesenho->pListasHorizontais[i], pValor );
+			LST_InserirNovoNoFim( pDesenho->pListasHorizontais[i], pValor );
 			for( j = 0; j < NumColinas; j++ )
 			{
 				//Recupera a célula na posição (i,j)
-				Celula* pCelula = ( Celula * ) MAT_RetornaValor( i, j );
+				Celula* pCelula = ( Celula * ) MAT_ObterElemento( i, j );
 				if( CEL_MarcacaoEsperada( pCelula ) )
 				{
 					//Célula de marcação esperada
 					if( !sequencia )
 					{
 						VAL_CriarValor( pValor );
-						LST_InsereFinal( pDesenho->pListasHorizontais[i], pValor );
+						LST_InserirNovoNoFim( pDesenho->pListasHorizontais[i], pValor );
 					}
 					//Indica que existe uma sequencia e incrementa a estrutura Valor
 					sequencia = 1;
-					VAL_IncrementarQntdMarcados( (TpValor*)LST_RetornaUltimo( pDesenho->pListasHorizontais[i] ) );
+					VAL_IncrementarQntdMarcados( (TpValor*) LST_RetornaUltimo( pDesenho->pListasHorizontais[i] ) );
 				}
 				else
 				{
@@ -710,11 +819,11 @@
 			TpValor * pValor = VAL_CriarValor( );
 
 			LST_CriaLista( pDesenho->pListasVerticais[j] );
-			LST_InsereFinal( pDesenho->pListasVerticais[j], pValor );
+			LST_InserirNovoNoFim( pDesenho->pListasVerticais[j], pValor );
 			for( i = 0; i < NumLinhas; j++ )
 			{
 				//Recupera a célula na posição (i,j)
-				Celula* pCelula = ( Celula * ) MAT_RetornaValor( i, j );
+				Celula* pCelula = ( Celula * ) MAT_ObterElemento( i, j );
 				if( CEL_MarcacaoEsperada( pCelula ) )
 				{
 					//Célula de marcação esperada
@@ -722,7 +831,7 @@
 					{
 						VAL_CriarValor( pValor );
 						//Nova sequencia, insere um novo elemento na lista
-						LST_InsereFinal( pDesenho->pListasVerticais[j], pValor );
+						LST_InserirNovoNoFim( pDesenho->pListasVerticais[j], pValor );
 					}
 					//Indica que existe uma sequencia e incrementa a estrutura Valor
 					sequencia = 1;
@@ -739,35 +848,3 @@
 		return DES_CondRetOk;
 	}
 
-/***********************************************************************
-*
-*   Função: DES JogoFinalizado
-*
-*	Retorna 1 se a matriz estiver completamente corretamente preenchida,
-*	0 caso contrário.
-*
-*	Complexidade: O(n^2) -> pode percorrer toda a matriz
-*
-***********************************************************************/
-/*
-	static int JogoFinalizado ( void )
-	{
-		int i, j;
-		// Percorre toda a Matriz em busca de uma célula que não está de acordo.
-		for(i = 0; i<pDesenho->iLinhas; i++)
-		{
-			for(j = 0; j< pDesenho->iColunas; j++)
-			{
-				// Recupera a célula correspondente àquela coordenada
-				Celula* celula = (Celula *) MAT_RetornaValor(i, j);
-
-				//Compara marcação atual com esperada, se forem diferentes o jogo não está terminado
-				if(CEL_MarcacaoEsperada( pCelula ) != CEL_MarcacaoAtual( pCelula ))
-					return 0;
-			}
-		}
-
-		// Perfeito, o jogo acabou
-		return 1;
-	}
-*/

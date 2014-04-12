@@ -14,10 +14,10 @@
 *       1.00   ps   24/03/2014 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Este módulo implementa um conjunto de funçoes para tratar do
+*    Este módulo implementa um conjunto de funçoes para tratar do
 *	  gerenciamento do desenho a medida que o usuário vai preenchendo a
 *	  matriz do Nonogram.
-*     Ele integra os módulos de Matriz Genérica, Lista Duplamente Encadeada
+*    Ele integra os módulos de Matriz Genérica, Lista Duplamente Encadeada
 *	  Genérica, Célula e Valor para
 *	  permitir ao módulo Jogo uma fácil manipulação do campo de jogo.
 *
@@ -47,31 +47,31 @@
 
    typedef enum {
 
-      DES_CondRetOK ,
+      DES_CondRetOK = 0,
             /* Executou correto */
 
-      DES_CondRetFaltouMemoria ,
+      DES_CondRetFaltouMemoria = 1,
             /* Faltou memória ao alocar dados */
 
-		 DES_CondRetTamanhoInvalido ,
+		 DES_CondRetTamanhoInvalido = 2,
 			   /* Tamanho de máximo ou mínimo de matriz permitido violado */
 
-		 DES_CondRetDesenhoNaoIniciado ,
-			   /* Estrutura desenho ainda não foi instanciada */
+		 DES_CondRetDesenhoNaoIniciado = 3,
+			   /* Estrutura desenho ainda não foi definida */
 
-		 DES_CondRetCoordenadaInvalida ,
+		 DES_CondRetCoordenadaInvalida = 4,
 			   /* Coordenada de marcação inválida */
 
-		 DES_CondRetSemDicas ,
+		 DES_CondRetSemDicas = 5,
 			   /* O usuário não possui mais dicas sobrando */
 
-		 DES_CondRetJogoFinalizado ,
+		 DES_CondRetJogoFinalizado = 6,
 			   /* Todas as células devidas já foram pintadas */
 
-       DES_CondRetPonteiroArquivoNulo,
+       DES_CondRetPonteiroArquivoNulo = 7,
             /* Ponteiro para arquivo de jogo projetado nulo */
 
-       DES_CondRetArquivoInvalido,
+       DES_CondRetArquivoInvalido = 8,
             /* Arquivo de jogo projetado com erros */
 
    } DES_tpCondRet ;
@@ -96,7 +96,7 @@
 *	  - Número de Linhas e Colunas são inteiros entre 3 e 10
 *
 *  $AS Assertivas de Saída
-*	  - O módulo desenho instanciou corretamente a estrutura desenho
+*	  - O módulo desenho definiu corretamente a estrutura desenho
 *      de forma aleatória.
 *	  - O tabuleiro possuirá pelo menos uma célula que terá que ser
 *	    marcada para acabar o jogo
@@ -126,7 +126,7 @@
 *    - Número de Linhas e Colunas são inteiros entre 3 e 10
 *
 *  $AS Assertivas de Saída
-*    - O módulo desenho instanciou corretamente a estrutura desenho
+*    - O módulo desenho definiu corretamente a estrutura desenho
 *      de forma vazia, ou seja, sem marcações previstas. Como se
 *      não houvesse um jogo.
 *    - Valem as assertivas estruturais da estrutura de desenho e sub-
@@ -158,7 +158,7 @@
 *      projeto para que seja válido.
 *
 *  $AS Assertivas de Saída
-*    - O módulo desenho instanciou corretamente a estrutura desenho
+*    - O módulo desenho definiu corretamente a estrutura desenho
 *      de forma coerente com os valores gravados no arquivo.
 *    - Valem as assertivas estruturais da estrutura de desenho e sub-
 *      estruturas.
@@ -166,6 +166,38 @@
 
 
    DES_tpCondRet DES_IniciaDesenhoProjetado( FILE * ArquivoDesenho );
+
+
+/***********************************************************************
+*
+*  $FC Função: DES Inicia Desenho Vazio
+*
+*  $ED Descrição da função
+*     Cria um desenho de jogo baseado nas informações gravadas no
+*     arquivo passado como parâmetro.
+*     Fica para responsabilidade do módulo cliente fechar o arquivo
+*     de entrada.
+*
+*  $FV Valor retornado
+*     DES_CondRetOK
+*     DES_CondRetFaltouMemoria
+*     DES_CondRetPonteiroArquivoNulo
+*     DES_CondRetTamanhoInvalido
+*     DES_CondRetArquivoInvalido
+*
+*  $AE Assertivas de Entrada
+*    - Existe um jogo salvo com o nome NOME_JOGO_SALVO
+*
+*  $AS Assertivas de Saída
+*    - O módulo desenho definiu corretamente a estrutura desenho
+*      de forma coerente com os valores gravados no arquivo.
+*    - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
+*
+***********************************************************************/
+
+
+   DES_tpCondRet DES_RetomaUltimoJogoSalvo( void );
 
 
 /***********************************************************************
@@ -293,5 +325,28 @@
 ***********************************************************************/
 
 
-   DES_tpCondRet DES_GravaMatrizProjetada( char* NomeArquivo )
+   DES_tpCondRet DES_GravaMatrizProjetada( char* NomeArquivo );
+
+
+/***********************************************************************
+*
+*  $FC Função: DES Desenho Finalizado
+*
+*  $ED Descrição da função
+*     Retorna 1 se o desenho foi completamente preenchido, 0 caso 
+*     ainda não esteja terminado.
+*
+*  $FV Valor retornado
+*     1 -> verdade
+*     0 -> falso
+*
+*  $AE Assertivas de Entrada
+*     - A estrutura desenho deve estar definida
+*
+*  $AS Assertivas de Saída
+*
+***********************************************************************/
+
+
+   int DES_DesenhoFinalizado ( void );
 
