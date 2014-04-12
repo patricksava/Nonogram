@@ -4,16 +4,13 @@
 *  Arquivo gerado:              ListaGenerica.c
 *  Letras identificadoras:      LST
 *
-*  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
-*
 *  Projeto: Disciplinas INF 1301
 *  Gestor:  DI/PUC-Rio
 *  Autores: mbv- Maria Beatriz Vaz
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*       2.00   mbv   10/abr/2014 Revisão e adaptação do código
+*       2.00   mbv   12/abr/2014 Revisão e adaptação do código
 *       1.00   mbv   19/mar/2014 Início do desenvolvimento
 *
 *************************************************************************
@@ -39,7 +36,7 @@
 *
 ***********************************************************************/
   
-typedef struct tpNoLista {
+struct tpNoLista {
 
          void * pValor ;
                /* Ponteiro para o valor contido no elemento. */
@@ -50,7 +47,7 @@ typedef struct tpNoLista {
          struct tpNoLista * pProx ;
                /* Ponteiro para o próximo elemento. */
 
-   } TpNoLista ;
+   } ;
 
 /***********************************************************************
 *
@@ -67,7 +64,7 @@ typedef struct tpNoLista {
 *
 ***********************************************************************/
 
-   typedef struct tpLista {
+    struct tpLista {
 
          TpNoLista * pOrigemLista ;
                /* Ponteiro para o próximo nó da lista. */
@@ -81,7 +78,7 @@ typedef struct tpNoLista {
 		 int numElementos;
 			   /* Indica a quantidade de elementos na lista. */
 
-   } TpLista ;
+   } ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -91,8 +88,6 @@ typedef struct tpNoLista {
 
    static void LimparCabeca( TpLista * pLista ) ;
 
-   static void LST_EsvaziarLista( TpLista * pLista  );
-
 /*****  Código das funções exportadas pelo módulo  *****/
 
 /***************************************************************************
@@ -100,11 +95,13 @@ typedef struct tpNoLista {
 *  Função: LST Criar lista genérica duplamente encadeada.
 *  ****/
 
-   TpLista * LST_CriarLista( void )
+   TpLista * LST_CriarLista ( void )
    {
 	   TpLista * pLista;
 
 	  pLista = ( TpLista * )malloc( sizeof( TpLista )) ;
+	   /* alocar espaço para lista */
+
       if ( pLista== NULL )
       {
 		  printf ( " Espaço na memória insuficiente " ) ;
@@ -112,30 +109,11 @@ typedef struct tpNoLista {
       } /* if */
 
 	  LimparCabeca( pLista ) ; 
-
+	  /*zerar todos os campos da estrutura.*/
+	  
       return pLista ;
 
    } /* Fim função: LST Criar lista genérica duplamente encadeada*/
-
-/***************************************************************************
-*
-*  Função: LST Destruir lista duplamente encadeada.
-*  ****/
-
-   LST_tpCondRet LST_DestruirLista( TpLista * pLista  )
-   {
-
-	  if ( pLista == NULL)
-	  {
-		  return LST_CondRetListaInexistente;
-	  } /* if */
-	  
-	  LST_EsvaziarLista ( pLista );
-	  free ( pLista );
-
-	   return LST_CondRetOK;
-
-   } /* Fim função: LST Destruir lista duplamente encadeada*/
 
 /***************************************************************************
 *
@@ -161,7 +139,27 @@ typedef struct tpNoLista {
       } /* while */
 
    } /* Fim função: LST Esvaziar lista duplamente encadeada*/
-   
+
+/***************************************************************************
+*
+*  Função: LST Destruir lista duplamente encadeada.
+*  ****/
+
+   LST_tpCondRet LST_DestruirLista( TpLista * pLista  )
+   {
+
+	  if ( pLista == NULL)
+	  {
+		  return LST_CondRetListaInexistente;
+	  } /* if */
+	  
+	  LST_EsvaziarLista ( pLista );
+	  free ( pLista );
+
+	   return LST_CondRetOK;
+
+   } /* Fim função: LST Destruir lista duplamente encadeada*/
+
 /***************************************************************************
 *
 *  Função: LST Adicionar novo nó no inicio da lista duplamente encadeada.
@@ -179,7 +177,7 @@ typedef struct tpNoLista {
          return LST_CondRetFaltouMemoria ;
       } /* if */
 	  
-	  if ( pLista == NULL )
+	  if ( pLista->pNoCorrente == NULL )
 	  {
 		  NovoNo->pProx=NULL;
 		  NovoNo->pAnt=NULL;
@@ -223,7 +221,7 @@ typedef struct tpNoLista {
          return LST_CondRetFaltouMemoria ;
       } /* if */
 	  
-	  if ( pLista == NULL )
+	  if ( pLista->pNoCorrente == NULL )
 	  {
 		  NovoNo->pProx=NULL;
 		  NovoNo->pAnt=NULL;
@@ -413,28 +411,26 @@ typedef struct tpNoLista {
 *  Função: LST obter a informação contida no nó corrente.
 *  ****/
 
-	LST_tpCondRet LST_ObterValor( TpLista * pLista , void * informacao ) 
+	void * LST_ObterValor( TpLista * pLista ) 
 	{
 
 	  if ( pLista == NULL)
 	  {
-		  return LST_CondRetListaInexistente;
+		  return NULL;
 
 	  } /* if */
 
       if ( pLista->pNoCorrente == NULL )
       {
-        return LST_CondRetListaVazia ;
+        return NULL ;
       } /* if */
 	   
 	  if ( pLista->pNoCorrente->pValor == NULL )
 	  {
-		  return LST_CondRetNoNaoPossuiInfo;
+		  return NULL;
 	  } /* if */
 
-	  informacao=pLista->pNoCorrente->pValor;
-
-	  return LST_CondRetOK;
+	  return pLista->pNoCorrente->pValor;
 
    } /* Fim função: LST obter a informação contida no nó corrente. */
 
@@ -673,6 +669,8 @@ typedef struct tpNoLista {
       pLista->pNoCorrente = NULL ;
       pLista->numElementos   = 0 ;
 
-   } /* Fim função: LIS  -Limpar a cabeça da lista */
+   } /* Fim função: LST  -Limpar a cabeça da lista */
+
+
 
 /********** Fim do módulo de implementação: Módulo LISTA **********/

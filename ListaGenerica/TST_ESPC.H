@@ -4,12 +4,12 @@
 *
 *  $MCD Módulo de definição: TSTE Interface de teste específico
 *
-*  Arquivo gerado:              Tst_Esp.h
+*  Arquivo gerado:              Tst_Espc.h
 *
 *  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\INSTRUM.BSW
 *
-*  Projeto: INF 1301  Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *

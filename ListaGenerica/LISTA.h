@@ -8,16 +8,13 @@
 *  Arquivo gerado:              ListaGenerica.H
 *  Letras identificadoras:      LST
 *
-*  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
-*
 *  Projeto: Disciplinas INF 1301
 *  Gestor:  DI/PUC-Rio
 *  Autores: mbv - Maria Beatriz Vaz
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*       3.00   avs   28/02/2003 Uniformização da interface das funções e
+*       3.00   avs   12/abr/2014 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   mbv   21/mar/2014 Continuaçao do desenvolvimento, reestruturação
 *       1.00   mbv   19/mar/2014 Início do desenvolvimento
@@ -92,19 +89,29 @@
 *  $FC Função: LST Criar lista genérica duplamente encadeada.
 *
 *  $ED Descrição da função
-*     Cria um nó para uma nova lista.
-*
-*  $EP Parâmetros
-*     pLista - Lista que deseja criar.
+*     Cria uma nova lista, zerando todos os seus campos da cabeça.
 *
 *  $FV Valor retornado
-*     LST_CondRetOK
-*     LST_CondRetFaltouMemoria
+*     TpLista * pLista - ponteiro para a nova lista
 *
 ***********************************************************************/
 
-   TpLista * LST_CriarLista( TpLista * pLista ) ;
+   TpLista * LST_CriarLista( void ) ;
 
+/***********************************************************************
+*
+*  $FC Função: LST Esvaziar lista duplamente encadeada.
+*
+*  $EP Parâmetros
+*     pLista - lista que deseja esvaziar.
+*
+*  $ED Descrição da função
+*     Libera todos os ponteiros da lista, ressatando a lista como nova.
+*     Faz nada caso a lista não exista.
+*
+***********************************************************************/
+
+   void LST_EsvaziarLista( TpLista * pLista ) ;
 
 /***********************************************************************
 *
@@ -238,14 +245,11 @@
 *	  que o nó corrente da lista contém.
 *
 *  $FV Valor retornado
-*     LST_CondRetOK
-*     LST_CondRetNoNaoPossuiInfo
-*	  LST_CondRetListaInexistente
-*	  LST_CondRetListaVazia
+*     void * informacao - ponteiro para informação retornada
 *
 ***********************************************************************/
 
-   LST_tpCondRet LST_ObterValor( TpLista * pLista , void * informacao ) ;
+   void * LST_ObterValor( TpLista * pLista ) ;
 
 /***********************************************************************
 *
@@ -333,12 +337,13 @@
 *               (Caso seja negativo, andar "para trás".)
 *
 *  $ED Descrição da função
-*	  Avança o ponteiro do nó corrente para o próximo nó.
+*	  Avança o ponteiro do nó corrente o numero de elementos desejado.
 *
 *  $FV Valor retornado
 *     LST_CondRetOK
 *     LST_CondRetListaInexistente
 *     LST_CondRetFimLista
+*	  LST_CondRetInicioLista
 *
 ***********************************************************************/
 

@@ -35,7 +35,6 @@
 *
 ***********************************************************************/
 
-typedef struct tpvalor TpValor;
 
 struct tpvalor 
 {
@@ -139,7 +138,8 @@ int VAL_ObterMarcados ( TpValor * Valor )
 			
 	if ( Valor == NULL )
 	{
-		return NULL;
+		printf("valor nao existe");
+		return 0;
 	} /* if */
 	
 	return Valor->QntdMarcados;
@@ -157,7 +157,8 @@ int VAL_ObterPintados ( TpValor * Valor )
 			
 	if ( Valor == NULL )
 	{
-		return NULL;
+		printf("Valor não existe");
+		return 0;
 	} /* if */
 	
 	return Valor->QntdPintados;
