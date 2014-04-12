@@ -274,7 +274,7 @@ TpValor  *vetValor[ DIM_VT_VALOR];
 
             numLidos = LER_LerParametros( "ii" , &inxValor, &numElem ) ;
 
-            if ( ( numLidos != 1 )
+            if ( ( numLidos != 2 )
               || ( ! ValidarInxValor( inxValor , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
@@ -293,7 +293,7 @@ TpValor  *vetValor[ DIM_VT_VALOR];
 
             numLidos = LER_LerParametros( "ii" , &inxValor, &numElem ) ;
 
-            if ( ( numLidos != 1 )
+            if ( ( numLidos != 2 )
               || ( ! ValidarInxValor( inxValor , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;

@@ -10,7 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*
+*	   2.00   mbv   11/abr/2014 Término do desenvolvimento
 *      1.00   mbv   10/abr/2014 Início do desenvolvimento
 *
 *************************************************************************/
@@ -56,7 +56,7 @@ TpValor * VAL_CriarValor ( void )
 {
 	TpValor * Valor;
 
-	Valor = ( TpValor * ) malloc ( sizeof (TpValor ));
+	Valor = ( TpValor * ) malloc ( sizeof ( TpValor ));
 
 	if ( Valor == NULL )
 	{
@@ -191,6 +191,7 @@ VAL_tpCondRet VAL_RessetarValor ( TpValor * Valor )
 
 *  Função: VAL Destrói tipo de dados.
 ***/
+
 VAL_tpCondRet VAL_DestruirValor ( TpValor * Valor )
 {
 			

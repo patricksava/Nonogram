@@ -4,61 +4,57 @@
 // Propósito: Testar superficialmente o módulo Valor
 //
 
-== Inicializar valores
-=declararparm   Valor0  int 0
-=declararparm   Valor1  int 1
-=declararparm   Valor2  int 2
-
-=declararparm   OK             int  0
-
-=declararparm   pNULL          int  0
-=declararparm   pNaoNULL       int  1
 
 == Criar o Valor 0
-=criar      Valor0 
+=criarvalor      0 
 
 == Verificar ObterMarcados relativo a valor vazio
-=obtermarcados  valor0  pNULL
+=obtermarcados  0   0
 
 == Verificar ObterPintados relativo a valor vazio
-=obterpintados  valor0  pNULL
+=obterpintados  0  0
 
 == Alterar quantidade de marcados
-=alterarvalor     valor0    2      OK
+=alterarvalor     0    2      0
 
 == Incrementar quantidade de pintados 2 vezes
-=incrpintados     valor0      OK
-=incrpintados     valor0      OK
+=incrpintados     0     0
+=incrpintados     0     0
 
 == Verificar ObterPintados 
-=obterpintados  valor0  2
+=obterpintados  0  2
 
 == Decrementar quantidade de pintados
-=decrpintados   valor0  OK
+=decrpintados   0  0
 
 == Verificar ObterPintados 
-=obterpintados  valor0  2
+=obterpintados  0  1
 
 == Esvaziar o valor
-=esvaziarvalor   valor0
+=esvaziarvalor  0  0
 
 == Verificar ObterMarcados relativo a valor vazio
-=obtermarcados  valor0  pNULL
+=obtermarcados  0  0
 
 == Verificar ObterPintados relativo a valor vazio
-=obterpintados  valor0  pNULL
+=obterpintados  0  0
 
 == Verificar se terá erro
-=obterpintados  valor0  pNaoNULL
+=obterpintados  0  0
 
-== Criar o Valor 1
-=criar      Valor1 
+== Criar Valor 1
+=criarvalor      1 
 
 == Incrementar quantidade de pintados 2 vezes
-=incrpintados     valor1      OK
-=incrpintados     valor1      OK
+=incrpintados     1      0
+=incrpintados     1      0
 
+== Criar valor 2
+=criarvalor 2
+
+==Criar valor 9
+=criarvalor 9
 == Destruir todos os valores
-=destruirvalor  valor0    OK
-=destruirvalor  valor1    OK
+=destruirvalor  0    0
+=destruirvalor  1    0
 // fim

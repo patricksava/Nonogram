@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*	   2.00   mbv   11/abr/2014 Término do desenvolvimento
 *      1.00   mbv   19/mar/2014 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
