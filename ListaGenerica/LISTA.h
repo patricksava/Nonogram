@@ -99,6 +99,7 @@
 *
 *  $EP Parâmetros
 *     pLista - lista que deseja esvaziar.
+*	  ExcluirValor - Função responsável pela exclusão do elemento.
 *
 *  $ED Descrição da função
 *     Libera todos os ponteiros da lista, ressatando a lista como nova.
@@ -106,7 +107,7 @@
 *
 ***********************************************************************/
 
-   void LST_EsvaziarLista( TpLista * pLista ) ;
+   void LST_EsvaziarLista( TpLista * pLista, void ( * ExcluirValor ) ( void * pDado) ) ;
 
 /***********************************************************************
 *
@@ -114,17 +115,19 @@
 *
 *  $EP Parâmetros
 *     pLista - lista que deseja destruir.
+*	  ExcluirValor - Função responsável pela exclusão do elemento.
 *
 *  $ED Descrição da função
 *     Libera todos os ponteiros da lista, anulando-a.
 *     Faz nada caso a lista não exista.
+*
 *  $FV Valor retornado
 *     LST_CondRetOK
 *     LST_CondRetListaInexistente
 *
 ***********************************************************************/
 
-   LST_tpCondRet LST_DestruirLista( TpLista * pLista ) ;
+   LST_tpCondRet LST_DestruirLista( TpLista * pLista, void ( * ExcluirValor) ( void * pDado) ) ;
 
 /***********************************************************************
 *
@@ -214,6 +217,7 @@
 *
 *  $EP Parâmetros
 *     pLista - lista que deseja liberar o nó.
+*	  ExcluirValor - Função responsável pela exclusão do elemento.
 *
 *  $ED Descrição da função
 *     Libera o ponteiro para o nó corrente.
@@ -225,7 +229,7 @@
 *
 ***********************************************************************/
 
-   LST_tpCondRet LST_LiberarNoCorrente( TpLista * Lista ) ;
+   LST_tpCondRet LST_LiberarNoCorrente( TpLista * Lista, void ( * ExcluirValor) (void * pDado) ) ;
    
 /***********************************************************************
 *
@@ -272,6 +276,8 @@
 *  $EP Parâmetros
 *     pLista - lista que deseja realizar a busca e a 
 *	  informacao - informação que deseja buscar.
+*     Compara - função responsável por comparar 2 elementos
+*				retornando 0 caso sejam iguais
 *
 *  $ED Descrição da função
 *	  Realiza a busca de uma informação dentro de uma lista,
@@ -284,7 +290,7 @@
 *
 ***********************************************************************/
 
-   LST_tpCondRet LST_Busca( TpLista * pLista , void * informacao ) ;
+   LST_tpCondRet LST_Busca( TpLista * pLista , void * informacao , int (Compara)(void *pDado , void * pDado2) ) ;
 
 /***********************************************************************
 *

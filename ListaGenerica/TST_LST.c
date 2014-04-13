@@ -64,6 +64,8 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 
    static void DestruirValor( void * pValor ) ;
 
+   static int  Compara ( void * pDado, void * pCorrente ) ;
+
    static int ValidarInxLista( int inxLista , int Modo ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
@@ -165,7 +167,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            LST_EsvaziarLista( vtListas[ inxLista ] ) ;
+            LST_EsvaziarLista( vtListas[ inxLista ] , DestruirValor ) ;
 
             return TST_CondRetOK ;
 
@@ -185,7 +187,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = LST_DestruirLista( vtListas[ inxLista ] ) ;
+            CondRet = LST_DestruirLista( vtListas[ inxLista ] , DestruirValor ) ;
             vtListas[ inxLista ] = NULL ;
 
 			if ( CondRet != LST_CondRetOK )
@@ -355,7 +357,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             return TST_CompararInt( CondRetEsp ,
-                      LST_LiberarNoCorrente( vtListas[ inxLista ] ) ,
+                      LST_LiberarNoCorrente( vtListas[ inxLista ] , DestruirValor ) ,
                      "Condição de retorno errada ao excluir no corrente."   ) ;
 
          } /* fim ativa: Testar liberar no corrente */
@@ -372,7 +374,8 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
             if ( ( numLidos != 3 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
-               return TST_CondRetParm ;
+               printf (" lista inexistente ");
+				return TST_CondRetParm ;
             } /* if */
 
             pDado = ( char * ) LST_ObterValor( vtListas[ inxLista ] ) ;
@@ -452,7 +455,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
             strcpy( pDado , StringDado ) ;
 
 
-            CondRet = LST_Busca( vtListas[ inxLista ] , pDado ) ;
+            CondRet = LST_Busca( vtListas[ inxLista ] , pDado , Compara ) ;
 
             if ( CondRet != LST_CondRetOK )
             {
@@ -535,6 +538,24 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
+
+   /***********************************************************************
+*
+*  $FC Função: TLST - Comparar valores
+*
+***********************************************************************/
+
+  int  Compara ( void * pDado, void * pCorrente ) {
+
+	  if ( strcmp ( ( char * )pDado, ( char * )pCorrente) == 0 )
+	  {
+		  return 0;
+	  } /* if */
+
+	  else
+
+		  return 1;
+  }
 
 
 /***********************************************************************

@@ -18,6 +18,7 @@
 
 #include   <stdlib.h>
 #include   <stdio.h>
+#include   <string.h>
 
 #include "LISTA.h"
 
@@ -123,7 +124,7 @@ struct tpNoLista {
 *  Função: LST Esvaziar lista duplamente encadeada.
 *  ****/
 
-   void LST_EsvaziarLista( TpLista * pLista  )
+   void LST_EsvaziarLista( TpLista * pLista , void ( * ExcluirValor) ( void * pDado)  )
    {
       TpNoLista * pElem ;
       TpNoLista * pProx ;
@@ -133,13 +134,18 @@ struct tpNoLista {
 		  return;
 	  } /* if */
 
-      pElem = pLista->pOrigemLista ;
-      while ( pElem != NULL )
+	  pLista->pNoCorrente = pLista->pOrigemLista ;
+	  while ( pLista->pNoCorrente != NULL )
       {
-         pProx = pElem->pProx ;
-         LiberarNo( pLista , pElem ) ;
-         pElem = pProx ;
+		 pElem = pLista->pNoCorrente;
+		 pLista ->pNoCorrente = pLista->pNoCorrente->pProx;
+
+         LiberarNo( pLista , pElem, ExcluirValor ) ;
       } /* while */
+
+
+	  LimparCabeca ( pLista );
+	  pLista->pNoCorrente==NULL;
 
    } /* Fim função: LST Esvaziar lista duplamente encadeada*/
 
@@ -148,7 +154,7 @@ struct tpNoLista {
 *  Função: LST Destruir lista duplamente encadeada.
 *  ****/
 
-   LST_tpCondRet LST_DestruirLista( TpLista * pLista  )
+   LST_tpCondRet LST_DestruirLista( TpLista * pLista, void ( * ExcluirValor) ( void * pDado)  )
    {
 
 	  if ( pLista == NULL)
@@ -156,7 +162,7 @@ struct tpNoLista {
 		  return LST_CondRetListaInexistente;
 	  } /* if */
 	  
-	  LST_EsvaziarLista ( pLista );
+	  LST_EsvaziarLista ( pLista , ExcluirValor );
 	  free ( pLista );
 
 	   return LST_CondRetOK;
@@ -317,7 +323,7 @@ struct tpNoLista {
 *  Função: LST Liberar nó corrente.
 *  ****/
 
-   LST_tpCondRet LST_LiberarNoCorrente( TpLista * pLista  )
+   LST_tpCondRet LST_LiberarNoCorrente( TpLista * pLista , void ( * ExcluirValor) ( void * pDado)  )
    {
 
 	  TpNoLista * pElem ;
@@ -355,14 +361,14 @@ struct tpNoLista {
             pLista->pFimLista = pElem->pAnt ;
          } /* if */
 
-      LiberarNo( pLista , pElem ) ;
+      LiberarNo( pLista , pElem, ExcluirValor ) ;
 	  pLista->numElementos--;
 
       return LST_CondRetOK ;
 
    } 
    
-   /* Fim função: LST Liberar nó no inicio da lista duplamente encadeada*/
+   /* Fim função: LST Liberar nó corrente*/
 
 /**********************************************************************************
 
@@ -544,7 +550,7 @@ struct tpNoLista {
 *  Função: LST Busca informação.
 *  ****/
 
-	LST_tpCondRet LST_Busca( TpLista * pLista , void * informacao )
+	LST_tpCondRet LST_Busca( TpLista * pLista , void * informacao, int ( Compara ) ( void * pDado, void * pDado2) )
 	{
 
       LST_tpCondRet CondRet = LST_CondRetOK ;
@@ -559,11 +565,13 @@ struct tpNoLista {
          return LST_CondRetListaVazia ;
       } /* if */
 
-	  pLista->pNoCorrente = pLista->pOrigemLista;
+	  CondRet = LST_IrInicio ( pLista );
 
+	   
 	  while ( CondRet != LST_CondRetOK  )
 	  {
-		  if ( pLista->pNoCorrente->pValor == informacao )
+		  
+		  if (  Compara ( pLista->pNoCorrente->pValor , informacao ) == 0) 
          {
             return LST_CondRetOK ;
          } /* if */
@@ -595,7 +603,7 @@ struct tpNoLista {
 *
 ***********************************************************************/
 
-   void LiberarNo( TpLista * pLista , TpNoLista * pElem )
+   void LiberarNo( TpLista * pLista , TpNoLista * pElem, void ( * ExcluirValor) ( void * pDado) )
    {
 
 	   if (( pElem->pValor != NULL ))
@@ -603,7 +611,7 @@ struct tpNoLista {
 		  pElem->pAnt = pElem->pProx;
       } /* if */
 
-      free( pElem ) ;
+      ExcluirValor ( pElem ) ;
 
 	  pLista->numElementos--;
 
