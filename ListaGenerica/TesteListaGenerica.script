@@ -1,83 +1,133 @@
 // Script:    TesteListaGenerica.script
 // Autor:     Maria Beatriz Ribeiro Vaz
-// Data:      12/abr/2014
+// Data:      13/abr/2014
 // Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada
 //
 
-== Caso 1: Criar Lista 0 com elementos de a até e
+== Caso 1: Criar Lista 0 e posteriormente inserir com elementos de a até e
 =criar     0 
 
-== Inserir Inicio Lista 0 "b"
+== Caso 2: Inserir Inicio Lista 0 "b"
 =insinicio   0    "b"    0
 
-== Inserir Após Lista 0 "c"
+== Caso 3: Inserir Após Lista 0 "c"
 =insapos     0     "c"    0
 
-==  Inserir Inicio Lista 0 "a"
+== Caso 4: Inserir Inicio Lista 0 "a"
 =insinicio   0    "a"   0
 
-== Inserir final Lista 0 "d"
+== Caso 5: Inserir final Lista 0 "d"
 =insfim   0  "d"   0
 
-== Inserir final Lista 0  "e" 
+== Caso 6: Inserir final Lista 0  "e" 
 =insfim    0   "e"   0
 
-== Ir inicio e obter "a"
+== Caso 7: Ir inicio e obter "a"
 =irinicio   0   0
 =obter   0   "a"   1
 
-== Ir fim e obter "e"
+== Caso 8: Ir fim e obter "e"
 =irfim   0   0
 =obter   0   "e"   1
 
-== Ir inicio novamente
+== Caso 9: Ir inicio novamente
 =irinicio   0   0
 
-== Avancar e obter
+== Caso 10: Avancar e obter b
 =avancar   0   1   0
 =obter   0  "b"   1
 
-== Avancar e obter
+== Caso 11: Avancar e obter c
 =avancar   0   1   0
 =obter   0  "c"   1
 
-== Avancar e obter
+== Caso 12: Avancar e obter d
 =avancar   0   1   0
 =obter   0  "d"   1
 
-== Avancar e obter
+== Caso 13: Avancar e obter e
 =avancar   0   1   0
 =obter   0  "e"   1
 
-== Avancar e obter
+== Caso 14: Avancar e recuperar erro
 =avancar   0   1   0
 =recuperar
 
-== Avancar para tras e obter
+== Caso 15: Avancar e obter CondRetFimLista
+=avancar   0   1   4
+
+== Caso 16: Avancar para tras 4 e obter a
 =avancar  0  -4   0
 =obter  0  "a"  1
 
-== Liberar no corrente
+== Caso 17: Liberar no corrente
 =liberarcorrente  0   0
 
-== Ir inicio e obter
+== Caso 18: Ir inicio e obter b
 =irinicio  0   0
 =obter   0  "b"  1
 
-== Destruir lista
+== Caso 19: Destruir lista 0
 =destruir   0   0
 
-== Ir inicio lista 0 e recuperar
+== Caso 20: Ir inicio lista 0 e recuperar
 =irinicio  0    0
 =recuperar
 
-
-
-== Criar Lista 3 de "a" até "c"
+== Caso 21: Criar Lista 3 de "a" até "c"
 =criar     3   
 =insinicio 3   "a"   0
 =insapos   3   "b"   0
 =insapos   3   "b"   0
 
-== Buscar elemento a na lista 3
-=buscar    3   "a"   0
+== Caso 22: Esvaziar Lista 3
+=esvaziar   3    0
+
+== Caso 23: Inserir Inicio
+=insinicio  3   "a"   0
+
+== Caso 24: obter a 
+=obter    3   "a"    1
+
+== Caso 25: Avancar e obter fim da lista 3 
+=avancar  3   2   4
+
+== Caso 26: Avancar para trás de obter fim da lista 3
+=avancar  3   -3  4
+
+== Caso 27: Esvaziar lista 3
+=esvaziar   3   0
+
+== Caso 28: obter a e recuperar pois a lista esta vazia
+=obter   3   "a"    1
+=recuperar
+
+== Caso 29: Destruir lista 3
+=destruir   3   0
+
+== Caso 30: obter a e recuperar pois a lista nao existe
+=obter   3   "a"    1
+=recuperar
+
+== Caso 31: Criar Lista 4
+=criar   4
+
+== Caso 32: Inserir inicio Lista 4
+=insinicio 4  "b"   0
+
+== Caso 34: Inserir após Lista 4
+=insapos    4   "b"   0
+
+== Caso 35: Ir inicio Lista 4
+=irinicio   4   0
+
+== Caso 36: Alterar No corrente de b para a 
+=alterar  4  "a"  0
+
+== Caso 37: Obter a  
+=obter    4  "a"  1
+
+== Caso 38: Avancar e obter b
+=avancar   4   1   0
+=obter     4  "b"  1
+

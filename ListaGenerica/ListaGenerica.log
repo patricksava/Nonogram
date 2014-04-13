@@ -1,0 +1,71 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: C:\Users\Maria Beatriz\Documents\PUC\Modular\ListaGenerica\Debug\TRAB2-1.exe
+
+      Arquivo de teste:    TesteListaGenerica.script
+
+
+!!!    0  Linha:     1  // Script:    TesteListaGenerica.script 
+!!!    0  Linha:     2  // Autor:     Maria Beatriz Ribeiro Vaz 
+!!!    0  Linha:     3  // Data:      13/abr/2014 
+!!!    0  Linha:     4  // Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada 
+!!!    0  Linha:     5  // 
+    7  == Caso 1: Criar Lista 0 e posteriormente inserir com elementos de a até e
+   10  == Caso 2: Inserir Inicio Lista 0 "b"
+   13  == Caso 3: Inserir Após Lista 0 "c"
+   16  == Caso 4: Inserir Inicio Lista 0 "a"
+   19  == Caso 5: Inserir final Lista 0 "d"
+   22  == Caso 6: Inserir final Lista 0  "e"
+   25  == Caso 7: Ir inicio e obter "a"
+   29  == Caso 8: Ir fim e obter "e"
+   33  == Caso 9: Ir inicio novamente
+   36  == Caso 10: Avancar e obter b
+   40  == Caso 11: Avancar e obter c
+   44  == Caso 12: Avancar e obter d
+   48  == Caso 13: Avancar e obter e
+   52  == Caso 14: Avancar e recuperar erro
+>>>    1  Linha:    53  Condicao de retorno errada ao avancar Deveria ser: 0  É: 4
+<<<    0  Linha:    54  Falha esperada foi recuperada. 
+   56  == Caso 15: Avancar e obter CondRetFimLista
+   59  == Caso 16: Avancar para tras 4 e obter a
+   63  == Caso 17: Liberar no corrente
+   66  == Caso 18: Ir inicio e obter b
+   70  == Caso 19: Destruir lista 0
+   73  == Caso 20: Ir inicio lista 0 e recuperar
+>>>    1  Linha:    74  Erro nos parâmetros do comando:  =irinicio  0    0
+<<<    0  Linha:    75  Falha esperada foi recuperada. 
+   77  == Caso 21: Criar Lista 3 de "a" até "c"
+   83  == Caso 22: Esvaziar Lista 3
+   86  == Caso 23: Inserir Inicio
+   89  == Caso 24: obter a
+   92  == Caso 25: Avancar e obter fim da lista 3
+   95  == Caso 26: Avancar para trás de obter fim da lista 3
+   98  == Caso 27: Esvaziar lista 3
+  101  == Caso 28: obter a e recuperar pois a lista esta vazia
+>>>    1  Linha:   102  Dado tipo um deveria existir. Deveria ser: não NULL  É: NULL
+<<<    0  Linha:   103  Falha esperada foi recuperada. 
+  105  == Caso 29: Destruir lista 3
+  108  == Caso 30: obter a e recuperar pois a lista nao existe lista inexistente 
+>>>    1  Linha:   109  Erro nos parâmetros do comando:  =obter   3   "a"    1
+<<<    0  Linha:   110  Falha esperada foi recuperada. 
+  112  == Caso 31: Criar Lista 4
+  115  == Caso 32: Inserir inicio Lista 4
+  118  == Caso 34: Inserir após Lista 4
+  121  == Caso 35: Ir inicio Lista 4
+  124  == Caso 36: Alterar No corrente de b para a
+  127  == Caso 37: Obter a
+  130  == Caso 38: Avancar e obter b
+
+!!! Número de linhas lidas:         133
+!!! Número de casos de teste:        37
+!!! Número comandos corretos:        45
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

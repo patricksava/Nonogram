@@ -14,8 +14,6 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*       3.00   avs   12/abr/2014 Uniformização da interface das funções e
-*                               de todas as condições de retorno.
 *       2.00   mbv   21/mar/2014 Continuaçao do desenvolvimento, reestruturação
 *       1.00   mbv   19/mar/2014 Início do desenvolvimento
 *
