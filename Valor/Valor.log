@@ -11,37 +11,55 @@ LES - Laboratório de Engenharia de Software DI/PUC-Rio
 
 !!!    0  Linha:     1  // Script:    TesteValor.script 
 !!!    0  Linha:     2  // Autor:     Maria Beatriz Ribeiro Vaz 
-!!!    0  Linha:     3  // Data:      11/abr/2014 
+!!!    0  Linha:     3  // Data:      13/abr/2014 
 !!!    0  Linha:     4  // Propósito: Testar superficialmente o módulo Valor 
 !!!    0  Linha:     5  // 
-    8  == Criar o Valor 0
-   11  == Verificar ObterMarcados relativo a valor vazio
-   14  == Verificar ObterPintados relativo a valor vazio
-   17  == Alterar quantidade de marcados
-   20  == Incrementar quantidade de pintados 2 vezes
-   24  == Verificar ObterPintados
-   27  == Decrementar quantidade de pintados
-   30  == Verificar ObterPintados
-   33  == Esvaziar o valor
-   36  == Verificar ObterMarcados relativo a valor vazio
-   39  == Verificar ObterPintados relativo a valor vazio
-   42  == Verificar se terá erro
->>>    1  Linha:    43  Condicao de retorno errada ao obter valor pintados Deveria ser: 1  É: 0
-<<<    0  Linha:    44  Falha esperada foi recuperada. 
-   46  == Verificar se terá erro
->>>    1  Linha:    47  Erro nos parâmetros do comando:  =obterpintados  3  1
-<<<    0  Linha:    48  Falha esperada foi recuperada. 
-   50  == Criar Valor 1
-   53  == Incrementar quantidade de pintados 2 vezes
-   57  == Destruir todos os valores
-   61  == Criar valor 2
-   64  ==Criar valor 9
-   67  ==Verificar se terá espaço alocado.
-!!!    0  Linha:    69  // fim 
+    8  == Caso 1 : Criar o Valor 0
+   11  == Caso 2: Verificar ObterMarcados relativo a valor vazio
+   14  == Caso 3: Verificar ObterPintados relativo a valor vazio
+   17  == Caso 4: Alterar quantidade de marcados
+   20  == Caso 5: Verificar obter Marcados
+   23  == Caso 6: Incrementar quantidade de pintados 2 vezes
+   27  == Caso 7: Verificar ObterPintados
+   30  == Caso 8: Decrementar quantidade de pintados
+   33  == Caso 9: Verificar ObterPintados
+   36  == Caso 10: Esvaziar o valor
+   39  == Caso 11: Verificar ObterMarcados relativo a valor vazio
+   42  == Caso 12: Verificar ObterPintados relativo a valor vazio
+   45  == Caso 13: Verificar se terá erro
+>>>    1  Linha:    46  Condicao de retorno errada ao obter valor pintados Deveria ser: 1  É: 0
+<<<    0  Linha:    47  Falha esperada foi recuperada. 
+   49  == Caso 14: Verificar se terá erro
+>>>    1  Linha:    50  Erro nos parâmetros do comando:  =obterpintados  3  1
+<<<    0  Linha:    51  Falha esperada foi recuperada. 
+   53  == Caso 15: Criar Valor 1
+   56  == Caso 16: Incrementar quantidade de pintados 2 vezes
+   60  == Caso 17: Destruir valor 0
+   63  == Caso 18: Verificar se o valor 0 foi destruido
+>>>    1  Linha:    64  Erro nos parâmetros do comando:  =obterpintados   0   0
+<<<    0  Linha:    65  Falha esperada foi recuperada. 
+   67  == Caso 17: Destruir valor 1
+   70  == Caso 18: Verificar se o valor 0 foi destruido
+>>>    1  Linha:    71  Erro nos parâmetros do comando:  =obterpintados   1   0
+<<<    0  Linha:    72  Falha esperada foi recuperada. 
+   74  == Caso 19: Criar valor 2
+   77  == Caso 20: Incrementar pintados valor 2
+   80  == Caso 21: Alterar quantidade de marcados
+   83  == Caso 22: Verificar obter Marcados
+   86  == Caso 23: Verificar obter Marcados e recuperar erro.
+>>>    1  Linha:    87  Condicao de retorno errada ao obter valor marcados Deveria ser: 300  É: 500
+<<<    0  Linha:    88  Falha esperada foi recuperada. 
+   90  == Caso 24: Verificar obter Pintados e recuperar erro.
+>>>    1  Linha:    91  Condicao de retorno errada ao obter valor pintados Deveria ser: 2  É: 1
+<<<    0  Linha:    92  Falha esperada foi recuperada. 
+   94  == Caso 25: Verificar obter Pintados
+   97  == Caso 26: Alterar quantidade de marcados
+  100  == Caso 27: Verificar obter Marcados
+!!!    0  Linha:   104  // fim 
 
-!!! Número de linhas lidas:          69
-!!! Número de casos de teste:        19
-!!! Número comandos corretos:        19
+!!! Número de linhas lidas:         104
+!!! Número de casos de teste:        29
+!!! Número comandos corretos:        25
 !!! Número de falhas encontradas:     0
 
 !!! Não foram encontrados problemas

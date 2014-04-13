@@ -1,69 +1,104 @@
 // Script:    TesteValor.script
 // Autor:     Maria Beatriz Ribeiro Vaz
-// Data:      11/abr/2014
+// Data:      13/abr/2014
 // Propósito: Testar superficialmente o módulo Valor
 //
 
 
-== Criar o Valor 0
+== Caso 1 : Criar o Valor 0
 =criarvalor      0 
 
-== Verificar ObterMarcados relativo a valor vazio
-=obtermarcados  0   0
+== Caso 2: Verificar ObterMarcados relativo a valor vazio
+=obtermarcados   0   0
 
-== Verificar ObterPintados relativo a valor vazio
-=obterpintados  0  0
+== Caso 3: Verificar ObterPintados relativo a valor vazio
+=obterpintados   0   0
 
-== Alterar quantidade de marcados
-=alterarvalor     0    2      0
+== Caso 4: Alterar quantidade de marcados
+=alterarvalor    0   2   0
 
-== Incrementar quantidade de pintados 2 vezes
-=incrpintados     0     0
-=incrpintados     0     0
+== Caso 5: Verificar obter Marcados
+=obtermarcados   0   2
 
-== Verificar ObterPintados 
+== Caso 6: Incrementar quantidade de pintados 2 vezes
+=incrpintados    0   0
+=incrpintados    0   0
+
+== Caso 7: Verificar ObterPintados 
 =obterpintados  0  2
 
-== Decrementar quantidade de pintados
+== Caso 8: Decrementar quantidade de pintados
 =decrpintados   0  0
 
-== Verificar ObterPintados 
+== Caso 9: Verificar ObterPintados 
 =obterpintados  0  1
 
-== Esvaziar o valor
+== Caso 10: Esvaziar o valor
 =esvaziarvalor  0  0
 
-== Verificar ObterMarcados relativo a valor vazio
+== Caso 11: Verificar ObterMarcados relativo a valor vazio
 =obtermarcados  0  0
 
-== Verificar ObterPintados relativo a valor vazio
+== Caso 12: Verificar ObterPintados relativo a valor vazio
 =obterpintados  0  0
 
-== Verificar se terá erro
+== Caso 13: Verificar se terá erro
 =obterpintados  0  1
 =recuperar
 
-== Verificar se terá erro
+== Caso 14: Verificar se terá erro
 =obterpintados  3  1
 =recuperar
 
-== Criar Valor 1
+== Caso 15: Criar Valor 1
 =criarvalor      1 
 
-== Incrementar quantidade de pintados 2 vezes
-=incrpintados     1      0
-=incrpintados     1      0
+== Caso 16: Incrementar quantidade de pintados 2 vezes
+=incrpintados    1   0
+=incrpintados    1   0
 
-== Destruir todos os valores
-=destruirvalor  0    0
-=destruirvalor  1    0
+== Caso 17: Destruir valor 0
+=destruirvalor   0   0
 
-== Criar valor 2
-=criarvalor 2
+== Caso 18: Verificar se o valor 0 foi destruido
+=obterpintados   0   0
+=recuperar
 
-==Criar valor 9
-=criarvalor 9
+== Caso 17: Destruir valor 1
+=destruirvalor   1   0
 
-==Verificar se terá espaço alocado.
+== Caso 18: Verificar se o valor 0 foi destruido
+=obterpintados   1   0
+=recuperar
+  
+== Caso 19: Criar valor 2
+=criarvalor     2
+
+== Caso 20: Incrementar pintados valor 2
+=incrpintados   2   0
+
+== Caso 21: Alterar quantidade de marcados
+=alterarvalor    2   500   0
+
+== Caso 22: Verificar obter Marcados 
+=obtermarcados   2   500
+
+== Caso 23: Verificar obter Marcados e recuperar erro.
+=obtermarcados   2   300
+=recuperar
+
+== Caso 24: Verificar obter Pintados e recuperar erro.
+=obterpintados  2     2
+=recuperar
+
+== Caso 25: Verificar obter Pintados
+=obterpintados  2    1
+
+== Caso 26: Alterar quantidade de marcados
+=alterarvalor    2   501   0
+
+== Caso 27: Verificar obter Marcados 
+=obtermarcados   2   501
+
 
 // fim
