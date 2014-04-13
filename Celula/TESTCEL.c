@@ -1,4 +1,3 @@
-
 #include    <string.h>
 #include    <stdio.h>
 
@@ -86,7 +85,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	else if ( strcmp( ComandoTeste , CRIAR_CELULA_CMD ) == 0 )
 	{
 		
-		numLidos = LER_LerParametros( "iiii" ,
+		numLidos = LER_LerParametros( "iii" ,
 									 &inxcelula, &marc_esp, &marc_atual) ;
 		
 		
