@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "celula.h"
@@ -16,7 +15,7 @@ struct celula {
 
 
 // CRIAR CELULA
-CEL_tpCondRet* Cel_CriaCelula(int marcacao_esperada, int marcacao_atual ) 
+Celula* Cel_CriaCelula(int marcacao_esperada, int marcacao_atual ) 
 {
 
 
