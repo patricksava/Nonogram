@@ -131,3 +131,11 @@
 =avancar   4   1   0
 =obter     4  "b"  1
 
+== Caso 39: Buscar elemento a na Lista 4
+=buscar    4    "a"   0
+
+== Caso 40: Obter elemento a
+=obter     4  "a"    1
+
+== Caso 41: Buscar elemento d na Lista 4 e não encontrar
+=buscar      4   "d"    2

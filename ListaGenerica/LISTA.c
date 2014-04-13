@@ -568,7 +568,7 @@ struct tpNoLista {
 	  CondRet = LST_IrInicio ( pLista );
 
 	   
-	  while ( CondRet != LST_CondRetOK  )
+	  while ( CondRet == LST_CondRetOK  )
 	  {
 		  
 		  if (  Compara ( pLista->pNoCorrente->pValor , informacao ) == 0) 

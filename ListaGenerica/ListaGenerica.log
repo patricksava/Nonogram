@@ -59,10 +59,13 @@ LES - Laboratório de Engenharia de Software DI/PUC-Rio
   124  == Caso 36: Alterar No corrente de b para a
   127  == Caso 37: Obter a
   130  == Caso 38: Avancar e obter b
+  134  == Caso 39: Buscar elemento a na Lista 4
+  137  == Caso 40: Obter elemento a
+  140  == Caso 41: Buscar elemento d na Lista 4 e não encontrar
 
-!!! Número de linhas lidas:         133
-!!! Número de casos de teste:        37
-!!! Número comandos corretos:        45
+!!! Número de linhas lidas:         141
+!!! Número de casos de teste:        40
+!!! Número comandos corretos:        48
 !!! Número de falhas encontradas:     0
 
 !!! Não foram encontrados problemas
