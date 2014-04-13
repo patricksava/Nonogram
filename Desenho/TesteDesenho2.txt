@@ -1,6 +1,6 @@
 ﻿// Script:    TesteDesenho.script
-// Autor:	  Patrick Sava
-// Data:      01/abr/2014
+// Autor:	  Patrick Sava e Maria Beatriz Vaz
+// Data:      13/abr/2014
 // Propósito: Testa todas as funções do módulo desenho
 //
 //
