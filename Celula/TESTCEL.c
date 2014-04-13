@@ -87,22 +87,18 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	{
 		
 		numLidos = LER_LerParametros( "iiii" ,
-									 &inxcelula, &marc_esp, &marc_atual, &CondRetEsp) ;
+									 &inxcelula, &marc_esp, &marc_atual) ;
 		
 		
-		if ( ( numLidos != 4 ) || ( ! ValidarInxCelula( inxcelula , VAZIO )))
+		if ( ( numLidos != 3 ) || ( ! ValidarInxCelula( inxcelula , VAZIO )))
 		{
 			return TST_CondRetParm ;
 		} 
 		
 		
-		CondRet = Cel_CriaCelula( vetcelulas[ inxcelula ], marc_esp, marc_atual ) ;
+		vetcelulas[inxcelula] = Cel_CriaCelula(marc_esp, marc_atual); 
 		
-		if ( CondRet != CEL_CondRetOK )
-		{
-			return TST_CompararInt( CondRetEsp , CondRet ,
-								   "Condicao de retorno errada ao incrementar pintados."); 
-		} 
+		
 		
 		
 		return TST_CompararPonteiroNulo( 1 , vetcelulas[ inxcelula ] ,

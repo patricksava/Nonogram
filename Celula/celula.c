@@ -13,25 +13,27 @@ struct celula {
 
 };
 
+
+
 // CRIAR CELULA
-CEL_tpCondRet Cel_CriaCelula( Celula* cell, int marcacao_esperada, int marcacao_atual ) 
+CEL_tpCondRet* Cel_CriaCelula(int marcacao_esperada, int marcacao_atual ) 
 {
 
 
-	cell = (Celula*)malloc(sizeof(Celula));
+	Celula* cell = (Celula*)malloc(sizeof(Celula));
 						   
 	if (cell == NULL) {
 	
 			printf("Erro na alocacao de memoria\n");			   
 			 
-			return CEL_CondRetFaltouMemoria;			   
+			return NULL;			   
 	}
 
 	cell -> esperado = marcacao_esperada;
 	cell -> atual = marcacao_atual;
 	
 
-	return CEL_CondRetOK;
+	return cell;
 
 }
 

@@ -15,7 +15,7 @@ typedef enum {
 
 
 // CRIAR CELULA
-CEL_tpCondRet Cel_CriaCelula( Celula* cell, int marcacao_esperada, int marcacao_atual );
+CEL_tpCondRet* Cel_CriaCelula( int marcacao_esperada, int marcacao_atual );
 
 
 // MARCACAO ESPERADA NA CELULA
