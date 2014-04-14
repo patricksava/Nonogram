@@ -582,6 +582,22 @@ struct tpNoLista {
 
  /* Fim função: LST Busca informação.    */
 
+   /**********************************************************************************
+*
+*  Função: LST Retorna número de elementos.
+*  ****/
+ int LST_RetornaNumElementos( TpLista* pLista )
+ {
+	 if ( pLista == NULL )
+	 {
+		 printf( " Lista inexistente" );
+		 return NULL;
+	 }
+	 
+	 return pLista -> numElementos;
+ }
+
+  /* Fim função: LST Retorna número de elementos.    */
 
 /***************************************************************************
 	
