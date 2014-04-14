@@ -1,7 +1,7 @@
 // Script: TesteCelula.script
-// Autor: Leandro Morgado Pinto Corrêa
+// Autor: Leandro Morgado Pinto Corrï¿½a
 // Data: 12/04/2014
-// Propósito: Testar superficialmente o módulo Celula
+// Propï¿½sito: Testar superficialmente o mï¿½dulo Celula
 //
 
 
@@ -26,6 +26,7 @@
 
 ==Caso 7: Verificar se o valor 0 foi destruido
 =obtervalatual 0 1
+=recuperar
 
 ==Caso 8: Criar  Celula 1
 =criarcelula 1 0 1
