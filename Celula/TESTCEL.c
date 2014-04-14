@@ -1,13 +1,34 @@
+
+/***************************************************************************
+ *  $MCI Módulo de implementação: TCEL Teste Estrutura Celula
+ *
+ *  Arquivo gerado:              TESTCEL.C
+ *  Letras identificadoras:      TCEL
+ *
+ *  Projeto: INF 1301 
+ *  Gestor:  LES/DI/PUC-Rio
+ *  Autor:   lm
+ *
+ *  $HA Histórico de evolução:
+ *     Versão  Autor    Data     Observações
+ *	   2       lm   12/abr/2014  Término do desenvolvimento
+ *     1       lm   11/abr/2014  início desenvolvimento
+ *
+ ***************************************************************************/
+
 #include    <string.h>
 #include    <stdio.h>
-
+#include    <stdlib.h>
 
 #include    "TST_Espc.h"
-#include    "Generico.h"
-#include    "LerParm.h"
+#include    "GENERICO.H"
+#include    "LERPARM.H"
 
-#include    "celula.h"
+#include    "CELULA.H"
 
+
+
+/* Tabela dos nomes dos comandos de teste específicos */
 
 static const char RESET_CEL_CMD             [ ] = "=resetteste"      ;
 
@@ -37,9 +58,32 @@ static const char ALTERAR_CELULA_CMD		[ ] = "=alteraratual"	 ;
 Celula*  vetcelulas[ DIM_VT_CELULA ] ;
 
 
+/***** Protótipo da função encapulada no módulo *****/
+
 static int ValidarInxCelula( int inxcelula , int Modo );
 
+/*****  Código das funções exportadas pelo módulo  *****/
 
+
+/***********************************************************************
+ *
+ *  $FC Função: TCEL & Testar valor
+ *
+ *  $ED Descrição da função
+ *     Podem ser criadas até 10 estruturas, identificadas pelos índices 0 a 10
+ *
+ *     Comandos disponíveis:
+ *
+ *     =resetteste
+ *           - anula o vetor de valores. Provoca vazamento de memória
+ *    
+ *		=criarcelula						inxcelula
+ *		=destruircelula						inxcelula
+ *		=alteraratual                       inxcelula
+ *		=obtervalesperado					inxcelula string  CondretPonteiro
+ *		=obtervalatual						inxcelula string  CondretPonteiro
+ *								
+ ***********************************************************************/
 
 
 
@@ -47,24 +91,20 @@ static int ValidarInxCelula( int inxcelula , int Modo );
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
 	
-	int inxcelula  = -1 , numLidos   = -1 , CondRetEsp = -1  ;
+	int inxcelula  = -1,
+	    numLidos   = -1, 
+	    CondRetEsp = -1;
 	
 	CEL_tpCondRet CondRet;
 	
-	
-	
-	
 	int i ;
 	
-	int numElem = -1 ;
-	
-	int marc_esp = -1;
-	
-	int marc_atual = -1;
+	int numElem = -1,
+	    marc_esp = -1,
+		marc_atual = -1;
 	
 	
-		
-	// RESETAR A CELULA
+	/* Efetuar reset de teste de valor */
 	
 	if ( strcmp( ComandoTeste , RESET_CEL_CMD ) == 0 )
 	{
@@ -72,15 +112,15 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		for( i = 0 ; i < DIM_VT_CELULA ; i++ )
 		{
 			vetcelulas[ i ] = NULL ;
-		} 
+		} /* for */
 		
 		return TST_CondRetOK ;
 		
-	} 
+	} /* fim ativa: Efetuar reset de teste de valor */
 	
 	
 	
-	// CRIAR CELULA
+	 /* Testar CriaCelula */
 	
 	else if ( strcmp( ComandoTeste , CRIAR_CELULA_CMD ) == 0 )
 	{
@@ -89,26 +129,22 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 									 &inxcelula, &marc_esp, &marc_atual) ;
 		
 		
-		if ( ( numLidos != 3 ) || ( ! ValidarInxCelula( inxcelula , VAZIO )))
+		if ( ( numLidos != 3 ) 
+			|| ( ! ValidarInxCelula( inxcelula , VAZIO )))
 		{
 			return TST_CondRetParm ;
-		} 
+		} /* if */
 		
 		
-		vetcelulas[inxcelula] = Cel_CriaCelula(marc_esp, marc_atual); 
-		
-		
+		vetcelulas[inxcelula] = CEL_CriaCelula(marc_esp, marc_atual); 
 		
 		
 		return TST_CompararPonteiroNulo( 1 , vetcelulas[ inxcelula ] ,
-										"Erro em ponteiro de nova lista."  ) ;
-		
-	} 
+										"Erro em ponteiro de nova celula."  ) ;
+	} /* fim ativa: Testar CriaCelula*/
 	
 	
-	
-	
-	//OBTER VALOR ESPERADO
+	/* Testar MarcacaoEsperada */
 	
 	else if ( strcmp( ComandoTeste , OBTERESP_CELULA_CMD ) == 0 )
 	{
@@ -124,14 +160,13 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		
 		
 		return TST_CompararInt( numElem ,
-							   Cel_MarcacaoEsperada( vetcelulas[ inxcelula ]) ,
-							   "Condicao de retorno errada ao obter valor marcados" ) ;
+							   CEL_MarcacaoEsperada( vetcelulas[ inxcelula ]) ,
+							   "Condicao de retorno errada ao obter marcacao esperada" ) ;
 		
-	} 
+	} /* fim ativa: MarcacaoEsperada*/
 	
 	
-	
-	// DESTRUIR CELULA
+	/* Testar DestruirCelula */
 	
 	else if ( strcmp( ComandoTeste , DESTRUIR_CELULA_CMD ) == 0 )
 	{
@@ -146,7 +181,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		} /* if */
 		
 		
-		CondRet = Cel_DestruirCelula ( vetcelulas[ inxcelula ] ) ;
+		CondRet = CEL_DestruirCelula ( vetcelulas[ inxcelula ] ) ;
 		
 		if (CondRet != CondRetEsp)
 		{
@@ -158,12 +193,12 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		
 		return TST_CondRetOK ; 
 		
-	} 
+	} /* fim ativa: Testar DestruirCelula */
 	
 	
 	
 	
-	// OBTER VALOR ATUAL
+	/* Testar MarcacaoAtual */
 	
 	else if ( strcmp( ComandoTeste , OBTERATUAL_CELULA_CMD ) == 0 )
 	{
@@ -175,18 +210,17 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			|| ( ! ValidarInxCelula( inxcelula , NAO_VAZIO )))
 		{
 			return TST_CondRetParm ;
-		} 
+		} /* if */
 		
 		
 		return TST_CompararInt( numElem ,
-							   Cel_MarcacaoAtual( vetcelulas[ inxcelula ]) ,
-							   "Condicao de retorno errada ao obter valor marcados" ) ;
+							   CEL_MarcacaoAtual( vetcelulas[ inxcelula ]) ,
+							   "Condicao de retorno errada ao obter valor marcado" ) ;
 		
-	} 
+	} /* fim ativa: Testar MarcacaoAtual */
 	
 	
-	
-	// ALTERAR CELULA
+	/* Testar AlteraMarcacao */
 	else if ( strcmp( ComandoTeste , ALTERAR_CELULA_CMD ) == 0 )
 	{
 		
@@ -197,21 +231,39 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			|| ( ! ValidarInxCelula( inxcelula , NAO_VAZIO )))
 		{
 			return TST_CondRetParm ;
-		} 
+		} /* if */
 		
-		CondRet = Cel_AlteraMarcacao( vetcelulas[ inxcelula ] ) ;
+		CondRet = CEL_AlteraMarcacao( vetcelulas[ inxcelula ] ) ;
 		
 		if ( CondRet != CEL_CondRetOK )
 		{
 			return TST_CompararInt( CondRetEsp , CondRet ,
-								   "Condicao de retorno errada ao decrementar pintados."); 
-		} 
-		
+								   "Condicao de retorno errada ao alterar valor atual."); 
+		} /* if */
 		
 		return TST_CondRetOK ;
-		
-	}
+	} /* fim ativa: Testar AlteraMarcacao */
+
+	return TST_CondRetNaoConhec ;
+
 }	
+
+
+/*****  Código das funções encapsuladas no módulo  *****/
+
+
+
+/***********************************************************************
+ 
+ 
+ /***********************************************************************
+ *
+ *  $FC Função: TVAL -Validar indice da celula
+ *
+ ***********************************************************************/
+
+
+
 
 int ValidarInxCelula( int inxcelula , int Modo )
 {
@@ -238,7 +290,9 @@ int ValidarInxCelula( int inxcelula , int Modo )
 	
 	return TRUE ;
 	
-} 	
+} 	/* Fim função: TCEL -Validar indice de CELULA */
+
+/********** Fim do módulo de implementação: TCEL Teste de Estrutura do tipo celula **********/
 
 
 
