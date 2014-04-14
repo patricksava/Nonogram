@@ -133,7 +133,11 @@ TpMatriz* MAT_CriarMatriz( int linhas, int colunas )
  *  ****/
 
 
-MAT_tpCondRet MAT_InserirNovoElemento(TpMatriz* matriz, void* novo) 
+
+LST_tpCondRet LST_Busca( TpLista * pLista , void * informacao , int (Compara)(void *pDado , void * pDado2) ) ;
+
+
+MAT_tpCondRet MAT_InserirNovoElemento(TpMatriz* matriz, void* novo, int (Compara)(void *pDado , void * pDado2)) 
 {
 	
 	int i, j;
@@ -163,17 +167,26 @@ MAT_tpCondRet MAT_InserirNovoElemento(TpMatriz* matriz, void* novo)
 		for( j = 0; j < matriz -> n; j++)
 		/* Percorrendo as colunas */
 			
-			if( LST_AlterarValor(matriz -> mat[j], NULL) != LST_CondRetOK) { 
+			if( LST_Busca(matriz -> mat[j], NULL, Compara) == LST_CondRetOK) { 
 				
-				return MAT_CondRetValorNaoInserido;
+				if( LST_AlterarValor( matriz -> mat[j] , informacao ) != LST_CondRetOK ) {
+					
+					return MAT_CondRetValorNaoInserido;
+					
+				}/*if/
+				
+				return MAT_CondRetOK;
+			
 			} /*if*/
 				
 			else if( LST_Avancar( matriz -> mat[j], 1 ) !=  LST_CondRetOK) {
 				
 				return MAT_CondRetValorNaoInserido;
+			
 			} /*if*/
 				
-	return MAT_CondRetOK;
+	
+	return MAT_CondRetValorNaoInserido;
 
 } /* Fim função: Inserir novo elemento na matriz*/
 
@@ -195,7 +208,6 @@ MAT_tpCondRet MAT_AlterarValor( TpMatriz* matriz, void* elem_subst, int linha, i
 		return MAT_CondRetMatrizInexistente;
 		
 	} /* if */
-	
 	
 	
 	if( AjusteNoCorrente( matriz ) != MAT_CondRetOK) {
