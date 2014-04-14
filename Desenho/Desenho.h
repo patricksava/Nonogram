@@ -15,11 +15,11 @@
 *
 *  $ED Descrição do módulo
 *    Este módulo implementa um conjunto de funçoes para tratar do
-*	  gerenciamento do desenho a medida que o usuário vai preenchendo a
-*	  matriz do Nonogram.
+*    gerenciamento do desenho a medida que o usuário vai preenchendo a
+*    matriz do Nonogram.
 *    Ele integra os módulos de Matriz Genérica, Lista Duplamente Encadeada
-*	  Genérica, Célula e Valor para
-*	  permitir ao módulo Jogo uma fácil manipulação do campo de jogo.
+*    Genérica, Célula e Valor para
+*    permitir ao módulo Jogo uma fácil manipulação do campo de jogo.
 *
 ***************************************************************************/
 
@@ -47,32 +47,35 @@
 
    typedef enum {
 
-      DES_CondRetOK = 0,
+      DES_CondRetOk = 0,
             /* Executou correto */
 
       DES_CondRetFaltouMemoria = 1,
             /* Faltou memória ao alocar dados */
 
-		 DES_CondRetTamanhoInvalido = 2,
-			   /* Tamanho de máximo ou mínimo de matriz permitido violado */
+      DES_CondRetTamanhoInvalido = 2,
+         /* Tamanho de máximo ou mínimo de matriz permitido violado */
 
-		 DES_CondRetDesenhoNaoIniciado = 3,
-			   /* Estrutura desenho ainda não foi definida */
+      DES_CondRetDesenhoNaoIniciado = 3,
+         /* Estrutura desenho ainda não foi definida */
 
-		 DES_CondRetCoordenadaInvalida = 4,
-			   /* Coordenada de marcação inválida */
+      DES_CondRetCoordenadaInvalida = 4,
+         /* Coordenada de marcação inválida */
 
-		 DES_CondRetSemDicas = 5,
-			   /* O usuário não possui mais dicas sobrando */
+      DES_CondRetSemDicas = 5,
+         /* O usuário não possui mais dicas sobrando */
 
-		 DES_CondRetJogoFinalizado = 6,
-			   /* Todas as células devidas já foram pintadas */
+      DES_CondRetJogoFinalizado = 6,
+         /* Todas as células devidas já foram pintadas */
 
-       DES_CondRetPonteiroArquivoNulo = 7,
+      DES_CondRetPonteiroArquivoNulo = 7,
             /* Ponteiro para arquivo de jogo projetado nulo */
 
-       DES_CondRetArquivoInvalido = 8,
+      DES_CondRetArquivoInvalido = 8,
             /* Arquivo de jogo projetado com erros */
+
+      DES_CondRetErroForaDoModuloDesenho = 9,
+         /* Erro oriundo de outros módulos usados pelo módulo Desenho */
 
    } DES_tpCondRet ;
 
@@ -93,19 +96,19 @@
 *     DES_CondRetTamanhoInvalido
 *
 *  $AE Assertivas de Entrada
-*	  - Número de Linhas e Colunas são inteiros entre 3 e 10
+*    - Número de Linhas e Colunas são inteiros entre 3 e 10
 *
 *  $AS Assertivas de Saída
-*	  - O módulo desenho definiu corretamente a estrutura desenho
+*    - O módulo desenho definiu corretamente a estrutura desenho
 *      de forma aleatória.
-*	  - O tabuleiro possuirá pelo menos uma célula que terá que ser
-*	    marcada para acabar o jogo
-*	  - Valem as assertivas estruturais da estrutura de desenho e sub-
-*	    estruturas.
+*    - O tabuleiro possuirá pelo menos uma célula que terá que ser
+*      marcada para acabar o jogo
+*    - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
 ***********************************************************************/
 
 
-   DES_tpCondRet DES_IniciaDesenho( unsigned int NumLinhas, unsigned int NumColunas );
+   DES_tpCondRet DES_IniciaDesenho( int NumLinhas, int NumColunas );
 
 
 
@@ -134,7 +137,7 @@
 ***********************************************************************/
 
 
-   DES_tpCondRet DES_IniciaDesenhoVazio( unsigned int NumLinhas, unsigned int NumColunas );
+   DES_tpCondRet DES_IniciaDesenhoVazio( int NumLinhas, int NumColunas );
 
 
 /***********************************************************************
@@ -214,7 +217,7 @@
 *  $AE Assertivas de Entrada
 *
 *  $AS Assertivas de Saída
-*	  - A variável desenho encapsulada no módulo foi liberada e 
+*    - A variável desenho encapsulada no módulo foi liberada e 
 *     agora não aponta para nada.
 ***********************************************************************/
 
@@ -237,17 +240,17 @@
 *     DES_CondRetCoordenadaInvalida
 *
 *  $AE Assertivas de Entrada
-*	  - Coord_X e Coord_Y devem ser valores entre 0 e o máximo do tabuleiro
-*	  - Valem as assertivas estruturais da estrutura de desenho e sub-
-*	    estruturas.
+*    - Coord_X e Coord_Y devem ser valores entre 0 e o máximo do tabuleiro
+*    - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
 *
 *  $AS Assertivas de Saída
-*	  - Sendo pCelula a célula referente a coordenada (X,Y) dada,
-*	    //Depois CEL_ExibeMarcação(pCelula) == !CEL_ExibeMarcacao(pCelula) //Antes
+*    - Sendo pCelula a célula referente a coordenada (X,Y) dada,
+*      //Depois CEL_ExibeMarcação(pCelula) == !CEL_ExibeMarcacao(pCelula) //Antes
 ***********************************************************************/
 
 
-   DES_tpCondRet DES_AlteraMarcacaoCoordenada( unsigned int Coord_X, unsigned int Coord_Y );
+   DES_tpCondRet DES_AlteraMarcacaoCoordenada( int Coord_X, int Coord_Y );
 
 
 /***********************************************************************
@@ -265,38 +268,16 @@
 *     DES_CondRetJogoFinalizado
 *
 *  $AE Assertivas de Entrada
-*	  - Valem as assertivas estruturais da estrutura de desenho e sub-
-*	    estruturas.
+*    - Valem as assertivas estruturais da estrutura de desenho e sub-
+*      estruturas.
 *
 *  $AS Assertivas de Saída
-*	  - Uma nova célula será marcada
+*    - Uma nova célula será marcada
 *
 ***********************************************************************/
 
 
    DES_tpCondRet DES_AtivaDica ( void );
-
-
-/***********************************************************************
-*
-*  $FC Função: DES Imprime Matriz Jogo
-*
-*  $ED Descrição da função
-*     Imprime na tela a matriz de jogo com as marcações feitas até o
-*     momento
-*
-*  $FV Valor retornado
-*     DES_CondRetOK
-*     DES_CondRetDesenhoNaoIniciado
-*
-*  $AE Assertivas de Entrada
-*
-*  $AS Assertivas de Saída
-*
-***********************************************************************/
-
-
-   DES_tpCondRet DES_ImprimeMatrizJogo( void );
 
 
 /***********************************************************************

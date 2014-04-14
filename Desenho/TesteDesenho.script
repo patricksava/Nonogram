@@ -1,6 +1,6 @@
-﻿// Script:    TesteDesenho.script
-// Autor:	  Patrick Sava
-// Data:      01/abr/2014
+﻿// Script: TesteDesenho.script
+// Autor: Patrick Sava e Maria Beatriz Vaz
+// Data: 13/abr/2014
 // Propósito: Testa todas as funções do módulo desenho
 //
 //
@@ -8,78 +8,145 @@
 
 // ********* Testes de Inserir a direita e a esquerda - INICIO *********//
 
-== Caso 0: Inicializa o desenho com menos que a quantidade mínima de linhas/colunas
+== Inicializa o desenho com menos que a quantidade mínima de linhas/colunas
 =iniciardesenho 2 3 3
 
-== Caso 1: Inicializa o desenho com mais que a quantidade máxima de linhas/colunas
+== Inicializa o desenho com mais que a quantidade máxima de linhas/colunas
 =iniciardesenho 2 13 13
 
-== Caso 2: Inicializa o desenho na forma mínima (5x5)
+== Inicializa o desenho na forma mínima (5x5)
 =iniciardesenho 0 5 5
 
-== Caso 4: Destroi desenho já inicializado
+== Destroi desenho já inicializado
 =destroidesenho 0
 
-== Caso 5: Destroi desenho inexistente
+== Destroi desenho inexistente
 =destroidesenho 3
 
-== Caso 6: Inicializa o desenho vazio com menos que a quantidade mínima de linhas/colunas
+== Inicializa o desenho vazio com menos que a quantidade mínima de linhas/colunas
 =iniciardesenhovazio 2 3 3
 
-== Caso 7: Inicializa o desenho vazio com mais que a quantidade máxima de linhas/colunas
+== Inicializa o desenho vazio com mais que a quantidade máxima de linhas/colunas
 =iniciardesenhovazio 2 13 13
 
-== Caso 8: Inicializa o desenho vazio na forma mínima (5x5)
+== Inicializa o desenho vazio na forma mínima (5x5)
 =iniciardesenho 0 5 5
 
-== Caso 9: Altera marcacao da coordenada 1x1
+== Altera marcacao da coordenada 1x1
 =alterarmarcacao 0 1 1
 
-== Caso 10: Alterar novamente a marcacao da coordenada 1x1
-=alterarmarcacao 0 1 1 
+== Alterar novamente a marcacao da coordenada 1x1
+=alterarmarcacao 0 1 1
 
-== Caso 11: Alterar marcacao 2x2
+== Alterar marcacao 2x2
 =alterarmarcacao 0 2 2
 
-== Caso 12: Alterar marcacao 3x3
-=alterarmarcacao 0 3 3 
+== Alterar marcacao 3x3
+=alterarmarcacao 0 3 3
 
-== Caso 13: Alterar marcacao 4x5
-=alterarmarcacao 0 4 5 
+== Alterar marcacao 4x5
+=alterarmarcacao 0 4 5
 
-== Caso 14: Alterar marcacao 3x1
-=alterarmarcacao 0 3 1  
+== Alterar marcacao 3x1
+=alterarmarcacao 0 3 1
 
-== Caso 15: Alterar marcacao de coordenada invalida
+== Alterar marcacao de coordenada invalida
 =alterarmarcacao 4 10 10
 
-== Caso 16: Gravar jogo projetado
-=gravarprojeto 0 "Modulandia"
+== Alterar marcacao de coordenada invalida negativa
+=alterarmarcacao 4 -10 -10
 
-== Caso 17: Recuperar projeto gravado
-=iniciardesenhoprojetado 0 "Modulandia"
-
-== Caso 18: Ativar dicas no jogo
+== Ativar dicas no jogo
 =ativardica 0
 
-== Caso 19: Gravar jogo atual
+== Gravar jogo atual
+=gravarjogo 0 
+
+== Gravar jogo projetado
+=destroidesenho 0
+== destuido, começando do zero
+=iniciardesenhovazio 0 7 7
+== criado vazio 7x7, fazendo marcacoes agora
+=alterarmarcacao 0 3 1
+=alterarmarcacao 0 4 1
+=alterarmarcacao 0 5 1
+=alterarmarcacao 0 6 1
+=alterarmarcacao 0 3 2
+=alterarmarcacao 0 3 3
+=alterarmarcacao 0 3 4
+=alterarmarcacao 0 3 5
+=alterarmarcacao 0 7 7
+=alterarmarcacao 0 1 4
+=alterarmarcacao 0 2 2
+=alterarmarcacao 0 4 6
+== marcaçoes feitas, gravando em arquivo agora
+=gravarprojeto 0 "Modulandia"
+
+== Recuperar projeto gravado
+=destroidesenho 0
+=iniciardesenhoprojeto 0 "Modulandia.des"
+
+== Ativar 10 dicas no jogo
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+
+== Ativar a 11a dica
+=ativardica 5
+
+== Gravar jogo atual
 =gravarjogo 0
 
-== Caso 20: Recuperar o ultimo jogo
+== Recuperar o ultimo jogo
 =iniciardesenhoultimojogo 0
 
-== Caso 21: Destruir o desenho para testar as funções caso não exista desenho
+== Destruir o desenho para testar as funções caso não exista desenho
 =destroidesenho 0
 
-== Caso 23: Alterar marcacao de jogo inexistente
+== Alterar marcacao de jogo inexistente
 =alterarmarcacao 3 2 2
 
-== Caso 24: Ativar dica de jogo que nao existe
+== Ativar dica de jogo que nao existe
 =ativardica 3
 
-== Caso 25: Gravar jogo que não existe
+== Gravar jogo que não existe
 =gravarjogo 3
 
+== Recuperar jogo que não existe
+=iniciardesenhoprojeto 7 "Nao existe"
 
-== Caso 22: Recuperar jogo que não existe
-=iniciardesenhoprojetado 7 "Nao existe"
+== Carrega projeto inválido
+=iniciardesenhoprojeto 8 "exemploruim.txt"
+
+== Carrega projeto salvo 
+=iniciardesenhoprojeto 0 "Modulandia.des"
+
+== Faz mais marcaçoes, quase completa o desenho pre moldado
+=alterarmarcacao 0 3 1
+=alterarmarcacao 0 4 1
+=alterarmarcacao 0 5 1
+=alterarmarcacao 0 6 1
+=alterarmarcacao 0 3 2
+=alterarmarcacao 0 3 3
+=alterarmarcacao 0 3 4
+=alterarmarcacao 0 3 5
+=alterarmarcacao 0 7 7
+=alterarmarcacao 0 1 4
+=alterarmarcacao 0 2 2
+
+== Verifica se o desenho foi completo, mas falta uma célula
+=jogofinalizado 1
+=recuperar
+
+== Marca a última que sobrou
+=alterarmarcacao 0 4 6
+
+== Verifica se o desenho foi completo
+=jogofinalizado 1

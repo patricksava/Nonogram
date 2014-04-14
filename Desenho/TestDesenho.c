@@ -156,8 +156,6 @@
             } /* if */
 
             ArquivoJogo = fopen( NomeJogo, "r" );
-            if( ArquivoJogo == NULL )
-               return TST_CondRetParm;
 
             CondRetObtido = DES_IniciaDesenhoProjetado( ArquivoJogo ) ;
 
@@ -241,24 +239,6 @@
 
          } /* fim ativa: Testar DES Ativar Dica */
 
-      /* Testar DES Imprime Matriz de Jogo */
-
-         else if ( strcmp( ComandoTeste , IMPRIME_JOGO_CMD ) == 0 )
-         {
-
-            NumLidos = LER_LerParametros( "i" , &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            CondRetObtido = DES_ImprimeMatrizJogo( ) ;
-
-            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao imprimir matriz de jogo." );
-
-         } /* fim ativa: Testar DES Imprime Matriz de Jogo */
-
       /* Testar DES Grava Jogo Atual */
 
          else if ( strcmp( ComandoTeste , GRAVA_JOGO_CMD ) == 0 )
@@ -308,7 +288,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            FinalRecebido = DES_JogoFinalizado( ) ;
+            FinalRecebido = DES_DesenhoFinalizado( ) ;
 
             return TST_CompararInt( FinalEsperado , FinalRecebido ,
                                     "Retorno errado ao verificar se o jogo terminou." );
