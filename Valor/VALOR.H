@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*	   3.00   mbv   14/abr/2014 Revisão do código e comentários
 *	   2.00   mbv   11/abr/2014 Término do desenvolvimento
 *      1.00   mbv   19/mar/2014 Início do desenvolvimento
 *
@@ -70,7 +71,7 @@
 *	  para esta.
 *
 *  $FV Valor retornado
-*     TpValor * Valor 
+*     TpValor  * - ponteiro para a estrutura valor.
 *
 ***********************************************************************/
 
@@ -86,7 +87,8 @@
 *	  a desejada.
 *
 *  $EP Parâmetros
-*     TpValor - Estrutura que deseja alterar.
+*     TpValor * - Ponteiro para a estrutura que deseja alterar.
+*	  int - quantidade de quadrados que deseja marcar.
 *
 *  $FV Valor retornado
 *     VAL_tpCondRet
@@ -104,7 +106,7 @@
 *	  devemos aumentar a quantidade de quadrados pintados em 1.
 *
 *  $EP Parâmetros
-*     TpValor - Estrutura que deseja alterar.
+*     TpValor * - Ponteiro para a estrutura que deseja alterar.
 *
 *  $FV Valor retornado
 *     VAL_tpCondRet
@@ -122,7 +124,7 @@
 *	  devemos diminuir a quantidade de quadrados pintados em 1.
 *
 *  $EP Parâmetros
-*     TpValor - Estrutura que deseja alterar.
+*     TpValor * - Ponteiro para a estrutura que deseja alterar.
 *
 *  $FV Valor retornado
 *     VAL_tpCondRet
@@ -140,11 +142,10 @@
 *	  marcados até o momento.
 *
 *  $EP Parâmetros
-*     TpValor - Estrutura que deseja recuperar.
-*	  int * - ponteiro para armazenar o valor.
+*     TpValor * - Ponteiro para a estrutura que deseja alterar.
 *
 *  $FV Valor retornado
-*     VAL_tpCondRet
+*     int - receber a quantidade.
 *
 ***********************************************************************/
 
@@ -159,11 +160,10 @@
 *	  pintados na estrutura até o momento.
 *
 *  $EP Parâmetros
-*     TpValor - Estrutura que deseja alterar.
-*     int * - ponteiro do tipo inteiro para armazenar o valor
+*     TpValor * - Ponteiro para a estrutura que deseja obter.
 *
 *  $FV Valor retornado
-*     VAL_tpCondRet
+*     int - receber a quantidade.
 *
 ***********************************************************************/
 
@@ -177,7 +177,7 @@
 *     Funçao que resseta uma estruta de dados do tipo Valor
 *
 *  $EP Parâmetros
-*     TpValor - Estrutura que deseja ressetar.
+*     TpValor * - Ponteiro para estrutura que deseja ressetar.
 *
 *  $FV Valor retornado
 *     VAL_tpCondRet
@@ -194,7 +194,7 @@
 *     Funçao que libera uma estruta de dados do tipo Valor
 *
 *  $EP Parâmetros
-*     TpValor - Estrutura que deseja liberar.
+*     TpValor * -Ponteiro para a estrutura que deseja liberar.
 *
 *  $FV Valor retornado
 *     VAL_tpCondRet

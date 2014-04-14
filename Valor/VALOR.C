@@ -2,7 +2,7 @@
 *  $MCI Módulo de implementação: Módulo Valor
 *
 *  Arquivo gerado:              VALOR.c
-*  Letras identificadoras:      VA
+*  Letras identificadoras:      VAL
 *
 *  Projeto: Disciplinas INF 1301
 *  Gestor:  DI/PUC-Rio
@@ -10,6 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*	   3.00   mbv   14/abr/2014 Revisão do código e comentários
 *	   2.00   mbv   11/abr/2014 Término do desenvolvimento
 *      1.00   mbv   10/abr/2014 Início do desenvolvimento
 *
@@ -84,7 +85,8 @@ VAL_tpCondRet VAL_AlterarQntdMarcados ( TpValor * Valor , int quantidade )
 	} /* if */
 	
 	Valor->QntdMarcados = quantidade ;
-	
+	/*alterar a quantidade*/
+
 	return VAL_CondRetOk;
 
 }
@@ -104,6 +106,8 @@ VAL_tpCondRet VAL_IncrementarQntdPintados ( TpValor * Valor )
 	} /* if */
 	
 	Valor->QntdPintados ++;
+	/* Aumenta em 1 a quantidade de pintados */
+
 	return VAL_CondRetOk;
 
 }
@@ -123,6 +127,8 @@ VAL_tpCondRet VAL_DecrementarQntdPintados ( TpValor * Valor )
 	} /* if */
 	
 	Valor->QntdPintados --;
+	/* Diminui em 1 a quantidade de pintados */
+
 	return VAL_CondRetOk;
 
 }
@@ -138,7 +144,7 @@ int VAL_ObterMarcados ( TpValor * Valor )
 			
 	if ( Valor == NULL )
 	{
-		printf("valor nao existe");
+		printf("Valor nao existe");
 		return 0;
 	} /* if */
 	
@@ -181,6 +187,7 @@ VAL_tpCondRet VAL_RessetarValor ( TpValor * Valor )
 	
 	Valor->QntdMarcados=NULL;
 	Valor->QntdPintados=NULL;
+	/* Zerar os campos da estrutura */
 
 	return VAL_CondRetOk;
 }

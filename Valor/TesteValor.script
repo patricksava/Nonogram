@@ -1,6 +1,6 @@
 // Script:    TesteValor.script
 // Autor:     Maria Beatriz Ribeiro Vaz
-// Data:      13/abr/2014
+// Data:      14/abr/2014
 // Propósito: Testar superficialmente o módulo Valor
 //
 
@@ -101,4 +101,4 @@
 =obtermarcados   2   501
 
 
-// fim
+// Fim do teste autmatizado do módulo Valor

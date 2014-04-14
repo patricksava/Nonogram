@@ -19,12 +19,12 @@
 #include    <stdio.h>
 #include    <malloc.h>
 
-#include    "TST_Espc.h"
+#include    "TST_Espc.H"
 
-#include    "GENERICO.h"
-#include    "LERPARM.h"
+#include    "GENERICO.H"
+#include    "LERPARM.H"
 
-#include    "VALOR.h"
+#include    "VALOR.H"
 
 /* Tabela dos nomes dos comandos de teste específicos */
 
@@ -46,13 +46,10 @@ static const char OBTERMARC_VAL_CMD       [ ] = "=obtermarcados"  ;
 #define NAO_VAZIO 1
 
 #define DIM_VT_VALOR  10
-#define DIM_VALOR 100
 
-TpValor  *vetValor[ DIM_VT_VALOR];
+TpValor  * vetValor[ DIM_VT_VALOR];
 
 /***** Protótipos das funções encapuladas no módulo *****/
-
-   static void DestruirValor( void * pValor ) ;
 
    static int ValidarInxValor( int inxValor , int Modo ) ;
 
@@ -71,13 +68,13 @@ TpValor  *vetValor[ DIM_VT_VALOR];
 *     =resetteste
 *           - anula o vetor de valores. Provoca vazamento de memória
 *     =criarvalor                   inxValor
-*     =destruirvalor                inxValor
-*	  =esvaziarvalor                inxValor
-*     =incrpintados                 inxValor
-*     =decrpintados                 inxValor
-*     =alterarvalor                 inxValor
-*	  =obterpintados                inxValor  string  CondretPonteiro
-*	  =obtermarcados                inxValor  string  CondretPonteiro
+*     =destruirvalor                inxValor CondRetEsp
+*	  =esvaziarvalor                inxValor CondRetEsp
+*     =incrpintados                 inxValor CondRetEsp
+*     =decrpintados                 inxValor CondRetEsp
+*     =alterarvalor                 inxValor numElementos CondRetEsp
+*	  =obterpintados                inxValor numElementos
+*	  =obtermarcados                inxValor numElementos
 *
 ***********************************************************************/
 
@@ -310,13 +307,9 @@ TpValor  *vetValor[ DIM_VT_VALOR];
 }
 /*****  Código das funções encapsuladas no módulo  *****/
 
-
-/***********************************************************************
-
-
 /***********************************************************************
 *
-*  $FC Função: TVAL -Validar indice de valor
+*  $FC Função: TVAL - Validar indice de valor
 *
 ***********************************************************************/
 

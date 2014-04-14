@@ -11,7 +11,7 @@ LES - Laboratório de Engenharia de Software DI/PUC-Rio
 
 !!!    0  Linha:     1  // Script:    TesteValor.script 
 !!!    0  Linha:     2  // Autor:     Maria Beatriz Ribeiro Vaz 
-!!!    0  Linha:     3  // Data:      13/abr/2014 
+!!!    0  Linha:     3  // Data:      14/abr/2014 
 !!!    0  Linha:     4  // Propósito: Testar superficialmente o módulo Valor 
 !!!    0  Linha:     5  // 
     8  == Caso 1 : Criar o Valor 0
@@ -55,7 +55,7 @@ LES - Laboratório de Engenharia de Software DI/PUC-Rio
    94  == Caso 25: Verificar obter Pintados
    97  == Caso 26: Alterar quantidade de marcados
   100  == Caso 27: Verificar obter Marcados
-!!!    0  Linha:   104  // fim 
+!!!    0  Linha:   104  // Fim do teste autmatizado do módulo Valor. 
 
 !!! Número de linhas lidas:         104
 !!! Número de casos de teste:        29
