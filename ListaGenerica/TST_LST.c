@@ -10,6 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       2.00   mbv   14/abr/2014 Revisão geral dos códigos e dos comentários
 *       1.00   mbv   12/abr/2014 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -93,6 +94,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 *	  =alterarinfo                  inxLista  string          CondRetEsp
 *     =irinicio                     inxLista
 *     =irfinal                      inxLista
+*     =buscar                       insLista  string          CondRetEsp
 *     =avancarelem                  inxLista  numElem         CondRetEsp
 *
 ***********************************************************************/
@@ -153,7 +155,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 
          } /* fim ativa: Testar CriarLista */
 
-      /* Testar Esvaziar lista lista */
+      /* Testar Esvaziar lista */
 
          else if ( strcmp( ComandoTeste , ESVAZIAR_LST_CMD ) == 0 )
          {
@@ -171,7 +173,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar Esvaziar lista lista */
+         } /* fim ativa: Testar Esvaziar lista */
 
       /* Testar Destruir lista */
 
@@ -432,7 +434,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 
          } /* fim ativa: Testar alterar valor nó corrente */
 
-      /* Testar Busca info */
+      /* Testar Busca informacao */
 
          else if ( strcmp( ComandoTeste , BUSCAR_INFO_CMD ) == 0 )
          {
@@ -465,7 +467,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
             return TST_CompararInt( CondRetEsp , CondRet ,
                      "Condicao de retorno errada ao buscar." ) ;
 
-         } /* fim ativa: Testar inserir elemento inicio */
+         } /* fim ativa: Testar Buscar informacao */
 
       /* Testar ir para o elemento inicial */
 
@@ -489,7 +491,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 
          } /* fim ativa: Testar ir para o elemento inicial */
 
-      /* LIS  &Ir para o elemento final */
+      /* LIS  Testar Ir para o elemento final */
 
          else if ( strcmp( ComandoTeste , IR_FIM_CMD ) == 0 )
          {
@@ -510,9 +512,9 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: LIS  &Ir para o elemento final */
+         } /* fim ativa: Testar Ir para o elemento final */
 
-      /* LIS  &Avançar elemento */
+      /* LIS  Testar Avançar elemento */
 
          else if ( strcmp( ComandoTeste , AVANCAR_CMD ) == 0 )
          {
@@ -530,7 +532,7 @@ TpLista  * vtListas[ DIM_VT_LISTA ] ;
                       LST_Avancar( vtListas[ inxLista ] , numElem ) ,
                       "Condicao de retorno errada ao avancar" ) ;
 
-         } /* fim ativa: LIS  &Avançar elemento */
+         } /* fim ativa: LIS  Testar Avançar elemento */
 
       return TST_CondRetNaoConhec ;
 

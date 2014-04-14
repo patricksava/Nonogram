@@ -10,6 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*		3.00   mbv   14/abr/2014 Revisão geral do código e dos comentários
 *       2.00   mbv   12/abr/2014 Revisão e adaptação do código
 *       1.00   mbv   19/mar/2014 Início do desenvolvimento
 *
@@ -71,10 +72,10 @@ struct tpNoLista {
     struct tpLista {
 
          TpNoLista * pOrigemLista ;
-               /* Ponteiro para o próximo nó da lista. */
+               /* Ponteiro para a origem da lista. */
 
          TpNoLista * pFimLista ;
-               /* Ponteiro para o nó anterior da lista. */
+               /* Ponteiro para o fim da lista. */
 
 		 TpNoLista * pNoCorrente ;
 			   /* Ponteiro para o nó corrente. */
@@ -86,7 +87,7 @@ struct tpNoLista {
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static void LiberarNo( TpLista * pLista , TpNoLista * pElem ) ;
+   static void LiberarNo( TpLista * pLista , TpNoLista * pElem,  void ( * ExcluirValor) ( void * pDado)  ) ;
 
    static TpNoLista * CriarElemento( TpLista * pLista , void * pValor ) ;
 
@@ -189,7 +190,6 @@ struct tpNoLista {
 
   /* Fim função: LST Adicionar novo nó no inicio da lista duplamente encadeada*/
 
-   
 /***********************************************************************************
 *
 *  Função: LST Adicionar novo nó no fim da lista duplamente encadeada.
@@ -208,9 +208,6 @@ struct tpNoLista {
 	 return LST_InserirNoApos ( pLista, informacao );
    }
  
-
-
-
    /* Fim função: LST Adicionar novo nó no fim da lista duplamente encadeada. */
 
 /***************************************************************************
@@ -238,12 +235,14 @@ struct tpNoLista {
 
       /* Encadear o elemento antes do elemento corrente */
 
+		 /*Se a lista está vazia*/
          if ( pLista->pNoCorrente == NULL )
          {
             pLista->pOrigemLista = pElem ;
             pLista->pFimLista = pElem ;
          } else
          {
+			 /* Se é o nó corrente é o nó origem */
             if ( pLista->pNoCorrente->pAnt != NULL )
             {
                pElem->pAnt  = pLista->pNoCorrente->pAnt ;
@@ -288,12 +287,14 @@ struct tpNoLista {
 
       /* Encadear o elemento após o elemento */
 
+		  /*Se a lista está vazia */
          if ( pLista->pNoCorrente == NULL )
          {
             pLista->pOrigemLista = pElem ;
             pLista->pFimLista = pElem ;
          } else
          {
+			 /* Se o nó corrente é o nó fim */
             if ( pLista->pNoCorrente->pProx != NULL )
             {
                pElem->pProx  = pLista->pNoCorrente->pProx ;
@@ -314,8 +315,6 @@ struct tpNoLista {
 
    } /* Fim função: LST  Inserir elemento após */
 
-  
-   
 /**********************************************************************************
 *
 *  Função: LST Liberar nó corrente.

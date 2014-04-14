@@ -10,7 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*	   3.00   mbv   14/abr/2014 Revisão do código e comentários
+*	   3.00   mbv   14/abr/2014 Revisão do código e dos comentários
 *	   2.00   mbv   11/abr/2014 Término do desenvolvimento
 *      1.00   mbv   10/abr/2014 Início do desenvolvimento
 *
