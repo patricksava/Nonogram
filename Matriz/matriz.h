@@ -31,28 +31,23 @@ typedef struct tpMatriz TpMatriz;
 
 
 // CRIAR MATRIZ
-MAT_tpCondRet MAT_CriarMatriz( TpMatriz* matriz, int linhas, int colunas );
+TpMatriz* MAT_CriarMatriz( int linhas, int colunas );
 
 
 // INSERIR NOVO ELEMENTO NA MATRIZ
 MAT_tpCondRet MAT_InserirNovoElemento(TpMatriz* matriz, void* novo);
 
 
-// MAPEAR AS POSICOES (I E J) DO ELEMENTO DADO
-MAT_tpCondRet MAT_ObterPosicaoElemento( TpMatriz* matriz, void* elem_dado, int* num_linha, int* num_coluna );
-
-
 // MAPEAR O ELEMENTO A PARTIR DE SUAS POSICOES I E J DADAS
-MAT_tpCondRet MAT_ObterElemento( TpMatriz* matriz, void* elem_procurado, int linha, int coluna);
-
+void* MAT_ObterElemento( TpMatriz* matriz, int linha, int coluna);
 
 // SUBSTITUIR (ALTERAR) VALOR
 MAT_tpCondRet MAT_AlterarValor( TpMatriz* matriz, void* elem_subst, int linha, int coluna);
 
 // DESTRUIR MATRIZ
-MAT_tpCondRet MAT_DestruirMatriz( TpMatriz* matriz);
+MAT_tpCondRet MAT_DestruirMatriz( TpMatriz* matriz, void ( * ExcluirValor) ( void * pDado) );
 
 //ESVAZIAR MATRIZ
-MAT_tpCondRet MAT_EsvaziarMatriz( TpMatriz* matriz );
+MAT_tpCondRet MAT_EsvaziarMatriz( TpMatriz* matriz, void ( * ExcluirValor) ( void * pDado)  );
 
 
