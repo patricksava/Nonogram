@@ -1,0 +1,51 @@
+// Script: TesteCelula.script
+// Autor: Leandro Morgado Pinto Corrêa
+// Data: 12/04/2014
+// Propósito: Testar superficialmente o módulo Celula
+//
+
+
+== Caso 1: Criar  Celula 0
+=criarcelula 0 1 0
+
+== Caso 2: Verificar MaracacaoEsperada relativa a celula 0
+=obtervalesperado 0 1
+
+==Caso 3: Verificar MarcacaoAtual relativa a celula 0
+=obtervalatual 0 0
+
+==Caso 4: Alterar marcacao atual 2 vezes
+=alteraratual 0 0
+=alteraratual 0 0
+
+==Caso 5: Verificar MarcacaoAtual relativa a celula 0
+=obtervalatual 0 0
+
+==Caso 6: Destruir Celula 0
+=destruircelula 0 3
+
+==Caso 7: Verificar se o valor 0 foi destruido
+=obtervalatual 0 1
+
+==Caso 8: Criar  Celula 1
+=criarcelula 1 0 1
+
+==Caso9: Verificar MaracacaoEsperada relativa a celula 1
+=obtervalesperado 1 0
+
+==Caso 10: Verificar erro relativo a MarcacaoAtual
+=obtervalatual 1 0
+=recuperar
+
+==Caso 11: Verificar erro relativo a MarcacaoEsperada
+=obtervalesperado 1 1
+=recuperar
+
+==Caso 12: Verificar erro relativo a AlteraMarcacao
+=alteraratual 1 0
+=alteraratual 1 1
+=recuperar
+
+==Caso 13: Destruir Celula 1
+==destruircelula 1 3
+
