@@ -258,7 +258,6 @@ struct tpNoLista {
          } /* if */
 
          pLista->pNoCorrente = pElem ;
-		 pLista->numElementos++;
 
          return LST_CondRetOK ;
 
@@ -310,7 +309,6 @@ struct tpNoLista {
          } /* if */
                   
          pLista->pNoCorrente = pElem ;
-         pLista->numElementos++;
 
          return LST_CondRetOK ;
 
