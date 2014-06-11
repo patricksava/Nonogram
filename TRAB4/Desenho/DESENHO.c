@@ -11,6 +11,7 @@
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observaçães
 *       1.00   ps   24/03/2014 Início do desenvolvimento
+*		2.00   ps	01/06/2014 Instrumentação incluída
 *
 ***************************************************************************/
 
@@ -26,6 +27,10 @@
 #include   "CELULA.h"
 
 
+#ifdef _DEBUG
+   #include "CONTA.H"
+   #include "CESPDIN.H"
+#endif
 
 /***********************************************************************
 *
@@ -58,6 +63,30 @@
 			/* Ponteiro para matriz de células */
 
 	} TpDesenho ;
+
+#ifdef _DEBUG
+	typedef enum{
+		D_DESTROI_CORRENTE = 1,
+
+		D_NULL_SUCESSOR = 2,
+
+		D_NULL_PREDECESSOR = 3,
+
+		D_LIXO_SUCESSOR = 4,
+
+		D_LIXO_PREDECESSOR = 5,
+
+		D_NULL_COORDENADA = 6,
+
+		D_ALT_COORDENADA = 7,
+
+		D_FREE_INCOMPLETO = 8,
+
+		D_NULL_CORRENTE = 9,
+
+		D_NULL_ORIGEM = 10
+	};
+#endif
 
 /*****  Dados encapsulados no módulo  *****/
 
@@ -122,8 +151,16 @@
 		pDesenho->iColunas = NumColunas;
 		pDesenho->iDicas   = NUM_MAX_DICAS; 
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoAtivo( pDesenho );
+		#endif
+
 		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
-		pDesenho->pMatrizJogo = MAT_CriarMatriz( NumLinhas, NumColunas );
+		pDesenho->pMatrizJogo = MAT_CriarMatriz( NumLinhas, NumColunas 
+		#ifdef _DEBUG
+		 , 'c'
+		#endif
+		 );
 		if( pDesenho->pMatrizJogo == NULL )
 			return DES_CondRetErroForaDoModuloDesenho;
 
@@ -131,6 +168,7 @@
 		PreencheAleatorioMatriz( );
 
 		CondRet = InicializaListas( );
+
 		if( CondRet != DES_CondRetOk )
 			return ( DES_tpCondRet ) CondRet;
 
@@ -170,11 +208,19 @@
 		if( pDesenho == NULL )
 			return DES_CondRetFaltouMemoria;
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoAtivo( pDesenho );
+		#endif
+
 		pDesenho->iLinhas  = NumLinhas;
 		pDesenho->iColunas = NumColunas;
 		pDesenho->iDicas   = 0;
 
-		pDesenho->pMatrizJogo = MAT_CriarMatriz( NumLinhas, NumColunas );
+		pDesenho->pMatrizJogo = MAT_CriarMatriz( NumLinhas, NumColunas 
+		#ifdef _DEBUG
+		 , 'c'
+	    #endif
+		 );
 		if( pDesenho->pMatrizJogo == NULL )
 			return DES_CondRetErroForaDoModuloDesenho;
 
@@ -229,12 +275,20 @@
 		if( pDesenho == NULL )
 			return DES_CondRetFaltouMemoria;
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoAtivo( pDesenho );
+		#endif
+
 		pDesenho->iLinhas  = Linhas;
 		pDesenho->iColunas = Colunas;
 		pDesenho->iDicas   = NUM_MAX_DICAS;
 
 		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
-		pDesenho->pMatrizJogo = MAT_CriarMatriz( Linhas, Colunas );
+		pDesenho->pMatrizJogo = MAT_CriarMatriz( Linhas, Colunas 
+		#ifdef _DEBUG
+		 , 'c'
+		 #endif
+		 );
 		if( pDesenho->pMatrizJogo == NULL )
 			return DES_CondRetErroForaDoModuloDesenho;
 
@@ -289,12 +343,20 @@
 		if( pDesenho == NULL )
 			return DES_CondRetFaltouMemoria;
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoAtivo( pDesenho );
+		#endif
+
 		pDesenho->iLinhas  = Linhas;
 		pDesenho->iColunas = Colunas;
 		pDesenho->iDicas   = Dicas;
 
 		//Chama o módulo de matriz e guarda o ponteiro na estrutura desenho
-		pDesenho->pMatrizJogo = MAT_CriarMatriz( Linhas, Colunas );
+		pDesenho->pMatrizJogo = MAT_CriarMatriz( Linhas, Colunas 
+		#ifdef _DEBUG
+		 , 'c'
+	    #endif
+		 );
 		if( pDesenho->pMatrizJogo == NULL )
 			return DES_CondRetErroForaDoModuloDesenho;
 
@@ -332,6 +394,9 @@
 		for( i = 0; i < pDesenho->iLinhas; i++ )
 			LST_DestruirLista( pDesenho->pListasHorizontais[i], ExcluiValor );
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoNaoAtivo( pDesenho->pListasHorizontais );
+		#endif
 		// Libera o vetor de cabeças de lista
 		free( pDesenho->pListasHorizontais );
 
@@ -339,12 +404,24 @@
 		for( i = 0; i < pDesenho->iColunas; i++ )
 			LST_DestruirLista( pDesenho->pListasVerticais[i], ExcluiValor );
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoNaoAtivo( pDesenho->pListasVerticais );
+		#endif
 		// Libera o vetor de cabeças de lista
 		free( pDesenho->pListasVerticais );
 
 		// Libera a matriz de jogo
 		MAT_DestruirMatriz( pDesenho->pMatrizJogo, ExcluiCelula );
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoNaoAtivo( pDesenho->pMatrizJogo );
+		#endif
+		// Libera o ponteiro para estrutura matriz
+		free( pDesenho->pMatrizJogo );
+
+		#ifdef _DEBUG
+			CED_MarcarEspacoNaoAtivo( pDesenho );
+		#endif
 		// Libera o ponteiro para estrutura encapsulada Desenho 
 		free( pDesenho );
 
@@ -414,7 +491,7 @@
 				Celula * pCelula = NULL;
 				pCelula = ( Celula* ) MAT_ObterElemento( pDesenho->pMatrizJogo, i-1, j-1 );
 				//Se a celula é para ser pintada mas não está pintada
-				if( CEL_MarcacaoEsperada( pCelula ) && CEL_MarcacaoAtual( pCelula ) == 0 )
+				if( CEL_MarcacaoEsperada( pCelula ) && !CEL_MarcacaoAtual( pCelula ) )
 				{
 					//Marca a célula
 					DES_AlteraMarcacaoCoordenada( i, j );
@@ -617,8 +694,7 @@
 *	Complexidade: O(n^2) -> pode percorrer toda a matriz
 *
 ***********************************************************************/
-
-	DES_tpCondRet DES_ImprimeDesenho ( void )
+		DES_tpCondRet DES_ImprimeDesenho ( void )
 	{
 		
 		int i, j;
@@ -633,6 +709,13 @@
 		for( i = 1; i <= pDesenho->iColunas; i++ )
 		{
 			printf(" %2d  ", i);
+		}
+		printf("\n");
+
+		printf("    ");
+		for( i = 1; i <= pDesenho->iColunas; i++ )
+		{
+			printf("-----", i);
 		}
 		printf("\n");
 		//Verifica o número máximo de elementos em listas horizontais
@@ -707,7 +790,7 @@
 		// INICIO -> Imprime valores de coluna
 
 		// Volta todas as listas para a posição inicial
-		for( j = 0; j < pDesenho->iColunas; j++ )
+		for( j = 0; j < pDesenho->iLinhas; j++ )
 				LST_IrInicio( pDesenho->pListasVerticais[j] ); 
 
 		// Imprime as listas verticais.
@@ -742,7 +825,7 @@
 		printf("\n\n\n");
 		return DES_CondRetOk;
 	}
-
+	
 /*****  Código das funçães encapsuladas no módulo  *****/
 
 
@@ -776,7 +859,11 @@
 				// Se o resultado é impar, liga a célula. 50% de chance.
 				pCelula = CEL_CriaCelula( randomNumber, 0 );
 
-				MAT_AlterarValor( pDesenho->pMatrizJogo, pCelula, i, j );
+				MAT_AlterarValor( pDesenho->pMatrizJogo, pCelula, i, j
+					#ifdef _DEBUG
+						, 'c'
+					#endif
+					);
 
 			}/* for */
 		}/* for */
@@ -806,7 +893,11 @@
 				Celula * pCelula = NULL;
 				pCelula = CEL_CriaCelula( 0, 0 );
 
-				MAT_AlterarValor( pDesenho->pMatrizJogo, pCelula, i, j );
+				MAT_AlterarValor( pDesenho->pMatrizJogo, pCelula, i, j 
+					#ifdef _DEBUG
+						, 'c'
+					#endif
+					);
 
 			}/* for */
 		}/* for */
@@ -842,7 +933,11 @@
 				// Cria célula com valor de marcação lido no arquivo e não marcado
 				pCelula = CEL_CriaCelula( Marcacao, 0 );
 
-				MAT_AlterarValor( pDesenho->pMatrizJogo, pCelula, i, j );
+				MAT_AlterarValor( pDesenho->pMatrizJogo, pCelula, i, j
+					#ifdef _DEBUG
+						, 'c'
+					#endif
+					);
 
 			}/* for */
 		}/* for */
@@ -880,7 +975,11 @@
 
 				pCelula = CEL_CriaCelula( Marcacao, Marcado );
 
-				MAT_AlterarValor(pDesenho->pMatrizJogo, pCelula, i, j );
+				MAT_AlterarValor(pDesenho->pMatrizJogo, pCelula, i, j 
+					#ifdef _DEBUG
+						, 'c'
+					#endif
+					);
 
 			}/* for */
 		}/* for */
@@ -908,10 +1007,18 @@
 		if(pDesenho->pListasHorizontais == NULL)
 			return DES_CondRetFaltouMemoria;
 
+		#ifdef _DEBUG
+			CED_MarcarEspacoAtivo( pDesenho->pListasHorizontais );
+		#endif
+
 		//Aloca o vetor que vai guardar as cabeças de listas verticais
 		pDesenho->pListasVerticais = ( TpLista ** ) malloc( pDesenho->iColunas * sizeof( TpLista* ) );
 		if( pDesenho->pListasVerticais == NULL )
 			return DES_CondRetFaltouMemoria;
+
+		#ifdef _DEBUG
+			CED_MarcarEspacoAtivo( pDesenho->pListasVerticais );
+		#endif
 
 		// Inicialização das Listas e valores de linha
 		CondRet = InicializaListasHorizontais( );
@@ -947,7 +1054,11 @@
 			
 			TpValor * pValor = NULL;
 
-			pDesenho->pListasHorizontais[i] = LST_CriarLista( );
+			pDesenho->pListasHorizontais[i] = LST_CriarLista( 	
+				#ifdef _DEBUG
+					'v'
+				#endif
+			 );
 			for( j = 0; j < pDesenho->iColunas; j++ )
 			{
 				//Recupera a célula na posição (i,j)
@@ -958,7 +1069,11 @@
 					if( !sequencia )
 					{
 						pValor = VAL_CriarValor( );
-						LST_InserirNovoNoFim( pDesenho->pListasHorizontais[i], pValor );
+						LST_InserirNovoNoFim( pDesenho->pListasHorizontais[i], pValor
+								#ifdef _DEBUG
+									 , 'v'
+								 #endif
+						 );
 					}
 					//Indica que existe uma sequencia e incrementa a estrutura Valor
 					sequencia = 1;
@@ -996,7 +1111,11 @@
 
 			TpValor * pValor = NULL;
 
-			pDesenho->pListasVerticais[j] = LST_CriarLista( );
+			pDesenho->pListasVerticais[j] = LST_CriarLista( 	
+			#ifdef _DEBUG
+					 'v'
+			#endif
+						 );
 			for( i = 0; i < pDesenho->iLinhas; i++ )
 			{
 				//Recupera a célula na posição (i,j)
@@ -1007,7 +1126,11 @@
 					if( !sequencia )
 					{
 						pValor = VAL_CriarValor( );
-						LST_InserirNovoNoFim( pDesenho->pListasVerticais[j], pValor );
+						LST_InserirNovoNoFim( pDesenho->pListasVerticais[j], pValor 
+							#ifdef _DEBUG
+									 , 'v'
+							#endif
+						 );
 					}
 					//Indica que existe uma sequencia e incrementa a estrutura Valor
 					sequencia = 1;
@@ -1054,3 +1177,283 @@
 	{
 		CEL_DestruirCelula( (Celula*) pDado );
 	}
+
+
+#ifdef _DEBUG
+
+/***********************************************************************
+*
+*   Função: DES Verifica
+*
+*   Essa função é do modo DEBUG e tem o objetivo de destruir as 
+*	assertivas estruturais do módulo Desenho com intuito de testar
+*	possíveis falhas/inconsistências no tempo de execução.
+*
+***********************************************************************/
+	DES_tpCondRet DES_Verifica ( int* numErros )
+	{
+		int i = 0, aux=0;
+		
+		*numErros = 0;
+		CNT_CONTAR("DES_VerificarEstrutura");
+		for ( i =0 ; i< pDesenho->iLinhas ; i++ )
+		{
+			CNT_CONTAR("DES_VerificarEstrutura-ListasHorizontais");
+			aux = LST_VerificaAssertivaAnt ( pDesenho ->pListasHorizontais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalPonteiroAnt_ComErro");
+				printf ( "\n Erro no ponteiro para celula predecessora na Lista Horizontal \n Linhas : %d \n", i );
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalPonteiroAnt_OK");
+			} /* else */
+			*numErros += aux;
+
+			aux = LST_VerificaAssertivaProx ( pDesenho ->pListasHorizontais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalPonteiroProx_ComErro");
+				printf ("\n Erro no ponteiro para celula sucessora na Lista Horizontal \n Linhas : %d \n", i );
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalPonteiroProx_OK");
+			} /*else*/
+			*numErros += aux;
+
+            aux = LST_VerificaAssertivaListaVazia ( pDesenho ->pListasHorizontais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalVazio_ComErro");
+				printf ("\nErro nas assertivas de uma lista horizontal vazia \n Linhas : %d \n", i);
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalVazio_OK");
+			} /* else */
+			*numErros += aux;
+
+            aux = LST_VerificaAssertivaListaElemUnico ( pDesenho ->pListasHorizontais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalElemUnico_ComErro");
+				printf ("\nErro nas assertivas de uma lista horizontal com elemento unico \n Linhas : %d \n", i);
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalElemUnico_OK");
+			} /* else */
+			*numErros += aux;
+
+            aux = LST_VerificaAssertivaListaPreenchida ( pDesenho ->pListasHorizontais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalPreenchida_ComErro");
+				printf ("\nErro nas assertivas de uma lista horizontal com mais 1 um elementos \n Linhas : %d \n", i);
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalPreenchida_OK");
+			} /* else */
+			*numErros += aux;
+
+			aux = LST_VerificaAssertivaTipoListaElementos( pDesenho ->pListasHorizontais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalTipoListaElementos_ComErro");
+				printf ("\nErro: Tipos de conteudo inconsistentes na lista horizontal %d\n", i);
+			} /* if */ 
+			else 
+			{
+				CNT_CONTAR("DES_AssertivaListaHorizontalTipoListaElementos_Ok");
+			} /* else */
+			*numErros += aux;
+		} /* for */
+		for ( i =0 ; i< pDesenho->iColunas ; i++ )
+		{
+			CNT_CONTAR("DES_VerificarEstrutura-ListasVerticais");
+
+			aux = LST_VerificaAssertivaAnt ( pDesenho ->pListasVerticais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalPonteiroAnt_ComErro");
+				printf ("\n Erro no ponteiro para celula anterior na coluna : %d \n", i );
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalPonteiroAnt_OK");
+			} /* else */
+			*numErros += aux;
+
+			aux = LST_VerificaAssertivaProx ( pDesenho ->pListasVerticais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalPonteiroProx_ComErro");
+				printf ("\n Erro no ponteiro para celula sucessora na coluna : %d \n", i );
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalPonteiroProx_OK");
+			} /* else */
+			*numErros += aux;
+
+            aux = LST_VerificaAssertivaListaVazia ( pDesenho ->pListasVerticais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalVazio_ComErro");
+				printf ("\n Erro na assertiva de lista vazia na coluna : %d \n", i );
+			} /* if */
+
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalVazio_OK");
+			} /*else */
+			*numErros += aux;
+
+            aux = LST_VerificaAssertivaListaElemUnico ( pDesenho ->pListasVerticais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalElemUnico_ComErro");
+				printf ("\n Erro na assertiva de lista vertical com elemento unico : %d \n", i );
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalElemUnico_OK");
+			} /* else */
+			*numErros += aux;
+
+
+            aux = LST_VerificaAssertivaListaPreenchida ( pDesenho ->pListasVerticais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalPreenchida_ComErro");
+				printf ("\n Erro na assertiva de lista vertical preenchida : %d \n", i );
+			} /* if */
+			else
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalPreenchida_OK");
+			}/* else */
+
+			*numErros += aux;
+
+
+			aux = LST_VerificaAssertivaTipoListaElementos( pDesenho ->pListasVerticais [i] );
+			if(aux > 0)
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalTipoListaElementos_ComErro");
+				printf ("\nErro: Tipos de conteudo inconsistentes na lista vertical %d\n", i);
+			} /* if */
+			else 
+			{
+				CNT_CONTAR("DES_AssertivaListaVerticalTipoListaElementos_Ok");
+			}/* else */
+			*numErros += aux;
+
+		} /* for */
+
+		CNT_CONTAR("DES_VerificarEstrutura-MatrizJogo");
+
+		aux = MAT_VerificaAssertivaLinhaColuna( pDesenho->pMatrizJogo );
+		if(aux > 0)
+		{
+				CNT_CONTAR("DES_AssertivaMatrizLinhaColuna_ComErro");
+				printf ("\n Erro na assertiva de numero de linhas e colunas" );
+		} /* if */
+		else
+		{
+			CNT_CONTAR("DES_AssertivaMatrizLinhaColuna_OK");
+		} /* else */
+		*numErros += aux;
+
+		aux = MAT_VerificaAssertivaPontLista( pDesenho->pMatrizJogo );
+		if(aux > 0)
+		{
+				CNT_CONTAR("DES_AssertivaMatrizPonteiroLista_ComErro");
+				printf ("\n Erro no ponteiro para lista da matriz" );
+		} /* if */
+		else
+		{
+				CNT_CONTAR("DES_AssertivaMatrizPonteiroLista_OK");
+		} /* else */
+		*numErros += aux;
+
+		aux = MAT_VerificaAssertivaListas( pDesenho->pMatrizJogo );
+		if(aux > 0)
+		{
+				CNT_CONTAR("DES_AssertivaMatrizListas_ComErro");
+				printf ("\n Erro na assertiva da lista da matriz" );
+		} /* if */
+		else
+		{
+			CNT_CONTAR("DES_AssertivaMatrizListas_OK");
+		} /*else */
+		*numErros += aux;
+	}
+
+/***********************************************************************
+*
+*   Função: DES Deturpar
+*
+*   Essa função é do modo DEBUG e tem o objetivo de destruir as 
+*	assertivas estruturais do módulo Desenho com intuito de testar
+*	possíveis falhas/inconsistências no tempo de execução.
+*
+***********************************************************************/
+
+	DES_tpCondRet DES_Deturpar ( int opcao ) 
+	{
+		int lixo;
+		int valor_aleatorio = 99;
+		switch ( opcao )
+		{
+		case D_DESTROI_CORRENTE :
+			LST_LiberarNoCorrente( pDesenho->pListasHorizontais[0], ExcluiValor, 1 );
+			break;
+		
+		case D_NULL_SUCESSOR:
+			//Considerando o elemento mediano (2,2)
+			MAT_AlteraPonteiroSucessor( pDesenho->pMatrizJogo, 2, 2, NULL );
+			break;
+
+		case D_NULL_PREDECESSOR:
+			//Considerando o elemento mediano (2,2)
+			MAT_AlteraPonteiroPredecessor( pDesenho->pMatrizJogo, 2, 2, NULL );
+			break;
+
+		case D_LIXO_SUCESSOR:
+			MAT_AlteraPonteiroSucessor( pDesenho->pMatrizJogo, 4, 1, &lixo );
+			break;
+
+		case D_LIXO_PREDECESSOR:
+			MAT_AlteraPonteiroPredecessor( pDesenho->pMatrizJogo, 3, 3, &lixo );
+			break;
+		
+		case D_NULL_COORDENADA:
+			MAT_AlterarValor( pDesenho->pMatrizJogo, NULL, 3, 4, 'N' );
+			break;
+		
+		case D_ALT_COORDENADA:
+			MAT_AlterarValor( pDesenho->pMatrizJogo, &valor_aleatorio, 1, 1, 'I' );
+			break;
+		
+		case D_FREE_INCOMPLETO:
+			MAT_FreeIncompleto( pDesenho->pMatrizJogo);
+			break;
+		
+		case D_NULL_CORRENTE:
+			LST_NuloCorrente( pDesenho->pListasVerticais[1] );
+			break;
+		case D_NULL_ORIGEM:
+			LST_NuloOrigem( pDesenho->pListasHorizontais[0] );
+			break;
+		default:
+			printf("Caso de deturpação inválido\n");
+			break;
+		}
+
+		return DES_CondRetOk;
+	}
+
+#endif 

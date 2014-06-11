@@ -1,0 +1,199 @@
+// Script: TesteDesenhoCompleto.script
+// Autor: Patrick Sava e Maria Beatriz Vaz
+// Data: 13/abr/2014
+// Propósito: Testa todas as funções do módulo desenho
+
+== Inicializa o desenho com menos que a quantidade mínima de linhas/colunas
+=iniciardesenho 2 3 3
+
+== Inicializa o desenho com mais que a quantidade máxima de linhas/colunas
+=iniciardesenho 2 23 23
+
+== Imprime sem ter inicializado o desenho
+=imprimirjogo 3
+
+== Inicializa o desenho na forma mínima (5x5) e imprime
+=iniciardesenho 0 5 5
+=imprimirjogo 0
+
+== Ativa dica e imprime novamente
+=ativardica 0
+=imprimirjogo 0
+
+== Destroi desenho já inicializado
+=destroidesenho 0
+
+== Destroi desenho inexistente
+=destroidesenho 3
+
+== Inicializa o desenho vazio com menos que a quantidade mínima de linhas/colunas
+=iniciardesenhovazio 2 3 3
+
+== Inicializa o desenho vazio com mais que a quantidade máxima de linhas/colunas
+=iniciardesenhovazio 2 23 23
+
+== Inicializa o desenho vazio na forma mínima (5x5)
+=iniciardesenho 0 5 5
+
+== Altera marcacao da coordenada 1x1
+=alterarmarcacao 0 1 1
+
+== Alterar novamente a marcacao da coordenada 1x1
+=alterarmarcacao 0 1 1
+
+== Alterar marcacao 2x2
+=alterarmarcacao 0 2 2
+
+== Alterar marcacao 3x3
+=alterarmarcacao 0 3 3
+
+== Alterar marcacao 4x5
+=alterarmarcacao 0 4 5
+
+== Alterar marcacao 3x1
+=alterarmarcacao 0 3 1
+
+== Alterar marcacao de coordenada invalida
+=alterarmarcacao 4 25 25
+
+== Alterar marcacao de coordenada invalida negativa
+=alterarmarcacao 4 -10 -10
+
+== Ativar dicas no jogo
+=ativardica 0
+
+== Gravar jogo atual
+=gravarjogo 0 
+
+== Gravar jogo projetado
+=destroidesenho 0
+
+== destuido, começando do zero
+=iniciardesenhovazio 0 7 7
+
+== criado vazio 7x7, fazendo marcacoes agora
+=alterarmarcacao 0 3 1
+=alterarmarcacao 0 4 1
+=alterarmarcacao 0 5 1
+=alterarmarcacao 0 6 1
+=alterarmarcacao 0 3 2
+=alterarmarcacao 0 3 3
+=alterarmarcacao 0 3 4
+=alterarmarcacao 0 4 5
+=alterarmarcacao 0 3 5
+=alterarmarcacao 0 7 7
+=alterarmarcacao 0 1 4
+=alterarmarcacao 0 2 2
+=alterarmarcacao 0 4 6
+
+== marcaçoes feitas, gravando em arquivo agora
+=gravarprojeto 0 "Modulandia"
+
+== Recuperar projeto gravado
+=destroidesenho 0
+=iniciardesenhoprojeto 0 "Modulandia.des"
+
+== Ativar 10 dicas no jogo
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+=ativardica 0
+
+== Ativar a 11a dica
+=ativardica 5
+
+== Gravar jogo atual
+=gravarjogo 0
+
+== Recuperar o ultimo jogo
+=iniciardesenhoultimojogo 0
+
+== Destruir o desenho para testar as funções caso não exista desenho
+=destroidesenho 0
+
+== Alterar marcacao de jogo inexistente
+=alterarmarcacao 3 2 2
+
+== Ativar dica de jogo que nao existe
+=ativardica 3
+
+== Gravar jogo que não existe
+=gravarjogo 3
+
+== Recuperar jogo que não existe
+=iniciardesenhoprojeto 7 "Nao existe"
+
+== Carrega projeto salvo 
+=iniciardesenhoprojeto 0 "Modulandia.des"
+
+== Faz mais marcaçoes, quase completa o desenho pre moldado
+=alterarmarcacao 0 3 1
+=alterarmarcacao 0 4 1
+=alterarmarcacao 0 5 1
+=alterarmarcacao 0 6 1
+=alterarmarcacao 0 3 2
+=alterarmarcacao 0 3 3
+=alterarmarcacao 0 4 5
+=alterarmarcacao 0 3 4
+=alterarmarcacao 0 3 5
+=alterarmarcacao 0 7 7
+=alterarmarcacao 0 1 4
+=alterarmarcacao 0 2 2
+
+== Verifica se o desenho foi completo, mas falta uma célula
+=jogofinalizado 1
+=recuperar
+
+== Marca a última que sobrou
+=alterarmarcacao 0 4 6
+
+== Verifica se o desenho foi completo
+=jogofinalizado 1
+
+== Recomeça o jogo Modulândia
+=destroidesenho 0
+=iniciardesenhoprojeto 0 "Modulandia.des"
+
+== Marca todas as células menos 2. 
+=alterarmarcacao 0 3 1
+=alterarmarcacao 0 4 1
+=alterarmarcacao 0 5 1
+=alterarmarcacao 0 6 1
+=alterarmarcacao 0 3 2
+=alterarmarcacao 0 3 3
+=alterarmarcacao 0 3 4
+=alterarmarcacao 0 3 5
+=alterarmarcacao 0 7 7
+=alterarmarcacao 0 1 4
+
+== Grava jogo finalizado só pra ver saída do arquivo.
+=ativardica 0
+=gravarjogo 0
+
+== Verifica se o jogo ainda não acabou
+=jogofinalizado 0
+
+== Pede dica para faltar 1
+=ativardica 0
+
+== Pede dica pra finalizar o jogo
+=ativardica 0  
+
+== Verifica se o jogo terminou
+=jogofinalizado 1
+
+== Pede dica com jogo finalizado
+=ativardica 6
+
+== Grava jogo finalizado só pra ver saída do arquivo.
+=gravarjogo 0
+
+== Imprime
+=imprimirjogo 0
+=destroidesenho 0
