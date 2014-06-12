@@ -1,0 +1,35 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB4-1.exe
+
+      Arquivo de teste:    Scripts\TesteDesenhoDeturpa7.script
+
+
+!!!    0  Linha:     1  // Script: TesteDesenhoDeturpa7.script 
+!!!    0  Linha:     2  // Autor: Patrick Sava e Maria Beatriz Vaz 
+!!!    0  Linha:     3  // Data: 08/jun/2014 
+!!!    0  Linha:     4  // Propósito: Testa deturpação 7 
+    6  == Iniciar contagem
+   13  == Deturpando! Alterando o tipo de estrutura apontado na célula
+Erro: Tipo do conteudo da celula diferente do registrado na cabeca da lista!
+
+Erro na assertiva de tipos de conteudo da lista 1
+
+ Erro na assertiva da lista da matriz
+   18  == Parando contagem
+   21  == Finalizando contadores
+!!!    0  Linha:    24  // Não destruimos a estrutura desenho porque isso faria o programa voar. Por isso que a contagem de espaços alocados é alta. 
+
+!!! Número de linhas lidas:          24
+!!! Número de casos de teste:         4
+!!! Número comandos corretos:         9
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 91

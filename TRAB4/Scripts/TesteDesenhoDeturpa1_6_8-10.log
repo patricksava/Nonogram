@@ -1,0 +1,68 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB4-1.exe
+
+      Arquivo de teste:    Scripts\TesteDesenhoDeturpa1_6_8-10.script
+
+
+!!!    0  Linha:     1  // Script: TesteDesenhoDeturpa1_6_8-10.script 
+!!!    0  Linha:     2  // Autor: Patrick Sava e Maria Beatriz Vaz 
+!!!    0  Linha:     3  // Data: 08/jun/2014 
+!!!    0  Linha:     4  // Propósito: Testa deturpação 1, 6, 8-10 
+    6  == Iniciar contagem
+   12  == Deturpando! Eliminando ponteiro corrente de uma lista horizontal.
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+ Erro no ponteiro para celula predecessora na Lista Horizontal 
+ Linhas : 0 
+
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+ Erro no ponteiro para celula sucessora na Lista Horizontal 
+ Linhas : 0 
+
+   19  == Deturpando! Colocando NULL no conteudo da célula.
+Erro: Ponteiro para conteudo da celula nulo!
+
+Erro na assertiva de tipos de conteudo da lista 4
+
+ Erro na assertiva da lista da matriz
+   26  == Deturpando! Destacando célula sem usar free.
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+Erro na assertiva do ponteiro pProx da coluna 0
+
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+Erro na assertiva do ponteiro pAnt da coluna 0
+
+ Erro na assertiva da lista da matriz
+   33  == Deturpando! Colocando NULL no ponteiro corrente da lista.
+ Lista com Um elemento e ponteiro corrente diferente do ponteiro origem ou do ponteiro fim
+
+ Erro na assertiva de lista vertical com elemento unico : 1 
+
+   40  == Deturpando! Colocando NULL no ponteiro origem da lista.
+ Lista com Um elemento e ponteiro corrente diferente do ponteiro origem ou do ponteiro fim
+
+Erro nas assertivas de uma lista horizontal com elemento unico 
+ Linhas : 0 
+
+   47  == Parando contagem
+   50  == Finalizando contadores
+!!!    0  Linha:    54  //Existem 2 espaços ainda alocados que correspondem à célula que foi destacada sem free e a lista que recebeu NULL no ponteiro origem. 
+!!!    0  Linha:    55  //A lista possui apenas 1 elemento que se manteve alocado porque a liberação da lista depende da referencia para o ponteiro da origem. 
+
+!!! Número de linhas lidas:          55
+!!! Número de casos de teste:         8
+!!! Número comandos corretos:        26
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 2

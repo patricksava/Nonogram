@@ -4,9 +4,9 @@
 // Propósito: Testa deturpações de 2 à 5 (Vide enunciado);
 
 == Iniciar contagem
-=inicializarcontadores "acumulador"
+=inicializarcontadores "Contadores\\acumulador2-5"
 =zerartodoscontadores
-=lercontadores "DesenhoVerifica"
+=lercontadores "Contadores\\DesenhoVerifica"
 =iniciarcontagem
 
 == Deturpando! Colocando NULL na célula sucessora.

@@ -1,0 +1,16 @@
+Data           Horas Trabalhadas      Tipo de Tarefa              Descrição da Tarefa  
+ 
+01/06/2014,      2 horas,              Codificar módulo,          iniciar a codificação da deturpa e verifica
+
+02/06/2014,      3 horas,              Codificar módulo,          continuação da codificação da deturpa e verifica
+
+05/06/2014,      2 hora,               especificar módulos        Comentar os módulos que foram alterados com a criação de novas funções.
+                                                         
+				       especificar funções     
+
+09/06/2014,      1 horas,              revisar especificações     Conferir todas as esécificações. 
+                                                               
+
+11/06/2014,      2 horas,              Planejar Testes,		  Testar os arquivos gerados, escrever o LEIAME e os arquivos de explicação de cada teste.
+					Estudar   
+                                                             

@@ -1,0 +1,17 @@
+01/06/2014,      2 horas,              Codificar modulo,           iniciar a codificao da deturpa e verifica
+
+
+02/06/2014,      3 horas,               Codificar modulo,           continuacao da codificao da deturpa e verifica
+
+
+05/06/2014,      2 hora,                revisar especificações       revisar assertivas estruturais, 
+                                                                     tornando as estruturas autoverificáveis        
+                                                         
+				        
+09/06/2014,      1 horas,               revisar especificaoes        Continuação da revisão das assertivas estruturais, 
+                                                                     tornando as estruturas autoverificáveis  
+                                                               
+
+11/06/2014,       2 horas,               Realizar testes             testar arquivos gerados e escrever documentos 
+                                                                     para explicar scripts de teste 
+                                         estudar                  

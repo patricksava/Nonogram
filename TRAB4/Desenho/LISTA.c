@@ -844,10 +844,9 @@ int LST_VerificaAssertivaProx ( TpLista *pLista )
 	TpNoLista *aux;
 	int i = 1;
 	aux = pLista->pOrigemLista;
-	CNT_CONTAR("LST_AssertivaProx_Start");
 	if ( aux != NULL )
 	{
-		CNT_CONTAR("LST_AssertivaProx_if1");
+
 		while ( aux->pProx != NULL && CED_ObterTipoEspaco(aux->pProx) == CED_ObterTipoEspaco(aux) )
 		{
 			CNT_CONTAR("LST_AssertivaProx_While1");
@@ -862,7 +861,7 @@ int LST_VerificaAssertivaProx ( TpLista *pLista )
 			i++;
 			aux = aux -> pProx;
 		}
-
+		CNT_CONTAR("LST_AssertivaProx_if1");
 	} else {
 		CNT_CONTAR("LST_AssertivaProx_else1");
 	}
@@ -892,7 +891,7 @@ int LST_VerificaAssertivaAnt ( TpLista *pLista )
 	TpNoLista *aux;
 	int i = 1;
 	aux = pLista->pFimLista;
-	CNT_CONTAR("LST_AssertivaAnt_Start");
+
 	if ( aux != NULL )
 	{
 		CNT_CONTAR("LST_AssertivaAnt_if1");
@@ -936,7 +935,6 @@ int LST_VerificaAssertivaAnt ( TpLista *pLista )
 
 int LST_VerificaAssertivaListaVazia ( TpLista *pLista )
 {
-	CNT_CONTAR("LST_AssertivaListaVazia_Start");
 
 	if ( LST_RetornaNumElementos (pLista) == 0 )
 	{
@@ -963,7 +961,6 @@ int LST_VerificaAssertivaListaVazia ( TpLista *pLista )
 
 int LST_VerificaAssertivaListaElemUnico ( TpLista *pLista )
 {  
-	CNT_CONTAR("LST_AssertivaListaElemUnico_Start");
 	if ( LST_RetornaNumElementos (pLista) == 1 )
 	{
 		CNT_CONTAR("LST_AssertivaListaElemUnico_if1");
@@ -1000,7 +997,6 @@ int LST_VerificaAssertivaListaElemUnico ( TpLista *pLista )
 
 int LST_VerificaAssertivaListaPreenchida ( TpLista *pLista )
 {
-	CNT_CONTAR("LST_AssertivaListaPreenchida_Start");
 	if ( LST_RetornaNumElementos (pLista) > 1 )
 	{
 		CNT_CONTAR("LST_AssertivaListaPreenchida_if1");
@@ -1029,7 +1025,7 @@ int LST_VerificaAssertivaListaPreenchida ( TpLista *pLista )
 int LST_VerificaAssertivaTipoListaElementos ( TpLista *pLista )
 {
 	TpNoLista* aux = pLista->pOrigemLista;
-	CNT_CONTAR("LST_AssertivaTipoElemento_Start");
+
 	while(aux != NULL)
 	{
 		CNT_CONTAR("LST_AssertivaTipoElemento_while");

@@ -437,7 +437,7 @@ void MAT_FreeIncompleto (TpMatriz* matriz)
 
 int MAT_VerificaAssertivaLinhaColuna (TpMatriz* matriz)
 {
-	CNT_CONTAR("MAT_AssertivaLinhaColuna_Start");
+	
 	if ( matriz -> m > 0 && matriz ->n > 0 )
 	{
 		CNT_CONTAR("MAT_AssertivaLinhaColuna_OK");
@@ -459,7 +459,7 @@ int MAT_VerificaAssertivaPontLista (TpMatriz* matriz)
 {
 	int i=0;
 	int numErros = 0;
-	CNT_CONTAR("MAT_AssertivaPonteiroLista_Start");
+
 	if( matriz -> mat != NULL )
 	{
 		CNT_CONTAR("MAT_AssertivaPonteiroLista_MatrizNaoNula");
@@ -478,7 +478,6 @@ int MAT_VerificaAssertivaPontLista (TpMatriz* matriz)
 	} else {
 		CNT_CONTAR("MAT_AssertivaPonteiroLista_MatrizNula");
 	}
-	CNT_CONTAR("MAT_AssertivaPonteiroLista_Fim");
 	return numErros;
 } /* Fim função: MAT Verifica Assertiva Ponteiro Lista */
 
@@ -492,7 +491,7 @@ int MAT_VerificaAssertivaListas (TpMatriz* matriz)
 {
 	int i=0;
 	int numErros = 0;
-	CNT_CONTAR("MAT_AssertivaListas_Start");
+
 	if( matriz -> mat != NULL )
 	{
 		CNT_CONTAR("MAT_AssertivaListas_MatrizNaoNula");

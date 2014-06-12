@@ -4,9 +4,9 @@
 // Propósito: Testa deturpação 1, 6, 8-10
 
 == Iniciar contagem
-=inicializarcontadores "acumulador"
+=inicializarcontadores "Contadores\\acumulador1_6_8-10"
 =zerartodoscontadores
-=lercontadores "DesenhoVerifica"
+=lercontadores "Contadores\\DesenhoVerifica"
 =iniciarcontagem
 
 == Deturpando! Eliminando ponteiro corrente de uma lista horizontal.

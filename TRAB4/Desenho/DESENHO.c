@@ -1195,10 +1195,8 @@
 		int i = 0, aux=0;
 		
 		*numErros = 0;
-		CNT_CONTAR("DES_VerificarEstrutura");
 		for ( i =0 ; i< pDesenho->iLinhas ; i++ )
 		{
-			CNT_CONTAR("DES_VerificarEstrutura-ListasHorizontais");
 			aux = LST_VerificaAssertivaAnt ( pDesenho ->pListasHorizontais [i] );
 			if(aux > 0)
 			{
@@ -1273,7 +1271,6 @@
 		} /* for */
 		for ( i =0 ; i< pDesenho->iColunas ; i++ )
 		{
-			CNT_CONTAR("DES_VerificarEstrutura-ListasVerticais");
 
 			aux = LST_VerificaAssertivaAnt ( pDesenho ->pListasVerticais [i] );
 			if(aux > 0)
@@ -1353,13 +1350,11 @@
 
 		} /* for */
 
-		CNT_CONTAR("DES_VerificarEstrutura-MatrizJogo");
-
 		aux = MAT_VerificaAssertivaLinhaColuna( pDesenho->pMatrizJogo );
 		if(aux > 0)
 		{
-				CNT_CONTAR("DES_AssertivaMatrizLinhaColuna_ComErro");
-				printf ("\n Erro na assertiva de numero de linhas e colunas" );
+			CNT_CONTAR("DES_AssertivaMatrizLinhaColuna_ComErro");
+			printf ("\n Erro na assertiva de numero de linhas e colunas" );
 		} /* if */
 		else
 		{

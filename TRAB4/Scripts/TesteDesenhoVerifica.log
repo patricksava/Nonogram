@@ -1,0 +1,29 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB4-1.exe
+
+      Arquivo de teste:    Scripts\TesteDesenhoVerifica.script
+
+
+!!!    0  Linha:     1  // Script: TesteDesenhoVerifica.script 
+!!!    0  Linha:     2  // Autor: Patrick Sava 
+!!!    0  Linha:     3  // Data: 11/jun/2014 
+!!!    0  Linha:     4  // Propósito: Testa  verificação 
+    6  == Iniciar contagem
+   13  == Testando função de verificação
+   18  == Parando contagem
+   21  == Finalizando contadores
+
+!!! Número de linhas lidas:          22
+!!! Número de casos de teste:         4
+!!! Número comandos corretos:         9
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

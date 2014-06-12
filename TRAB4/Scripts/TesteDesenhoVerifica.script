@@ -1,0 +1,22 @@
+// Script: TesteDesenhoVerifica.script
+// Autor: Patrick Sava
+// Data: 11/jun/2014
+// Propósito: Testa  verificação
+
+== Iniciar contagem
+=inicializarcontadores "Contadores\\acumulador_verifica_ok"
+=zerartodoscontadores
+=lercontadores "Contadores\\DesenhoVerifica"
+=iniciarcontagem
+
+
+== Testando função de verificação
+=iniciardesenhoprojeto 0 "Modulandia.des"
+=verifica 0
+=destroidesenho 0
+
+== Parando contagem
+=pararcontagem
+
+== Finalizando contadores
+=terminarcontadores

@@ -1,0 +1,27 @@
+Data           Horas Trabalhadas        Tipo de Tarefa               Descricao da Tarefa  
+
+ 
+
+01/06/2014,       2 horas,                Codificar modulo,           iniciar a codificao da deturpa e verifica
+
+
+
+02/06/2014,       4 horas,                Codificar modulo,           continuacao da codificao da deturpa
+
+
+
+05/06/2014,       4 hora,                 Codificar modulo            continuacao da codificao da verifica
+                                                         
+
+
+
+09/06/2014,       3 horas,                Planejat testes             atualizar os scripts de teste
+ 
+                                                               
+10/06/2014        3 horas                 Codificar modulo            incluir contadores
+
+
+
+11/06/2014,       2 horas,                Realizar testes             testar todos os arquivos gerados corrigindo erros,
+                                          e Revisar                   escrever os arquivos .bat
+					  

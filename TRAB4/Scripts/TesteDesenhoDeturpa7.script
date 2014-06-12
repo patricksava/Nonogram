@@ -4,13 +4,13 @@
 // Propósito: Testa deturpação 7
 
 == Iniciar contagem
-=inicializarcontadores "..\\Contadores\\acumulador"
+=inicializarcontadores "Contadores\\acumulador7"
 =zerartodoscontadores
-=lercontadores "..\\Contadores\\DesenhoVerifica"
+=lercontadores "Contadores\\DesenhoVerifica"
 =iniciarcontagem
 
 
-== Deturpando! Eliminando ponteiro corrente de uma lista horizontal.
+== Deturpando! Alterando o tipo de estrutura apontado na célula
 =iniciardesenhoprojeto 0 "Modulandia.des"
 =deturpa 0 7
 =verifica 1

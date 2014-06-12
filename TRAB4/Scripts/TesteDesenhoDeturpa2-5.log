@@ -1,0 +1,86 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB4-1.exe
+
+      Arquivo de teste:    Scripts\TesteDesenhoDeturpa2-5.script
+
+
+!!!    0  Linha:     1  // Script: TesteDesenhoDeturpa2-5.script 
+!!!    0  Linha:     2  // Autor: Patrick Sava e Maria Beatriz Vaz 
+!!!    0  Linha:     3  // Data: 05/jun/2014 
+!!!    0  Linha:     4  // Propósito: Testa deturpações de 2 à 5 (Vide enunciado); 
+    6  == Iniciar contagem
+   12  == Deturpando! Colocando NULL na célula sucessora.
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+Erro na assertiva do ponteiro pProx da coluna 2
+
+Erro: pNoCorrente != pNoCorrente->pAnt->pProx
+
+Erro na assertiva do ponteiro pAnt da coluna 2
+
+ Erro na assertiva da lista da matriz
+   19  == Deturpando! Colocando NULL na célula predecessora.
+Erro: pNoCorrente != pNoCorrente->pProx->pAnt
+
+Erro na assertiva do ponteiro pProx da coluna 2
+
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+Erro na assertiva do ponteiro pAnt da coluna 2
+
+ Erro na assertiva da lista da matriz
+   26  == Deturpando! Colocando lixo na referencia para célula sucessora.
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+Erro na assertiva do ponteiro pProx da coluna 1
+
+Erro: pNoCorrente != pNoCorrente->pAnt->pProx
+
+Erro na assertiva do ponteiro pAnt da coluna 1
+
+Erro: Tipo do conteudo da celula diferente do registrado na cabeca da lista!
+
+Erro na assertiva de tipos de conteudo da lista 1
+
+ Erro na assertiva da lista da matriz
+   31  == Deturpando! Colocando lixo na referencia para célula predecessora.
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+Erro na assertiva do ponteiro pProx da coluna 1
+
+Erro: pNoCorrente != pNoCorrente->pAnt->pProx
+
+Erro na assertiva do ponteiro pAnt da coluna 1
+
+Erro: Tipo do conteudo da celula diferente do registrado na cabeca da lista!
+
+Erro na assertiva de tipos de conteudo da lista 1
+
+Erro: pNoCorrente != pNoCorrente->pProx->pAnt
+
+Erro na assertiva do ponteiro pProx da coluna 3
+
+Erro: nao foi possivel percorrer toda a lista, significa que algum no foi desencadeado
+
+Erro na assertiva do ponteiro pAnt da coluna 3
+
+ Erro na assertiva da lista da matriz
+!!!    0  Linha:    35  // Parando o teste porque a partir daqui a destruição da estrutura desenho causará um erro de execução no programa 
+   37  == Parando contagem
+   40  == Finalizando contadores
+!!!    0  Linha:    43  // Não destruimos a estrutura desenho porque isso faria o programa voar. Por isso que a contagem de espaços alocados é alta. 
+
+!!! Número de linhas lidas:          43
+!!! Número de casos de teste:         7
+!!! Número comandos corretos:        19
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 95

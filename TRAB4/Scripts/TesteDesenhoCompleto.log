@@ -1,0 +1,138 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB4-2.exe
+
+      Arquivo de teste:    Scripts\TesteDesenhoCompleto.script
+
+
+!!!    0  Linha:     1  // Script: TesteDesenhoCompleto.script 
+!!!    0  Linha:     2  // Autor: Patrick Sava e Maria Beatriz Vaz 
+!!!    0  Linha:     3  // Data: 13/abr/2014 
+!!!    0  Linha:     4  // Propósito: Testa todas as funções do módulo desenho 
+    6  == Inicializa o desenho com menos que a quantidade mínima de linhas/colunas
+    9  == Inicializa o desenho com mais que a quantidade máxima de linhas/colunas
+   12  == Imprime sem ter inicializado o desenho
+   15  == Inicializa o desenho na forma mínima (5x5) e imprime
+Quantidade de Dicas restantes: 10
+
+      1    2    3    4    5  
+    -------------------------
+  1 |   ||   ||   ||   ||   |    
+    -------------------------
+  2 |   ||   ||   ||   ||   | 1  
+    -------------------------
+  3 |   ||   ||   ||   ||   | 3  
+    -------------------------
+  4 |   ||   ||   ||   ||   | 1 2
+    -------------------------
+  5 |   ||   ||   ||   ||   | 1 1
+    -------------------------
+      2    1    2    3    1  
+
+
+
+
+   19  == Ativa dica e imprime novamente
+Quantidade de Dicas restantes: 9
+
+      1    2    3    4    5  
+    -------------------------
+  1 |   ||   ||   ||   ||   |    
+    -------------------------
+  2 |   ||   ||   ||   ||   | 1  
+    -------------------------
+  3 |   ||   ||   ||   ||   | 3  
+    -------------------------
+  4 |   ||   ||   ||   ||   | 1 2
+    -------------------------
+  5 | X ||   ||   ||   ||   | 1 1
+    -------------------------
+      2    1    2    3    1  
+
+
+
+
+   23  == Destroi desenho já inicializado
+   26  == Destroi desenho inexistente
+   29  == Inicializa o desenho vazio com menos que a quantidade mínima de linhas/colunas
+   32  == Inicializa o desenho vazio com mais que a quantidade máxima de linhas/colunas
+   35  == Inicializa o desenho vazio na forma mínima (5x5)
+   38  == Altera marcacao da coordenada 1x1
+   41  == Alterar novamente a marcacao da coordenada 1x1
+   44  == Alterar marcacao 2x2
+   47  == Alterar marcacao 3x3
+   50  == Alterar marcacao 4x5
+   53  == Alterar marcacao 3x1
+   56  == Alterar marcacao de coordenada invalida
+   59  == Alterar marcacao de coordenada invalida negativa
+   62  == Ativar dicas no jogo
+   65  == Gravar jogo atual
+   68  == Gravar jogo projetado
+   71  == destuido, começando do zero
+   74  == criado vazio 7x7, fazendo marcacoes agora
+   89  == marcaçoes feitas, gravando em arquivo agora
+   92  == Recuperar projeto gravado
+   96  == Ativar 10 dicas no jogo
+  108  == Ativar a 11a dica
+  111  == Gravar jogo atual
+  114  == Recuperar o ultimo jogo
+  117  == Destruir o desenho para testar as funções caso não exista desenho
+  120  == Alterar marcacao de jogo inexistente
+  123  == Ativar dica de jogo que nao existe
+  126  == Gravar jogo que não existe
+  129  == Recuperar jogo que não existe
+  132  == Carrega projeto salvo
+  135  == Faz mais marcaçoes, quase completa o desenho pre moldado
+  149  == Verifica se o desenho foi completo, mas falta uma célula
+>>>    1  Linha:   150  Retorno errado ao verificar se o jogo terminou. Deveria ser: 1  É: 0
+<<<    0  Linha:   151  Falha esperada foi recuperada. 
+  153  == Marca a última que sobrou
+  156  == Verifica se o desenho foi completo
+  159  == Recomeça o jogo Modulândia
+  163  == Marca todas as células menos 2.
+  175  == Grava jogo finalizado só pra ver saída do arquivo.
+  179  == Verifica se o jogo ainda não acabou
+  182  == Pede dica para faltar 1
+  185  == Pede dica pra finalizar o jogo
+  188  == Verifica se o jogo terminou
+  191  == Pede dica com jogo finalizado
+  194  == Grava jogo finalizado só pra ver saída do arquivo.
+  197  == Imprime
+Quantidade de Dicas restantes: 7
+
+      1    2    3    4    5    6    7  
+    -----------------------------------
+  1 |   ||   ||   || X ||   ||   ||   | 1  
+    -----------------------------------
+  2 |   || X ||   ||   ||   ||   ||   | 1  
+    -----------------------------------
+  3 | X || X || X || X || X ||   ||   | 5  
+    -----------------------------------
+  4 | X ||   ||   ||   || X || X ||   | 1 2
+    -----------------------------------
+  5 | X ||   ||   ||   ||   ||   ||   | 1  
+    -----------------------------------
+  6 | X ||   ||   ||   ||   ||   ||   | 1  
+    -----------------------------------
+  7 |   ||   ||   ||   ||   ||   || X | 1  
+    -----------------------------------
+      4    2    1    1    2    1    1  
+                     1                 
+
+
+
+
+
+!!! Número de linhas lidas:         199
+!!! Número de casos de teste:        49
+!!! Número comandos corretos:        95
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0
